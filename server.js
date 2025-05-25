@@ -1,18 +1,22 @@
 // Aether Enterprise Solutions - Elite Business Transformation Systems
 const express = require('express');
-
-// IMPORTANT: Never expose API keys in your code. Use environment variables instead.
-// In production, use process.env.STRIPE_SECRET_KEY
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY || 'YOUR_STRIPE_SECRET_KEY');
-const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 
+// Initialize Express app
+const app = express();
+
+// Stripe API configuration
+const STRIPE_PUBLISHABLE_KEY = 'pk_test_51RPpIs2cJTJMG24U64IUBt1htmHA8r64WC5jKDIG6bEqCaYxHvpEAY9uDj2b56B8CNuwogt6EkVfJrnTpAbl4lLf00dWTYGznk';
+const STRIPE_SECRET_KEY = 'sk_test_51RPpIs2cJTJMG24UfIXrPEKDx4Kv5nMdwh8rRiNV1VmtxL0s7fFddAh8gxKnnHXRQClfXaBwsQ4O7pVi7wMh1MX7000IgAuOLo';
+
+// Initialize Stripe with the secret key
+const stripe = require('stripe')(STRIPE_SECRET_KEY);
+
 // Airtable configuration
-// In production, use process.env.AIRTABLE_API_KEY and process.env.AIRTABLE_BASE_ID
-const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY || 'YOUR_AIRTABLE_API_KEY';
-const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID || 'YOUR_AIRTABLE_BASE_ID';
+const AIRTABLE_API_KEY = 'keyXXXXXXXXXXXXXX'; // Replace with your Airtable API key in production
+const AIRTABLE_BASE_ID = 'appXXXXXXXXXXXXXX'; // Replace with your Airtable Base ID in production
 
 // Middleware
 app.use(express.static(path.join(__dirname, 'public')));
