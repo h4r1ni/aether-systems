@@ -46,26 +46,39 @@ document.addEventListener('DOMContentLoaded', function() {
     const essentialsBuyButton = document.getElementById('essentials-buy-button');
     const executiveBuyButton = document.getElementById('executive-buy-button');
     const enterpriseBuyButton = document.getElementById('enterprise-buy-button');
+    const heroEnterpriseButton = document.getElementById('hero-enterprise-button');
     
     // Add click event listeners
     if (essentialsBuyButton) {
         essentialsBuyButton.addEventListener('click', function(e) {
             e.preventDefault();
-            createCheckoutSession('essentials');
+            // Redirect to requirements form with plan type and price
+            window.location.href = '/lean-ui.html?plan=basic&price=499';
         });
     }
     
     if (executiveBuyButton) {
         executiveBuyButton.addEventListener('click', function(e) {
             e.preventDefault();
-            createCheckoutSession('executive');
+            // Redirect to requirements form with plan type and price
+            window.location.href = '/lean-ui.html?plan=professional&price=999';
         });
     }
     
     if (enterpriseBuyButton) {
         enterpriseBuyButton.addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = '#contact';
+            // Redirect to requirements form with plan type and price
+            window.location.href = '/lean-ui.html?plan=enterprise&price=custom';
+        });
+    }
+    
+    // Add click event for the hero section enterprise button
+    if (heroEnterpriseButton) {
+        heroEnterpriseButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Redirect to requirements form with plan type and price
+            window.location.href = '/lean-ui.html?plan=enterprise&price=custom';
         });
     }
     

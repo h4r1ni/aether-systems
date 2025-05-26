@@ -2687,7 +2687,7 @@
                     <a href="#how-it-works" class="nav-link">How It Works</a>
                     <a href="#results" class="nav-link">Transformations</a>
                     <a href="#pricing" class="nav-link">Pricing</a>
-                    <a href="#contact" class="btn btn-primary">Get Started</a>
+                    <a href="#pricing" class="btn btn-primary">Get Started</a>
                 </nav>
                 <button class="mobile-toggle" aria-label="Open Menu">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
@@ -2712,7 +2712,7 @@
                     <p class="hero-subtitle">We build custom automation systems that eliminate tedious tasks and integrate your business tools, helping you reclaim time, reduce costs, and scale your operations efficiently.</p>
                     <div class="hero-cta">
                         <a href="#pricing" class="btn btn-primary">View Pricing</a>
-                        <a href="#contact" class="btn btn-outline">Book a Consultation</a>
+                        <a href="#" id="hero-enterprise-button" class="btn btn-outline">Book a Consultation</a>
                     </div>
                     <div class="hero-metrics">
                         <div class="metric-item">
@@ -2991,7 +2991,7 @@
                         </ul>
                     </div>
                     <div class="pricing-footer">
-                        <a href="#contact" class="btn btn-primary pricing-cta">Get Started</a>
+                        <a href="#" id="essentials-buy-button" class="btn btn-primary pricing-cta">Get Started</a>
 
                     </div>
                 </div>
@@ -3018,7 +3018,7 @@
                         </ul>
                     </div>
                     <div class="pricing-footer">
-                        <a href="#contact" class="btn btn-primary pricing-cta">Get Started</a>
+                        <a href="#" id="executive-buy-button" class="btn btn-primary pricing-cta">Get Started</a>
 
                     </div>
                 </div>
@@ -3044,7 +3044,7 @@
                         </ul>
                     </div>
                     <div class="pricing-footer">
-                        <a href="#contact" class="btn btn-primary pricing-cta"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px; position: relative; top: 2px;"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> Request Consultation</a>
+                        <a href="#" id="enterprise-buy-button" class="btn btn-primary pricing-cta"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px; position: relative; top: 2px;"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> Request Consultation</a>
                         <span class="pricing-note">Custom quote based on requirements</span>
                     </div>
                 </div>
@@ -3402,5 +3402,9 @@
             document.querySelector('.nav').classList.toggle('active');
         });
     </script>
+    
+    <!-- Stripe Client JS -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="stripe-client.js"></script>
 </body>
 </html>

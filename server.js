@@ -101,6 +101,51 @@ app.post('/create-checkout-session', async (req, res) => {
   }
 });
 
+// Endpoint to submit enterprise quote requests
+app.post('/submit-enterprise-quote', async (req, res) => {
+  try {
+    const customerData = req.body;
+    console.log(`Enterprise quote request received from ${customerData.fullName}`);
+    
+    // In production, send to Airtable
+    if (AIRTABLE_API_KEY !== 'keyXXXXXXXXXXXXXX') {
+      await axios({
+        method: 'post',
+        url: `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/EnterpriseQuotes`,
+        headers: {
+          'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        data: {
+          records: [
+            {
+              fields: {
+                'Name': customerData.fullName,
+                'Email': customerData.email,
+                'Company': customerData.company || '',
+                'Phone': customerData.phone,
+                'System to Automate': customerData.systemToAutomate,
+                'Project Description': customerData.projectDescription,
+                'Timeline': customerData.timeline,
+                'Plan': 'Enterprise',
+                'Status': 'New Quote Request',
+                'Source': 'Website Form',
+                'Date': new Date().toISOString()
+              }
+            }
+          ]
+        }
+      });
+    }
+    
+    // Return success response
+    res.json({ success: true, message: 'Quote request received' });
+  } catch (error) {
+    console.error('Error storing enterprise quote request:', error);
+    res.status(500).json({ success: false, error: 'Failed to submit quote request' });
+  }
+});
+
 // Store customer data in Airtable after checkout
 app.post('/store-customer', async (req, res) => {
   try {

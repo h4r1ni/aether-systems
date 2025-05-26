@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aether Systems | Tell Us About Your Project</title>
+    <meta name="description" content="Custom-engineered workflows for businesses generating £20k+/mo, ready to scale without friction.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MEASUREMENT-ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-MEASUREMENT-ID');
+    </script>
+    
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #0a0a0a;
+            --accent: #3498db;
+            --accent-dark: #2980b9;
+            --text: #333333;
+            --text-light: #666666;
+            --light-bg: #f8f9fa;
+            --border: #eaeaea;
+            --white: #ffffff;
+            
+            --shadow-sm: 0 2px 5px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 10px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.12);
+            
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 5rem;
+            
+            --container: 1140px;
+            --container-sm: 900px;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: var(--spacing-sm);
+            color: var(--primary);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            letter-spacing: -0.02em;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+        }
+        
+        p {
+            margin-bottom: var(--spacing-md);
+            color: var(--text-light);
+        }
+        
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--accent-dark);
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Layout */
+        .container {
+            width: 100%;
+            max-width: var(--container-sm);
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+        
+        .section {
+            padding: var(--spacing-2xl) 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .section-title h2 {
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .section-title p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Form Styles */
+        .form-container {
+            background-color: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: var(--spacing-xl);
+            margin-top: var(--spacing-lg);
+            border: 1px solid var(--border);
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            background-color: var(--white);
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            cursor: pointer;
+        }
+        
+        .form-select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .form-check {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .form-check-input {
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+        
+        .form-check-label {
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+        
+        .form-text {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 5px;
+        }
+        
+        .btn {
+            display: inline-block;
+            font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            user-select: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--white);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+        
+        .btn-lg {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .mb-3 {
+            margin-bottom: 1rem;
+        }
+        
+        .mb-4 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .mt-4 {
+            margin-top: 1.5rem;
+        }
+        
+        .plan-badge {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .plan-summary {
+            background-color: var(--light-bg);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .plan-summary h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .plan-summary ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        
+        .plan-summary li {
+            margin-bottom: 0.25rem;
+            color: var(--text);
+        }
+        
+        .plan-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-top: 0.5rem;
+        }
+        
+        .textarea-counter {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            text-align: right;
+            margin-top: 5px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: var(--spacing-md);
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="section">
+            <div class="section-title">
+                <h1>Tell Us About Your Project</h1>
+                <p>Help us understand your requirements so we can tailor our solution to your specific needs.</p>
+            </div>
+            
+            <div class="form-container">
+                <div id="planSummary" class="plan-summary">
+                    <!-- Will be filled by JavaScript based on selected plan -->
+                </div>
+                
+                <form id="requirementsForm">
+                    <input type="hidden" id="planType" name="planType" value="">
+                    <input type="hidden" id="planPrice" name="planPrice" value="">
+                    
+                    <div class="form-group">
+                        <label for="fullName" class="form-label">Full Name *</label>
+                        <input type="text" id="fullName" name="fullName" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address *</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company" class="form-label">Company Name (optional)</label>
+                        <input type="text" id="company" name="company" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="systemToAutomate" class="form-label">What system do you want automated? *</label>
+                        <input type="text" id="systemToAutomate" name="systemToAutomate" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Which tools do you currently use? (Select all that apply)</label>
+                        <div class="form-check">
+                            <input type="checkbox" id="airtable" name="tools[]" value="airtable" class="form-check-input">
+                            <label for="airtable" class="form-check-label">Airtable</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="stripe" name="tools[]" value="stripe" class="form-check-input">
+                            <label for="stripe" class="form-check-label">Stripe</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="shopify" name="tools[]" value="shopify" class="form-check-input">
+                            <label for="shopify" class="form-check-label">Shopify</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="zapier" name="tools[]" value="zapier" class="form-check-input">
+                            <label for="zapier" class="form-check-label">Zapier</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="googleSheets" name="tools[]" value="googleSheets" class="form-check-input">
+                            <label for="googleSheets" class="form-check-label">Google Sheets</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="otherTool" name="tools[]" value="other" class="form-check-input">
+                            <label for="otherTool" class="form-check-label">Other</label>
+                        </div>
+                        <div class="form-group" id="otherToolGroup" style="display: none; margin-top: 10px;">
+                            <input type="text" id="otherToolText" name="otherToolText" class="form-control" placeholder="Please specify other tools">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projectDescription" class="form-label">Briefly describe what this system should do *</label>
+                        <textarea id="projectDescription" name="projectDescription" class="form-control" rows="5" maxlength="1000" required></textarea>
+                        <div class="textarea-counter"><span id="charCount">0</span>/1000 characters</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="timeline" class="form-label">When do you want this ready?</label>
+                        <select id="timeline" name="timeline" class="form-select">
+                            <option value="asap">ASAP</option>
+                            <option value="2-3weeks">In the next 2-3 weeks</option>
+                            <option value="exploring">Just exploring for now</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" id="termsAgree" name="termsAgree" class="form-check-input" required>
+                            <label for="termsAgree" class="form-check-label">I agree to the <a href="#" target="_blank">Terms and Conditions</a> and <a href="#" target="_blank">Privacy Policy</a> *</label>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <button type="submit" id="submitButton" class="btn btn-primary btn-lg btn-block">Proceed to Payment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Stripe.js -->
+    <script src="https://js.stripe.com/v3/"></script>
+    
+    <!-- Form Handling Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load Stripe
+            const stripe = Stripe('pk_test_51RPpIs2cJTJMG24U64IUBt1htmHA8r64WC5jKDIG6bEqCaYxHvpEAY9uDj2b56B8CNuwogt6EkVfJrnTpAbl4lLf00dWTYGznk');
+            
+            // Get URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const planType = urlParams.get('plan');
+            const planPrice = urlParams.get('price');
+            
+            // Set plan type and price in hidden inputs
+            document.getElementById('planType').value = planType || '';
+            document.getElementById('planPrice').value = planPrice || '';
+            
+            // Update plan summary based on selected plan
+            const planSummary = document.getElementById('planSummary');
+            if (planType === 'basic') {
+                planSummary.innerHTML = `
+                    <h3>Basic Plan</h3>
+                    <ul>
+                        <li>1 system or automation</li>
+                        <li>5-day delivery</li>
+                        <li>2 revisions</li>
+                        <li>Documentation included</li>
+                    </ul>
+                    <div class="plan-price">£499 one-time payment</div>
+                `;
+                document.getElementById('submitButton').textContent = 'Pay & Start Project (£499)';
+            } else if (planType === 'professional') {
+                planSummary.innerHTML = `
+                    <h3>Professional Plan</h3>
+                    <ul>
+                        <li>Up to 3 connected systems</li>
+                        <li>Priority support</li>
+                        <li>2 revisions</li>
+                        <li>Documentation included</li>
+                        <li>30-day chat/email support</li>
+                    </ul>
+                    <div class="plan-price">£999 one-time payment</div>
+                `;
+                document.getElementById('submitButton').textContent = 'Pay & Start Project (£999)';
+            } else if (planType === 'enterprise') {
+                planSummary.innerHTML = `
+                    <h3>Enterprise Plan</h3>
+                    <ul>
+                        <li>Full-stack workflow systems</li>
+                        <li>Custom API development</li>
+                        <li>Executive onboarding</li>
+                        <li>Dedicated CTO team (90 days)</li>
+                        <li>Bespoke dashboard</li>
+                        <li>Premium support package</li>
+                    </ul>
+                    <div class="plan-price">Custom Quote</div>
+                `;
+                document.getElementById('submitButton').textContent = 'Request Custom Quote';
+            } else {
+                // Default case if no plan is specified
+                planSummary.innerHTML = `
+                    <h3>Please select a plan from the pricing page</h3>
+                    <p>No plan selected. <a href="/">Return to the pricing page</a> to select a plan.</p>
+                `;
+                document.getElementById('submitButton').disabled = true;
+            }
+            
+            // Character counter for textarea
+            const projectDescription = document.getElementById('projectDescription');
+            const charCount = document.getElementById('charCount');
+            
+            projectDescription.addEventListener('input', function() {
+                charCount.textContent = this.value.length;
+            });
+            
+            // Show/hide other tool field
+            const otherToolCheckbox = document.getElementById('otherTool');
+            const otherToolGroup = document.getElementById('otherToolGroup');
+            const otherToolText = document.getElementById('otherToolText');
+            
+            otherToolCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    otherToolGroup.style.display = 'block';
+                } else {
+                    otherToolGroup.style.display = 'none';
+                    otherToolText.value = '';
+                }
+            });
+            
+            // Form submission
+            const requirementsForm = document.getElementById('requirementsForm');
+            
+            requirementsForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate form
+                if (!this.checkValidity()) {
+                    this.reportValidity();
+                    return;
+                }
+                
+                // Get the plan type from the form
+                const formPlanType = document.getElementById('planType').value;
+                
+                // For enterprise plan, submit form for quote instead of payment
+                if (formPlanType === 'enterprise') {
+                    // Collect form data
+                    const formData = new FormData(this);
+                    const customerData = {};
+                    
+                    for (const [key, value] of formData.entries()) {
+                        customerData[key] = value;
+                    }
+                    
+                    // Submit for quote request
+                    fetch('/submit-enterprise-quote', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(customerData)
+                    })
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        if (data.success) {
+                            // Show success message and redirect
+                            alert('Thank you for your quote request! We will get back to you within 24 hours.');
+                            window.location.href = '/';
+                        } else {
+                            alert('There was an error processing your request. Please try again.');
+                        }
+                    })
+                    .catch(function(error) {
+                        console.error('Error:', error);
+                        alert('There was an error processing your request. Please try again.');
+                    });
+                    
+                    return;
+                }
+                
+                // For basic and professional plans, proceed to payment
+                // Collect form data
+                const formData = new FormData(this);
+                const customerData = {};
+                
+                for (const [key, value] of formData.entries()) {
+                    customerData[key] = value;
+                }
+                
+                // Store customer data in session storage for later use
+                sessionStorage.setItem('customerRequirements', JSON.stringify(customerData));
+                
+                // Track analytics event
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'begin_checkout', {
+                        'event_category': 'ecommerce',
+                        'event_label': formPlanType,
+                        'value': formPlanType === 'basic' ? 499 : 999
+                    });
+                }
+                
+                // Create checkout session with Stripe
+                fetch('/create-checkout-session', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        priceId: formPlanType,
+                        planName: formPlanType,
+                        customerData: customerData
+                    })
+                })
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(session) {
+                    // Redirect to Stripe Checkout
+                    return stripe.redirectToCheckout({ sessionId: session.id });
+                })
+                .then(function(result) {
+                    // If redirectToCheckout fails due to a browser or network error
+                    if (result.error) {
+                        alert(result.error.message);
+                    }
+                })
+                .catch(function(error) {
+                    console.error('Error:', error);
+                    alert('There was an error processing your payment. Please try again.');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
