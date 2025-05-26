@@ -7,9 +7,9 @@ const axios = require('axios');
 // Initialize Express app
 const app = express();
 
-// Stripe API configuration
-const STRIPE_PUBLISHABLE_KEY = 'pk_test_51RPpIs2cJTJMG24U64IUBt1htmHA8r64WC5jKDIG6bEqCaYxHvpEAY9uDj2b56B8CNuwogt6EkVfJrnTpAbl4lLf00dWTYGznk';
-const STRIPE_SECRET_KEY = 'sk_test_51RPpIs2cJTJMG24UfIXrPEKDx4Kv5nMdwh8rRiNV1VmtxL0s7fFddAh8gxKnnHXRQClfXaBwsQ4O7pVi7wMh1MX7000IgAuOLo';
+// Stripe API configuration - use environment variables in production
+const STRIPE_PUBLISHABLE_KEY = process.env.STRIPE_PUBLISHABLE_KEY || 'pk_test_your_publishable_key';
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || 'sk_test_your_secret_key';
 
 // Initialize Stripe with the secret key
 const stripe = require('stripe')(STRIPE_SECRET_KEY);

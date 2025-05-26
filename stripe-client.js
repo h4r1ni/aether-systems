@@ -1,7 +1,7 @@
 // Client-side JavaScript for Stripe integration
 document.addEventListener('DOMContentLoaded', function() {
-    // Load Stripe.js
-    const stripe = Stripe('pk_test_51RPpIs2cJTJMG24U64IUBt1htmHA8r64WC5jKDIG6bEqCaYxHvpEAY9uDj2b56B8CNuwogt6EkVfJrnTpAbl4lLf00dWTYGznk');
+    // Load Stripe.js - use your own publishable key in production
+    const stripe = Stripe('pk_test_your_publishable_key');
 
     // Track page view for Analytics
     if (typeof gtag !== 'undefined') {
