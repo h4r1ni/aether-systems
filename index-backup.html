@@ -124,18 +124,15 @@
             max-width: var(--container-sm);
             margin: 0 auto;
             padding: 0 var(--spacing-lg);
-            margin-bottom: 0;
         }
         
         .section {
-            padding: 60px 0;
-            margin-top: 0;
-            margin-bottom: 0;
+            padding: var(--spacing-2xl) 0;
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: var(--spacing-xl);
         }
         
         .section-title h2 {
@@ -145,8 +142,8 @@
         .section-title p {
             font-size: 1.25rem;
             max-width: 800px;
-            margin: 0 auto;
-            margin-bottom: 0;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         /* Buttons */
@@ -162,38 +159,28 @@
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            color: white;
+            background-color: var(--accent);
+            color: var(--white);
             border: none;
-            box-shadow: 0 4px 10px rgba(41, 128, 185, 0.2);
-            font-weight: 600;
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            padding: 0.8rem 1.8rem;
+            box-shadow: var(--shadow-md);
         }
         
         .btn-primary:hover {
+            background-color: var(--accent-dark);
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(41, 128, 185, 0.25);
-            background: linear-gradient(135deg, #2980b9, #2573a7);
+            box-shadow: var(--shadow-lg);
+            color: var(--white);
         }
         
-        .btn-outline {
-            background-color: transparent;
+        .btn-secondary {
+            background-color: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--accent);
             color: var(--accent);
-            border: 1px solid var(--accent);
-            font-weight: 600;
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            padding: 0.8rem 1.8rem;
-        }
-        
-        .btn-outline:hover {
-            background-color: rgba(52, 152, 219, 0.05);
-            box-shadow: 0 4px 10px rgba(41, 128, 185, 0.1);
-            transform: translateY(-2px);
         }
         
         .btn-lg {
@@ -207,83 +194,81 @@
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-sm);
             z-index: 1000;
+            padding: 1rem 0;
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(0,0,0,0.06);
         }
         
-        .header-inner {
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.25rem 0;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
         
         .logo {
             display: flex;
             align-items: center;
             font-weight: 700;
-            font-size: 1.25rem;
+            font-size: 1.4rem;
             color: var(--primary);
             text-decoration: none;
-            letter-spacing: -0.01em;
+            transition: transform 0.3s ease;
         }
         
         .logo:hover {
-            color: var(--accent);
+            transform: translateY(-2px);
         }
         
         .logo-icon {
-            width: 34px;
-            height: 34px;
-            border-radius: 6px;
-            background: linear-gradient(135deg, #3498db, #2980b9);
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent), #2980b9);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 10px;
+            margin-right: 12px;
             font-weight: 700;
-            box-shadow: 0 2px 8px rgba(41, 128, 185, 0.25);
+            box-shadow: 0 3px 10px rgba(52, 152, 219, 0.2);
         }
         
         .main-nav {
             display: flex;
             align-items: center;
-            gap: 2rem;
+            gap: 15px;
         }
         
         .nav-links {
             display: flex;
-            gap: 3rem;
-            margin-right: 2rem;
+            gap: 30px;
+            margin-right: 20px;
         }
         
         .nav-link {
             color: var(--text);
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.95rem;
-            letter-spacing: 0.02em;
-            transition: all 0.25s ease;
+            font-size: 1rem;
+            transition: all 0.3s ease;
             position: relative;
-            padding: 0.35rem 0;
-            text-transform: uppercase;
+            padding: 6px 0;
         }
         
         .nav-link:after {
             content: '';
             position: absolute;
             width: 0;
-            height: 1px;
+            height: 2px;
             bottom: 0;
             left: 0;
             background-color: var(--accent);
-            transition: width 0.25s ease;
-            opacity: 0.8;
+            transition: width 0.3s ease;
         }
         
         .nav-link:hover {
@@ -313,8 +298,8 @@
         
         /* Hero Section */
         .hero {
-            padding-top: 60px;
-            padding-bottom: 60px;
+            padding-top: 120px;
+            padding-bottom: 80px;
             background-color: var(--white);
             position: relative;
             overflow: hidden;
@@ -341,208 +326,214 @@
             background-size: 30px 30px;
         }
         
-        /* Hero Section */
-        .hero {
-            position: relative;
-            overflow: hidden;
-            padding: 9rem 0 5rem;
-            margin-top: 1rem;
-            background-color: white;
-        }
-        
-        .hero-content-container {
-            display: flex;
-            gap: 4rem;
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             align-items: center;
-            justify-content: space-between;
+            gap: 40px;
             position: relative;
+            z-index: 1;
         }
         
-        .hero-content {
-            flex: 1;
-            max-width: 560px;
-            position: relative;
-            z-index: 5;
+        .hero-heading {
+            margin-bottom: 20px;
         }
         
-        .hero-badge {
-            display: inline-block;
-            font-size: 0.75rem;
+        .hero-eyebrow {
+            display: block;
+            font-size: 0.95rem;
             font-weight: 600;
             color: var(--accent);
-            letter-spacing: 0.08em;
             text-transform: uppercase;
-            margin-bottom: 1.5rem;
-            background-color: rgba(52, 152, 219, 0.08);
-            padding: 0.5rem 1rem;
-            border-radius: 2rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 15px;
         }
         
-        .hero-title {
-            font-size: 3.5rem;
-            line-height: 1.15;
-            margin-bottom: 1.75rem;
+        .hero h1 {
+            margin-bottom: 15px;
+            font-size: 3.4rem;
+            line-height: 1.1;
             color: var(--primary);
-            letter-spacing: -0.02em;
-            font-weight: 800;
         }
         
-        .hero-description {
-            font-size: 1.35rem;
-            color: var(--primary);
-            margin-bottom: 1.25rem;
-            font-weight: 500;
-            line-height: 1.4;
+        .hero-divider {
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+            margin-bottom: 20px;
+        }
+        
+        .hero-tagline {
+            font-size: 1.8rem;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            color: var(--text);
+            font-weight: 600;
+        }
+        
+        .hero-tagline span {
+            color: var(--accent);
+            position: relative;
+            white-space: nowrap;
+        }
+        
+        .hero-tagline span::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: rgba(52, 152, 219, 0.3);
+            border-radius: 10px;
         }
         
         .hero-subtitle {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 25px;
             color: var(--text-light);
-            margin-bottom: 2.5rem;
-            line-height: 1.6;
+            max-width: 90%;
         }
         
-        .hero-buttons {
+        .hero-cta {
             display: flex;
-            gap: 1.25rem;
-            margin-bottom: 3rem;
+            gap: 15px;
+            margin-bottom: 30px;
         }
         
-        .hero-stats {
-            display: flex;
-            justify-content: space-between;
-            padding: 1.5rem;
-            background: linear-gradient(to right, rgba(248, 249, 250, 0.9), rgba(255, 255, 255, 0.9));
-            border-radius: 0.75rem;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            background-color: rgba(248, 249, 250, 0.7);
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid var(--border);
         }
         
-        .stat {
+        .metric-item {
             text-align: center;
-            padding: 0 1rem;
+            padding: 5px;
         }
         
-        .stat-value {
-            font-size: 2rem;
+        .metric-value {
+            font-size: 1.8rem;
             font-weight: 700;
             color: var(--accent);
-            line-height: 1.1;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            line-height: 1;
+            margin-bottom: 5px;
         }
         
-        .stat-label {
-            font-size: 0.65rem;
+        .metric-label {
+            font-size: 0.75rem;
             font-weight: 600;
             color: var(--text-light);
-            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
-        .hero-image {
-            flex: 1;
-            position: relative;
-            max-width: 550px;
-            z-index: 2;
-        }
-        
-        .hero-dashboard-container {
+        .hero-image-container {
             position: relative;
         }
         
-        .dashboard-image {
-            width: 100%;
-            border-radius: 1rem;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        .hero-image-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .main-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
             border: 5px solid white;
-            transition: transform 0.5s ease;
         }
         
-        .dashboard-card {
+        .hero-floating-element {
             position: absolute;
             background: white;
             border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
-            padding: 0.85rem 1.25rem;
-            gap: 1rem;
-            transition: transform 0.3s ease;
-        }
-        
-        .dashboard-card:hover {
-            transform: translateY(-5px);
+            padding: 12px 15px;
+            gap: 10px;
         }
         
         .automation-card {
-            top: 1.5rem;
-            right: -1.5rem;
+            top: 10px;
+            right: -20px;
         }
         
-        .savings-card {
-            bottom: 1.5rem;
-            left: -1.5rem;
+        .revenue-card {
+            bottom: 20px;
+            left: -20px;
         }
         
         .card-icon {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             flex-shrink: 0;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
         
         .automation-card .card-icon {
-            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            background-color: #27ae60;
         }
         
-        .savings-card .card-icon {
-            background: linear-gradient(135deg, #8e44ad, #9b59b6);
+        .revenue-card .card-icon {
+            background-color: #8e44ad;
         }
         
-        .card-content {
+        .card-text {
             display: flex;
             flex-direction: column;
         }
         
         .card-label {
-            font-size: 0.65rem;
+            font-size: 0.75rem;
             font-weight: 600;
             color: var(--text-light);
-            letter-spacing: 0.08em;
-            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .card-value {
-            font-size: 1rem;
+            font-size: 1.3rem;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--text);
         }
         
         @media (max-width: 992px) {
-            .hero-content-container {
-                flex-direction: column;
-                gap: 3rem;
+            .hero {
+                padding-top: 100px;
+                padding-bottom: 60px;
             }
             
-            .hero-content {
-                max-width: 100%;
-                text-align: center;
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
             }
             
-            .hero-buttons {
-                justify-content: center;
+            .hero h1 {
+                font-size: 2.8rem;
             }
             
-            .hero-image {
-                max-width: 100%;
+            .hero-tagline {
+                font-size: 1.6rem;
+            }
+            
+            .hero-image-wrapper {
+                max-width: 500px;
+                margin: 0 auto;
             }
         }
         
@@ -2078,7 +2069,7 @@
         
         /* FAQ Section */
         .faq-section {
-            margin-top: 0;
+            margin-top: var(--spacing-xl);
         }
         
         .faq-section h4 {
@@ -2684,11 +2675,7 @@
         
         @media (max-width: 480px) {
             .section {
-                padding: 40px 0;
-            }
-            
-            .hero {
-                padding: 40px 0;
+                padding: var(--spacing-xl) 0;
             }
             
             h1 {
@@ -2716,9 +2703,10 @@
                 </a>
                 <nav class="main-nav">
                     <div class="nav-links">
-                        <a href="#what-we-build" class="nav-link">WHAT WE BUILD</a>
-                        <a href="#pricing" class="nav-link">PRICING</a>
-                        <a href="#contact" class="nav-link">CONTACT</a>
+                        <a href="#what-we-build" class="nav-link">Solutions</a>
+                        <a href="#how-it-works" class="nav-link">How It Works</a>
+                        <a href="#results" class="nav-link">Transformations</a>
+                        <a href="#pricing" class="nav-link">Pricing</a>
                     </div>
                     <a href="#pricing" class="btn btn-primary cta-button">Get Started</a>
                 </nav>
@@ -2731,50 +2719,55 @@
 
     <!-- Hero Section -->
     <section class="hero section" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-pattern"></div>
         <div class="container">
-            <div class="hero-content-container">
+            <div class="hero-grid">
                 <div class="hero-content">
-                    <div class="hero-badge">BUSINESS AUTOMATION EXPERTS</div>
-                    <h1 class="hero-title">Let Your Business Run Without You</h1>
-                    <p class="hero-description">We build fully-automated systems that handle admin, operations, and payments</p>
-                    <p class="hero-subtitle">Automate once. Save hundreds of hours. Own everything — while you scale, sell, or sleep.</p>
-                    <div class="hero-buttons">
-                        <a href="#pricing" class="btn btn-primary">View Pricing</a>
-                        <a href="#" class="btn btn-outline">Book a Consultation</a>
+                    <div class="hero-heading">
+                        <span class="hero-eyebrow">Business Automation Experts</span>
+                        <h1>Let Your Business Run Without You</h1>
+                        <div class="hero-divider"></div>
                     </div>
-                    <div class="hero-stats">
-                        <div class="stat">
-                            <div class="stat-value">15+</div>
-                            <div class="stat-label">HOURS SAVED WEEKLY</div>
+                    <p class="hero-tagline">We build fully-automated systems that handle <span>admin, operations, and payments</span></p>
+                    <p class="hero-subtitle">Automate once. Save hundreds of hours. Own everything — while you scale, sell, or sleep.</p>
+                    <div class="hero-cta">
+                        <a href="#pricing" class="btn btn-primary">View Pricing</a>
+                        <a href="#" id="hero-enterprise-button" class="btn btn-outline">Book a Consultation</a>
+                    </div>
+                    <div class="hero-metrics">
+                        <div class="metric-item">
+                            <div class="metric-value">15+</div>
+                            <div class="metric-label">Hours Saved Weekly</div>
                         </div>
-                        <div class="stat">
-                            <div class="stat-value">93%</div>
-                            <div class="stat-label">LESS MANUAL WORK</div>
+                        <div class="metric-item">
+                            <div class="metric-value">93%</div>
+                            <div class="metric-label">Less Manual Work</div>
                         </div>
-                        <div class="stat">
-                            <div class="stat-value">60+</div>
-                            <div class="stat-label">TOOLS INTEGRATED</div>
+                        <div class="metric-item">
+                            <div class="metric-value">60+</div>
+                            <div class="metric-label">Tools Integrated</div>
                         </div>
                     </div>
                 </div>
-                <div class="hero-image">
-                    <div class="hero-dashboard-container">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Business automation dashboard" class="dashboard-image">
-                        <div class="dashboard-card automation-card">
+                <div class="hero-image-container">
+                    <div class="hero-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Business automation dashboard" class="main-image">
+                        <div class="hero-floating-element automation-card">
                             <div class="card-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
                             </div>
-                            <div class="card-content">
-                                <span class="card-label">AUTOMATION RATE</span>
+                            <div class="card-text">
+                                <span class="card-label">Automation Rate</span>
                                 <span class="card-value">93% Complete</span>
                             </div>
                         </div>
-                        <div class="dashboard-card savings-card">
+                        <div class="hero-floating-element revenue-card">
                             <div class="card-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                             </div>
-                            <div class="card-content">
-                                <span class="card-label">MONTHLY SAVINGS</span>
+                            <div class="card-text">
+                                <span class="card-label">Monthly Savings</span>
                                 <span class="card-value">£4,800</span>
                             </div>
                         </div>
@@ -2956,58 +2949,154 @@
         </div>
     </section>
 
-    <!-- What You'll Receive Section -->
-    <section class="section" id="deliverables">
+    <!-- How It Works Section -->
+    <section class="section" id="how-it-works" style="background-color: var(--light-bg);">
         <div class="container">
             <div class="section-title">
-                <span class="accent-text">Business Automation</span>
-                <h2>What You'll Receive</h2>
+                <h2>How We Build Your System</h2>
             </div>
             
-            <div class="premium-deliverables">
-                <div class="premium-deliverable">
-                    <div class="premium-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            <div class="process-container">
+                <div class="process-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-icon">
+                            <span class="emoji">🧠</span>
+                        </div>
+                        <h3>Discovery</h3>
                     </div>
-                    <div class="premium-content">
-                        <h3>Live System</h3>
-                        <p>Fully-built, ready-to-launch system with custom interface and dashboard, configured for your unique business needs.</p>
+                    
+                    <div class="step-connector"></div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-icon">
+                            <span class="emoji">🏗️</span>
+                        </div>
+                        <h3>Blueprint</h3>
                     </div>
-                </div>
-                
-                <div class="premium-deliverable">
-                    <div class="premium-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    
+                    <div class="step-connector"></div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-icon">
+                            <span class="emoji">⚙️</span>
+                        </div>
+                        <h3>Build</h3>
                     </div>
-                    <div class="premium-content">
-                        <h3>Custom Automations</h3>
-                        <p>Integrated workflows that eliminate manual tasks and connect your tools for seamless operation across your business.</p>
-                    </div>
-                </div>
-                
-                <div class="premium-deliverable">
-                    <div class="premium-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    </div>
-                    <div class="premium-content">
-                        <h3>Full Ownership</h3>
-                        <p>Your system, your code, your data—forever. We build systems that are 100% yours, designed to scale with your business.</p>
-                    </div>
-                </div>
-                
-                <div class="premium-deliverable">
-                    <div class="premium-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M16 8l-8 8"></path><path d="M8 8l8 8"></path></svg>
-                    </div>
-                    <div class="premium-content">
-                        <h3>No Hidden Fees</h3>
-                        <p>Transparent pricing with clear deliverables. We provide upfront costs with no surprise fees or unexpected charges.</p>
+                    
+                    <div class="step-connector"></div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-icon">
+                            <span class="emoji">🚀</span>
+                        </div>
+                        <h3>Launch</h3>
                     </div>
                 </div>
             </div>
+            
+            <style>
+                .process-container {
+                    max-width: 900px;
+                    margin: 40px auto;
+                    padding: 0 15px;
+                }
+                
+                .process-steps {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+                
+                .step {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    position: relative;
+                    width: 100px;
+                }
+                
+                .step-number {
+                    position: absolute;
+                    top: -10px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background-color: var(--accent);
+                    color: white;
+                    width: 25px;
+                    height: 25px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: bold;
+                    font-size: 14px;
+                    z-index: 2;
+                }
+                
+                .step-icon {
+                    width: 70px;
+                    height: 70px;
+                    background-color: white;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                    margin-bottom: 10px;
+                    border: 2px solid var(--accent);
+                }
+                
+                .emoji {
+                    font-size: 30px;
+                }
+                
+                .step h3 {
+                    font-size: 1rem;
+                    text-align: center;
+                    margin: 0;
+                }
+                
+                .step-connector {
+                    flex-grow: 1;
+                    height: 3px;
+                    background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+                    margin: 0 5px;
+                }
+                
+                @media (max-width: 768px) {
+                    .process-steps {
+                        flex-direction: column;
+                        gap: 15px;
+                    }
+                    
+                    .step {
+                        flex-direction: row;
+                        width: 100%;
+                        gap: 15px;
+                    }
+                    
+                    .step-number {
+                        top: 50%;
+                        left: -12px;
+                        transform: translateY(-50%);
+                    }
+                    
+                    .step-connector {
+                        width: 3px;
+                        height: 30px;
+                        margin: 0;
+                    }
+                }
+            </style>
         </div>
     </section>
 
+
+    
     <!-- Client Results Section -->
     <section class="section" id="results">
         <div class="container">
@@ -3179,221 +3268,98 @@
                 </div>
             </div>
             
-            <!-- FAQ Section -->
-            <section class="section" id="faq">
+            <section class="deliverables-section">
                 <div class="container">
                     <div class="section-title">
-                        <span class="accent-text">Frequently Asked</span>
-                        <h2>Common Questions</h2>
+                        <h2>What You'll Receive</h2>
                     </div>
                     
-                    <div class="faq-container">
-                        <div class="faq-column">
-                            <div class="faq-card">
-                                <div class="faq-header">
-                                    <div class="faq-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                                    </div>
-                                    <h3>Do I need technical skills?</h3>
-                                    <button class="faq-toggle">+</button>
-                                </div>
-                                <div class="faq-content">
-                                    <p>Absolutely not. Our team handles all technical implementation and configuration. Your intuitive admin dashboard is designed for ease of use, making system management straightforward and hassle-free after launch.</p>
-                                </div>
+                    <div class="premium-deliverables">
+                        <div class="premium-deliverable">
+                            <div class="premium-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
                             </div>
-                            
-                            <div class="faq-card">
-                                <div class="faq-header">
-                                    <div class="faq-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                                    </div>
-                                    <h3>What ongoing costs exist?</h3>
-                                    <button class="faq-toggle">+</button>
-                                </div>
-                                <div class="faq-content">
-                                    <p>Transparency is key: you'll only need to cover domain registration (£10-15/year) and hosting infrastructure (from £20/month). There are no recurring fees payable to Aether Systems beyond your initial investment.</p>
-                                </div>
+                            <div class="premium-content">
+                                <h3>Live System</h3>
+                                <p>Fully-built, ready-to-launch system with custom interface and dashboard</p>
                             </div>
                         </div>
                         
-                        <div class="faq-column">
-                            <div class="faq-card">
-                                <div class="faq-header">
-                                    <div class="faq-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                                    </div>
-                                    <h3>Can I update my system later?</h3>
-                                    <button class="faq-toggle">+</button>
-                                </div>
-                                <div class="faq-content">
-                                    <p>Certainly. Your system is designed for flexibility—implement routine changes through your secure admin portal, or engage our specialists for more substantial enhancements and feature additions.</p>
-                                </div>
+                        <div class="premium-deliverable">
+                            <div class="premium-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
                             </div>
-                            
-                            <div class="faq-card">
-                                <div class="faq-header">
-                                    <div class="faq-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                                    </div>
-                                    <h3>Who is this perfect for?</h3>
-                                    <button class="faq-toggle">+</button>
-                                </div>
-                                <div class="faq-content">
-                                    <p>Our solutions are ideal for:</p>
-                                    <ul class="compact-list">
-                                        <li>Established businesses generating £20k+/month revenue</li>
-                                        <li>Teams constrained by inefficient manual workflows</li>
-                                        <li>Executive leaders aiming to reclaim 15+ hours weekly</li>
-                                        <li>Organizations scaling operations without increasing headcount</li>
-                                    </ul>
-                                </div>
+                            <div class="premium-content">
+                                <h3>Custom Automations</h3>
+                                <p>Integrated workflows that eliminate manual tasks and connect your tools</p>
+                            </div>
+                        </div>
+                        
+                        <div class="premium-deliverable">
+                            <div class="premium-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            </div>
+                            <div class="premium-content">
+                                <h3>Complete Documentation</h3>
+                                <p>Step-by-step guides for using and managing your system</p>
+                            </div>
+                        </div>
+                        
+                        <div class="premium-deliverable">
+                            <div class="premium-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                            </div>
+                            <div class="premium-content">
+                                <h3>Training & Handover</h3>
+                                <p>Complete system walkthrough and admin credentials transfer</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-            
-            <script>
-                // Add click event listeners to FAQ questions for toggle functionality
-                document.addEventListener('DOMContentLoaded', function() {
-                    const faqCards = document.querySelectorAll('.faq-card');
+
+            <!-- FAQ Section -->
+            <section class="faq-section">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Common Questions</h2>
+                    </div>
                     
-                    faqCards.forEach(card => {
-                        const header = card.querySelector('.faq-header');
-                        const toggle = card.querySelector('.faq-toggle');
-                        const content = card.querySelector('.faq-content');
+                    <div class="faq-grid">
+                        <div class="faq-item">
+                            <h3>Do I need technical skills?</h3>
+                            <p>No. We handle all technical setup. Your admin dashboard makes managing everything simple after launch.</p>
+                        </div>
                         
-                        // Initially hide all answers
-                        content.style.display = 'none';
+                        <div class="faq-item">
+                            <h3>What ongoing costs exist?</h3>
+                            <p>Only domain (£10-15/year) and hosting (from £20/month). No fees to us beyond initial build.</p>
+                        </div>
                         
-                        header.addEventListener('click', () => {
-                            // Close all other items
-                            faqCards.forEach(otherCard => {
-                                if (otherCard !== card && otherCard.querySelector('.faq-content').style.display === 'block') {
-                                    otherCard.querySelector('.faq-content').style.display = 'none';
-                                    otherCard.querySelector('.faq-toggle').textContent = '+';
-                                    otherCard.classList.remove('active');
-                                }
-                            });
-                            
-                            // Toggle current item
-                            const isOpen = content.style.display === 'block';
-                            content.style.display = isOpen ? 'none' : 'block';
-                            toggle.textContent = isOpen ? '+' : '-';
-                            card.classList.toggle('active');
-                        });
-                    });
-                });
-            </script>
+                        <div class="faq-item">
+                            <h3>Can I update my system later?</h3>
+                            <p>Yes. Make basic changes yourself through your admin area, or request our help for bigger updates.</p>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <h3>Who is this perfect for?</h3>
+                            <ul class="ideal-clients">
+                                <li>£20k+/month businesses</li>
+                                <li>Teams limited by manual processes</li>
+                                <li>Leaders wanting to save 15+ hours weekly</li>
+                                <li>Organizations scaling without adding staff</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="ownership-promise">
+                        <h3>Our Ownership Promise</h3>
+                        <p>Full ownership, transparent pricing, no hidden fees. We build systems that are 100% yours, designed to scale with your business.</p>
+                    </div>
+                </div>
+            </section>
 
             <style>
-                /* FAQ Section Styles */
-                .faq-container {
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 30px;
-                    margin-top: 40px;
-                }
-                
-                .faq-column {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 20px;
-                }
-                
-                .faq-card {
-                    background: white;
-                    border-radius: 12px;
-                    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
-                    overflow: hidden;
-                    transition: all 0.3s ease;
-                    border: 1px solid #eaeaea;
-                }
-                
-                .faq-card.active {
-                    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-                    border-color: var(--accent);
-                    transform: translateY(-5px);
-                }
-                
-                .faq-header {
-                    display: flex;
-                    align-items: center;
-                    padding: 25px;
-                    cursor: pointer;
-                    position: relative;
-                    gap: 15px;
-                    background: linear-gradient(to right, rgba(52, 152, 219, 0.03), rgba(52, 152, 219, 0));
-                }
-                
-                .faq-icon {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    min-width: 36px;
-                    height: 36px;
-                    background-color: rgba(52, 152, 219, 0.1);
-                    color: var(--accent);
-                    border-radius: 50%;
-                }
-                
-                .faq-icon svg {
-                    width: 20px;
-                    height: 20px;
-                }
-                
-                .faq-card h3 {
-                    margin: 0;
-                    font-size: 1.1rem;
-                    flex-grow: 1;
-                }
-                
-                .faq-toggle {
-                    background: none;
-                    border: none;
-                    font-size: 20px;
-                    color: var(--accent);
-                    cursor: pointer;
-                    width: 24px;
-                    height: 24px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    padding: 0;
-                    font-weight: bold;
-                }
-                
-                .faq-content {
-                    padding: 0 25px 25px 76px;
-                    line-height: 1.6;
-                }
-                
-                .faq-content p, .faq-content ul {
-                    margin: 0;
-                    color: var(--text-light);
-                }
-                
-                .feature-list, .compact-list {
-                    padding-left: 20px;
-                    margin: 0;
-                }
-                
-                .feature-list li, .compact-list li {
-                    margin-bottom: 4px;
-                    font-size: 0.95rem;
-                    color: var(--text-light);
-                }
-                
-                .compact-list {
-                    margin-top: 5px;
-                }
-                
-                @media (max-width: 768px) {
-                    .faq-container {
-                        grid-template-columns: 1fr;
-                    }
-                }
-                
                 /* Deliverables Section Styles */
                 .deliverables-section {
                     padding: 80px 0;
@@ -3455,251 +3421,73 @@
                 }
                 
                 /* FAQ Section Styles */
-                .accent-text {
-                    display: block;
-                    color: var(--accent);
-                    font-size: 1.1rem;
-                    margin-bottom: 10px;
-                    font-weight: 500;
+                .faq-section {
+                    padding: 80px 0;
+                    background-color: #f8f9fa;
                 }
                 
-                .faq-wrapper {
-                    max-width: 800px;
-                    margin: 0 auto;
-                }
-                
-                .faq-accordion {
-                    background-color: white;
-                    border-radius: var(--radius-lg);
-                    overflow: hidden;
-                    box-shadow: var(--shadow-md);
+                .faq-grid {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 30px;
+                    margin-top: 50px;
                 }
                 
                 .faq-item {
-                    margin-bottom: 1px;
-                    border-bottom: 1px solid var(--border);
+                    background: white;
+                    border-radius: 12px;
+                    padding: 30px;
+                    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+                    border: 1px solid #eaeaea;
                 }
                 
-                .faq-item:last-child {
-                    margin-bottom: 0;
-                    border-bottom: none;
-                }
-                
-                .faq-question {
-                    display: flex;
-                    align-items: center;
-                    padding: 20px 25px;
-                    background-color: white;
-                    cursor: pointer;
-                    transition: background-color 0.3s ease;
-                }
-                
-                .faq-question:hover {
-                    background-color: var(--bg);
-                }
-                
-                .q-mark {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 28px;
-                    height: 28px;
-                    background-color: var(--accent);
-                    color: white;
-                    border-radius: 50%;
-                    margin-right: 15px;
-                    font-size: 0.9rem;
-                    font-weight: 600;
-                    flex-shrink: 0;
-                }
-                
-                .faq-question h3 {
-                    margin: 0;
-                    font-size: 1.1rem;
+                .faq-item h3 {
+                    margin: 0 0 15px;
+                    font-size: 1.3rem;
                     font-weight: 600;
                     color: var(--primary);
-                    flex-grow: 1;
                 }
                 
-                .faq-toggle {
-                    width: 24px;
-                    height: 24px;
-                    background: none;
-                    border: none;
-                    font-size: 1.5rem;
-                    line-height: 1;
-                    color: var(--accent);
-                    cursor: pointer;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    padding: 0;
-                    flex-shrink: 0;
-                }
-                
-                .faq-answer {
-                    padding: 0 25px 20px 68px;
-                }
-                
-                .faq-answer p {
+                .faq-item p {
                     margin: 0;
                     font-size: 1rem;
-                    line-height: 1.6;
                     color: var(--text-light);
+                    line-height: 1.6;
                 }
                 
-                .feature-list {
-                    list-style-type: none;
-                    padding: 0;
+                .ideal-clients {
+                    padding-left: 20px;
                     margin: 0;
                 }
                 
-                .feature-list li {
-                    position: relative;
-                    padding: 8px 0 8px 24px;
+                .ideal-clients li {
+                    margin-bottom: 8px;
                     color: var(--text-light);
                     font-size: 1rem;
                     line-height: 1.5;
                 }
                 
-                .feature-list li:before {
-                    content: '';
-                    position: absolute;
-                    left: 0;
-                    top: 15px;
-                    width: 8px;
-                    height: 8px;
-                    border-radius: 50%;
-                    background-color: var(--accent);
-                }
-                
-                /* Guarantee Banner */
-                .guarantee-banner {
-                    display: flex;
-                    align-items: center;
-                    background-color: var(--primary);
+                .ownership-promise {
+                    margin-top: 50px;
+                    background: linear-gradient(135deg, #2c3e50, #1a252f);
                     color: white;
-                    border-radius: var(--radius-lg);
+                    border-radius: 12px;
                     padding: 40px;
-                    box-shadow: var(--shadow-lg);
+                    text-align: center;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
                 }
                 
-                .guarantee-icon {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 70px;
-                    height: 70px;
-                    background-color: rgba(255, 255, 255, 0.1);
-                    border-radius: 50%;
-                    margin-right: 30px;
-                    flex-shrink: 0;
-                }
-                
-                .guarantee-content {
-                    flex-grow: 1;
-                }
-                
-                .guarantee-content h3 {
-                    color: white;
+                .ownership-promise h3 {
                     font-size: 1.8rem;
-                    margin-bottom: 10px;
+                    margin: 0 0 15px;
+                    font-weight: 600;
                 }
                 
-                .guarantee-content p {
-                    color: rgba(255, 255, 255, 0.9);
-                    margin: 0;
+                .ownership-promise p {
                     font-size: 1.1rem;
                     line-height: 1.6;
-                }
-                
-                /* Responsive Styles */
-                @media (max-width: 768px) {
-                    .faq-question {
-                        padding: 18px 20px;
-                    }
-                    
-                    .faq-answer {
-                        padding: 0 20px 20px 63px;
-                    }
-                    
-                    .guarantee-banner {
-                        flex-direction: column;
-                        text-align: center;
-                        padding: 30px;
-                    }
-                    
-                    .guarantee-icon {
-                        margin: 0 auto 20px;
-                    }
-                }
-                
-                @media (max-width: 576px) {
-                    .q-mark {
-                        width: 24px;
-                        height: 24px;
-                        font-size: 0.8rem;
-                        margin-right: 12px;
-                    }
-                    
-                    .faq-question h3 {
-                        font-size: 1rem;
-                    }
-                    
-                    .faq-answer {
-                        padding: 0 15px 15px 50px;
-                    }
-                    
-                    .feature-list li {
-                        padding: 6px 0 6px 20px;
-                    }
-                }
-                
-                /* Responsive Styles */
-                @media (max-width: 992px) {
-                    .deliverables-grid {
-                        grid-template-columns: 1fr;
-                        gap: 20px;
-                    }
-                }
-                
-                @media (max-width: 768px) {
-                    .faq-header h3 {
-                        font-size: 1rem;
-                    }
-                    
-                    .faq-content {
-                        padding: 0 20px 20px 63px;
-                    }
-                    
-                    .section-title h2 {
-                        font-size: 1.8rem;
-                    }
-                    
-                    .ownership-promise {
-                        padding: 30px 20px;
-                    }
-                }
-                
-                @media (max-width: 576px) {
-                    .deliverable-item {
-                        padding: 20px;
-                    }
-                    
-                    .faq-header {
-                        padding: 15px 20px;
-                    }
-                    
-                    .question-indicator {
-                        width: 24px;
-                        height: 24px;
-                        font-size: 0.8rem;
-                        margin-right: 10px;
-                    }
-                    
-                    .faq-content {
-                        padding: 0 15px 15px 50px;
-                    }
+                    max-width: 800px;
+                    margin: 0 auto;
                 }
                 
                 /* Responsive Styles */
@@ -3727,43 +3515,22 @@
                 }
             </style>
 
-            <script>
-                // Add click event listeners to FAQ questions for toggle functionality
-                document.addEventListener('DOMContentLoaded', function() {
-                    const faqCards = document.querySelectorAll('.faq-card');
-                    
-                    faqCards.forEach(card => {
-                        const header = card.querySelector('.faq-header');
-                        const toggle = card.querySelector('.faq-toggle');
-                        const content = card.querySelector('.faq-content');
-                        
-                        // Initially hide all answers
-                        content.style.display = 'none';
-                        
-                        header.addEventListener('click', () => {
-                            if (content.style.display === 'none') {
-                                content.style.display = 'block';
-                                toggle.textContent = '-';
-                                
-                                // Close other open FAQs (accordion style)
-                                faqCards.forEach(otherCard => {
-                                    if (otherCard !== card && otherCard.querySelector('.faq-content').style.display === 'block') {
-                                        otherCard.querySelector('.faq-content').style.display = 'none';
-                                        otherCard.querySelector('.faq-toggle').textContent = '+';
-                                    }
-                                });
-                            } else {
-                                content.style.display = 'none';
-                                toggle.textContent = '+';
-                            }
-                        });
-                    });
-                });
-            </script>
+            <!-- Ownership Guarantee -->
+            <div class="guarantee-banner">
+                <div class="guarantee-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                <div class="guarantee-content">
+                    <h4>Our Ownership Promise</h4>
+                    <p>Full ownership, transparent pricing, no hidden fees. We build systems that are 100% yours, designed to scale with your business.</p>
+                </div>
+            </div>
+            </div>
         </div>
     </section>
+
     <!-- Contact Section -->
-    <section id="contact" class="section" style="margin-top: -60px;">
+    <section id="contact" class="section">
         <div class="container">
             <div class="section-title text-center">
                 <h2>Have Questions?</h2>
@@ -3937,727 +3704,5 @@
     <!-- Stripe Client JS -->
     <script src="https://js.stripe.com/v3/"></script>
     <script src="stripe-client.js"></script>
-
-    <!-- Modal Forms -->
-    <!-- Get Started Modal (Essentials) -->
-    <div id="essentials-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Build Your Essentials System</h3>
-                <span class="close-modal">&times;</span>
-            </div>
-            <div class="modal-body">
-                <form id="essentials-form" class="modal-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="essentials-name">Full Name</label>
-                            <input type="text" id="essentials-name" name="name" placeholder="Enter your full name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="essentials-email">Email Address</label>
-                            <input type="email" id="essentials-email" name="email" placeholder="Enter your work email" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="essentials-company">Company Name</label>
-                            <input type="text" id="essentials-company" name="company" placeholder="Enter your company name">
-                        </div>
-                        <div class="form-group">
-                            <label for="essentials-phone">Phone Number</label>
-                            <input type="tel" id="essentials-phone" name="phone" placeholder="Enter your phone number">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="essentials-workflow">What single workflow do you need automated?</label>
-                        <select id="essentials-workflow" name="workflow" required>
-                            <option value="">Select workflow type</option>
-                            <option value="invoice">Invoice Processing</option>
-                            <option value="customer">Customer Onboarding</option>
-                            <option value="payments">Payment Collection</option>
-                            <option value="reporting">Reporting & Analytics</option>
-                            <option value="scheduling">Scheduling & Calendar</option>
-                            <option value="other">Other (please specify)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="essentials-description">Describe your workflow needs</label>
-                        <textarea id="essentials-description" name="description" rows="3" placeholder="What manual process are you looking to automate? What tools do you currently use?"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="essentials-timeline">When do you need this delivered?</label>
-                        <select id="essentials-timeline" name="timeline" required>
-                            <option value="">Select timeline</option>
-                            <option value="urgent">As soon as possible</option>
-                            <option value="2weeks">Within 2 weeks</option>
-                            <option value="month">Within a month</option>
-                            <option value="flexible">Flexible timeframe</option>
-                        </select>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label class="checkbox-container">
-                            <input type="checkbox" id="essentials-terms" required>
-                            <span class="checkmark"></span>
-                            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
-                        </label>
-                    </div>
-                    <div class="form-footer">
-                        <p class="price-summary">Essentials Plan: <strong>£499</strong> (one-time payment)</p>
-                        <p class="form-note">Includes 1 automation system, 5-day delivery, 2 refinement rounds, 14-day support, and documentation.</p>
-                        <button type="submit" class="btn-submit">Continue to Payment</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Get Started Modal (Professional) -->
-    <div id="professional-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Design Your Professional Systems</h3>
-                <span class="close-modal">&times;</span>
-            </div>
-            <div class="modal-body">
-                <form id="professional-form" class="modal-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="professional-name">Full Name</label>
-                            <input type="text" id="professional-name" name="name" placeholder="Enter your full name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="professional-email">Email Address</label>
-                            <input type="email" id="professional-email" name="email" placeholder="Enter your work email" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="professional-company">Company Name</label>
-                            <input type="text" id="professional-company" name="company" placeholder="Enter your company name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="professional-phone">Phone Number</label>
-                            <input type="tel" id="professional-phone" name="phone" placeholder="Enter your phone number">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="professional-team-size">Team Size</label>
-                        <select id="professional-team-size" name="team-size" required>
-                            <option value="">Select team size</option>
-                            <option value="1-5">1-5 people</option>
-                            <option value="6-15">6-15 people</option>
-                            <option value="16-30">16-30 people</option>
-                            <option value="31+">31+ people</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Which systems need automation? (Select up to 3)</label>
-                        <div class="checkbox-group systems-selection">
-                            <label class="checkbox-container">
-                                <input type="checkbox" name="systems[]" value="invoicing">
-                                <span class="checkmark"></span>
-                                Invoicing & Payments
-                            </label>
-                            <label class="checkbox-container">
-                                <input type="checkbox" name="systems[]" value="client-management">
-                                <span class="checkmark"></span>
-                                Client Management
-                            </label>
-                            <label class="checkbox-container">
-                                <input type="checkbox" name="systems[]" value="reporting">
-                                <span class="checkmark"></span>
-                                Reporting & Analytics
-                            </label>
-                            <label class="checkbox-container">
-                                <input type="checkbox" name="systems[]" value="project-management">
-                                <span class="checkmark"></span>
-                                Project Management
-                            </label>
-                            <label class="checkbox-container">
-                                <input type="checkbox" name="systems[]" value="team-coordination">
-                                <span class="checkmark"></span>
-                                Team Coordination
-                            </label>
-                            <label class="checkbox-container">
-                                <input type="checkbox" name="systems[]" value="other">
-                                <span class="checkmark"></span>
-                                Other
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="professional-current-tools">What tools do you currently use?</label>
-                        <textarea id="professional-current-tools" name="current-tools" rows="2" placeholder="List any tools or software you're currently using (CRM, accounting, etc.)"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="professional-description">Specific requirements for your systems</label>
-                        <textarea id="professional-description" name="description" rows="3" placeholder="Describe the workflows you need connected and any specific requirements..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="professional-timeline">Project Timeline</label>
-                        <select id="professional-timeline" name="timeline" required>
-                            <option value="">Select your timeline</option>
-                            <option value="urgent">Urgent (ASAP)</option>
-                            <option value="1month">Within 1 month</option>
-                            <option value="3months">Within 3 months</option>
-                            <option value="flexible">Flexible</option>
-                        </select>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label class="checkbox-container">
-                            <input type="checkbox" id="professional-terms" required>
-                            <span class="checkmark"></span>
-                            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
-                        </label>
-                    </div>
-                    <div class="form-footer">
-                        <p class="price-summary">Professional Plan: <strong>£999</strong> (one-time payment)</p>
-                        <p class="form-note">Includes up to 3 connected systems, dedicated specialist, 2 refinement rounds, 30-day priority support, and training session.</p>
-                        <button type="submit" class="btn-submit">Continue to Payment</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Request Consultation Modal (Enterprise) -->
-    <div id="enterprise-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Scale Your Enterprise Solution</h3>
-                <span class="close-modal">&times;</span>
-            </div>
-            <div class="modal-body">
-                <form id="enterprise-form" class="modal-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="enterprise-name">Full Name</label>
-                            <input type="text" id="enterprise-name" name="name" placeholder="Enter your full name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="enterprise-email">Email Address</label>
-                            <input type="email" id="enterprise-email" name="email" placeholder="Enter your work email" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="enterprise-company">Company Name</label>
-                            <input type="text" id="enterprise-company" name="company" placeholder="Enter your company name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="enterprise-position">Your Position</label>
-                            <select id="enterprise-position" name="position" required>
-                                <option value="">Select your position</option>
-                                <option value="founder">Founder/CEO</option>
-                                <option value="cto">CTO/Technical Director</option>
-                                <option value="operations">Operations Director</option>
-                                <option value="finance">Finance Director</option>
-                                <option value="manager">Department Manager</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="enterprise-phone">Phone Number</label>
-                            <input type="tel" id="enterprise-phone" name="phone" placeholder="Enter your phone number" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="enterprise-company-size">Company Size</label>
-                            <select id="enterprise-company-size" name="company-size" required>
-                                <option value="">Select company size</option>
-                                <option value="1-10">1-10 employees</option>
-                                <option value="11-50">11-50 employees</option>
-                                <option value="51-200">51-200 employees</option>
-                                <option value="201-500">201-500 employees</option>
-                                <option value="501-1000">501-1000 employees</option>
-                                <option value="1000+">1000+ employees</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Which of these are you looking to automate? (Select all that apply)</label>
-                        <div class="checkbox-group systems-selection">
-                            <label class="checkbox-container">
-                                <input type="checkbox" name="automation[]" value="workflow">
-                                <span class="checkmark"></span>
-                                Full-stack Workflow Systems
-                            </label>
-                            <label class="checkbox-container">
-                                <input type="checkbox" name="automation[]" value="api">
-                                <span class="checkmark"></span>
-                                Custom API Development
-                            </label>
-                            <label class="checkbox-container">
-                                <input type="checkbox" name="automation[]" value="dashboard">
-                                <span class="checkmark"></span>
-                                Bespoke Dashboard
-                            </label>
-                            <label class="checkbox-container">
-                                <input type="checkbox" name="automation[]" value="integration">
-                                <span class="checkmark"></span>
-                                Multi-Department Integration
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="enterprise-current-tools">Current Tools & Software</label>
-                        <textarea id="enterprise-current-tools" name="current-tools" rows="2" placeholder="What tools is your business currently using?"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="enterprise-requirements">Specific Business Challenges</label>
-                        <textarea id="enterprise-requirements" name="requirements" rows="3" placeholder="What specific business challenges are you looking to solve?" required></textarea>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="enterprise-budget">Investment Range</label>
-                            <select id="enterprise-budget" name="budget" required>
-                                <option value="">Select your budget range</option>
-                                <option value="under-5k">Under £5,000</option>
-                                <option value="5k-10k">£5,000 - £10,000</option>
-                                <option value="10k-25k">£10,000 - £25,000</option>
-                                <option value="25k-50k">£25,000 - £50,000</option>
-                                <option value="50k+">£50,000+</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="enterprise-timeline">Project Timeline</label>
-                            <select id="enterprise-timeline" name="timeline" required>
-                                <option value="">Select your timeline</option>
-                                <option value="urgent">Urgent (ASAP)</option>
-                                <option value="1month">Within 1 month</option>
-                                <option value="3months">Within 3 months</option>
-                                <option value="6months">Within 6 months</option>
-                                <option value="flexible">Flexible</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label class="checkbox-container">
-                            <input type="checkbox" id="enterprise-terms" required>
-                            <span class="checkmark"></span>
-                            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
-                        </label>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label class="checkbox-container">
-                            <input type="checkbox" id="enterprise-marketing">
-                            <span class="checkmark"></span>
-                            I'd like to receive updates and marketing communications from Aether Systems
-                        </label>
-                    </div>
-                    <div class="form-footer">
-                        <p class="price-summary">Enterprise Plan: <strong>Custom Pricing</strong></p>
-                        <p class="form-note">Includes full-stack workflow systems, custom API development, executive onboarding, dedicated CTO team for 90 days, and premium support.</p>
-                        <button type="submit" class="btn-submit">Schedule Consultation</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Styles -->
-    <style>
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(15, 17, 22, 0.85);
-            backdrop-filter: blur(5px);
-            overflow-y: auto;
-            padding: 0;
-        }
-        
-        .modal-content {
-            background-color: white;
-            width: 90%;
-            max-width: 700px;
-            border-radius: 8px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-            animation: modalopen 0.3s ease;
-            border: 1px solid #eaeaea;
-            position: relative;
-            margin: 50px auto;
-            text-align: left;
-        }
-        
-        @keyframes modalopen {
-            from {opacity: 0; transform: translateY(-20px);}
-            to {opacity: 1; transform: translateY(0);}
-        }
-        
-        .modal-header {
-            padding: 20px 25px;
-            background-color: #4a90e2;
-            position: relative;
-            border-radius: 8px 8px 0 0;
-        }
-        
-        .modal-header h3 {
-            margin-bottom: 0;
-            font-weight: 600;
-            color: white;
-            font-size: 1.25rem;
-        }
-        
-        .close-modal {
-            position: absolute;
-            right: 20px;
-            top: 18px;
-            font-size: 24px;
-            font-weight: 400;
-            cursor: pointer;
-            color: rgba(255, 255, 255, 0.8);
-            transition: all 0.2s ease;
-        }
-        
-        .close-modal:hover {
-            color: white;
-        }
-        
-        .modal-body {
-            padding: 30px 25px;
-            background-color: white;
-        }
-        
-        .modal-form {
-            display: block;
-        }
-        
-        .modal-form .form-row {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        
-        @media (max-width: 768px) {
-            .modal-form {
-                width: 100%;
-            }
-        }
-        
-        .form-row {
-            display: flex;
-            gap: 25px;
-            margin-bottom: 25px;
-        }
-        
-        @media (max-width: 768px) {
-            .form-row {
-                flex-direction: column;
-                gap: 15px;
-                margin-bottom: 15px;
-            }
-        }
-        
-        .systems-selection {
-            background: #f8f9fa;
-            padding: 15px 20px;
-            border-radius: 4px;
-            border: 1px solid #e0e0e0;
-            margin-top: 8px;
-        }
-        
-        .systems-selection .checkbox-container {
-            margin-bottom: 8px;
-        }
-        
-        .systems-selection {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .systems-selection .checkbox-container {
-            flex: 0 0 calc(50% - 10px);
-        }
-        
-        @media (max-width: 768px) {
-            .systems-selection .checkbox-container {
-                flex: 0 0 100%;
-            }
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-            flex: 1;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #333;
-            font-size: 0.95rem;
-        }
-        
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #e0e0e0;
-            border-radius: 4px;
-            font-size: 14px;
-            color: #333;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.2s ease;
-            background-color: #fff;
-        }
-        
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #4a90e2;
-            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.15);
-        }
-        
-        .form-group input::placeholder,
-        .form-group textarea::placeholder,
-        .form-group select::placeholder {
-            color: #aaa;
-            font-size: 14px;
-        }
-        
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-            line-height: 1.6;
-        }
-        
-        .form-group select {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%233498db' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 15px center;
-            padding-right: 40px;
-        }
-        
-        .checkbox-group {
-            display: flex;
-            .checkbox-group {
-            margin-top: 30px;
-        }
-        
-        .checkbox-container {
-            display: block;
-            position: relative;
-            padding-left: 30px;
-            margin-bottom: 15px;
-            cursor: pointer;
-            font-size: 14px;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            line-height: 1.5;
-            color: #555;
-        }
-        
-        .checkbox-container input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-            height: 0;
-            width: 0;
-        }
-        
-        .checkmark {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 20px;
-            width: 20px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            transition: all 0.2s ease;
-        }
-        
-        .checkbox-container:hover input ~ .checkmark {
-            border-color: #4a90e2;
-        }
-        
-        .checkbox-container input:checked ~ .checkmark {
-            background: #4a90e2;
-            border-color: #4a90e2;
-        }
-        
-        .checkmark:after {
-            content: "";
-            position: absolute;
-            display: none;
-        }
-        
-        .checkbox-container input:checked ~ .checkmark:after {
-            display: block;
-        }
-        
-        .checkbox-container .checkmark:after {
-            left: 7px;
-            top: 3px;
-            width: 5px;
-            height: 10px;
-            border: solid white;
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
-        }
-        
-        .checkbox-container a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-        }
-        
-        .checkbox-container a:hover {
-            text-decoration: underline;
-        }
-        
-        .form-footer {
-            margin: 0;
-            text-align: center;
-            background: white;
-            padding: 20px 0;
-            border-radius: 0 0 8px 8px;
-            border-top: 1px solid #eee;
-        }
-        
-        .price-summary {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 4px;
-            margin-bottom: 15px;
-            font-size: 16px;
-            text-align: center;
-            border-left: 3px solid #4a90e2;
-            color: #333;
-            font-weight: 500;
-        }
-        
-        .price-summary strong {
-            font-weight: 600;
-            font-size: 18px;
-            color: #4a90e2;
-        }
-        
-        .form-note {
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 13px;
-            color: #777;
-            line-height: 1.5;
-        }
-        
-        .btn-submit {
-            background: #4a90e2;
-            color: white;
-            border: none;
-            padding: 16px 30px;
-            font-size: 16px;
-            font-weight: 600;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            width: 100%;
-            max-width: 280px;
-            position: relative;
-            z-index: 20;
-            display: inline-block;
-            margin: 0 auto;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-submit:hover {
-            background: #3a7bc8;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-        }
-    </style>
-
-    <!-- Modal JavaScript -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get all modals and buttons
-            const essentialsModal = document.getElementById('essentials-modal');
-            const professionalModal = document.getElementById('professional-modal');
-            const enterpriseModal = document.getElementById('enterprise-modal');
-            
-            const essentialsBtn = document.getElementById('essentials-buy-button');
-            const professionalBtn = document.getElementById('executive-buy-button');
-            const enterpriseBtn = document.getElementById('enterprise-buy-button');
-            
-            // Get all close buttons
-            const closeButtons = document.querySelectorAll('.close-modal');
-            
-            // Open modal functions
-            essentialsBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                essentialsModal.style.display = 'block';
-                document.body.style.overflow = 'hidden'; // Prevent scrolling
-            });
-            
-            professionalBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                professionalModal.style.display = 'block';
-                document.body.style.overflow = 'hidden';
-            });
-            
-            enterpriseBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                enterpriseModal.style.display = 'block';
-                document.body.style.overflow = 'hidden';
-            });
-            
-            // Close modals when clicking the X
-            closeButtons.forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    essentialsModal.style.display = 'none';
-                    professionalModal.style.display = 'none';
-                    enterpriseModal.style.display = 'none';
-                    document.body.style.overflow = ''; // Restore scrolling
-                });
-            });
-            
-            // Close modals when clicking outside
-            window.addEventListener('click', function(event) {
-                if (event.target === essentialsModal) {
-                    essentialsModal.style.display = 'none';
-                    document.body.style.overflow = '';
-                }
-                if (event.target === professionalModal) {
-                    professionalModal.style.display = 'none';
-                    document.body.style.overflow = '';
-                }
-                if (event.target === enterpriseModal) {
-                    enterpriseModal.style.display = 'none';
-                    document.body.style.overflow = '';
-                }
-            });
-            
-            // Form submission handling (placeholder)
-            const forms = document.querySelectorAll('.modal-form');
-            forms.forEach(function(form) {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    // Here you would typically handle the form data
-                    // For demonstration, we'll just show an alert
-                    alert('Thank you for your submission! We will be in touch shortly.');
-                    
-                    // Close the modal
-                    const modal = this.closest('.modal');
-                    if (modal) {
-                        modal.style.display = 'none';
-                        document.body.style.overflow = '';
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 </html>

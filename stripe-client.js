@@ -48,28 +48,42 @@ document.addEventListener('DOMContentLoaded', function() {
     const enterpriseBuyButton = document.getElementById('enterprise-buy-button');
     const heroEnterpriseButton = document.getElementById('hero-enterprise-button');
     
-    // Add click event listeners
+    // Get references to the modals
+    const essentialsModal = document.getElementById('essentials-modal');
+    const professionalModal = document.getElementById('professional-modal');
+    const enterpriseModal = document.getElementById('enterprise-modal');
+    
+    // Add click event listeners for modals
     if (essentialsBuyButton) {
         essentialsBuyButton.addEventListener('click', function(e) {
             e.preventDefault();
-            // Redirect to requirements form with plan type and price
-            window.location.href = '/lean-ui.html?plan=basic&price=499';
+            // Open the modal instead of redirecting
+            if (essentialsModal) {
+                essentialsModal.style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
         });
     }
     
     if (executiveBuyButton) {
         executiveBuyButton.addEventListener('click', function(e) {
             e.preventDefault();
-            // Redirect to requirements form with plan type and price
-            window.location.href = '/lean-ui.html?plan=professional&price=999';
+            // Open the modal instead of redirecting
+            if (professionalModal) {
+                professionalModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
         });
     }
     
     if (enterpriseBuyButton) {
         enterpriseBuyButton.addEventListener('click', function(e) {
             e.preventDefault();
-            // Redirect to requirements form with plan type and price
-            window.location.href = '/lean-ui.html?plan=enterprise&price=custom';
+            // Open the modal instead of redirecting
+            if (enterpriseModal) {
+                enterpriseModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
         });
     }
     
@@ -77,8 +91,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (heroEnterpriseButton) {
         heroEnterpriseButton.addEventListener('click', function(e) {
             e.preventDefault();
-            // Redirect to requirements form with plan type and price
-            window.location.href = '/lean-ui.html?plan=enterprise&price=custom';
+            // Open the enterprise modal
+            if (enterpriseModal) {
+                enterpriseModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
         });
     }
     
