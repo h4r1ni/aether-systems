@@ -1,7 +1,8 @@
 [build]
-  command = "echo 'Static site with serverless functions'"
+  command = "npm install"
   publish = "."
   functions = "netlify/functions"
+  framework = "#static"
 
 [functions]
   node_bundler = "esbuild"
@@ -18,9 +19,3 @@
 
 [build.environment]
   NODE_VERSION = "18"
-
-# Explicitly disable the Next.js plugin
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
-  [plugins.inputs]
-    enable = false
