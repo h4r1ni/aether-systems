@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Stripe JavaScript library -->
+    <script src="https://js.stripe.com/v3/"></script>
     <title>Aether Systems | Elite Automation for Scaling Businesses</title>
     <meta name="description" content="Custom-engineered workflows for businesses generating £20k+/mo, ready to scale without friction.">
     
@@ -4645,20 +4647,127 @@
             // Removed the click-outside-to-close functionality
             // Now modals will only close when the X button is clicked
             
-            // Form submission handling (placeholder)
+            // Handle form submissions with Stripe integration
             const forms = document.querySelectorAll('.modal-form');
             forms.forEach(function(form) {
-                form.addEventListener('submit', function(e) {
+                form.addEventListener('submit', async function(e) {
                     e.preventDefault();
-                    // Here you would typically handle the form data
-                    // For demonstration, we'll just show an alert
-                    alert('Thank you for your submission! We will be in touch shortly.');
                     
-                    // Close the modal
-                    const modal = this.closest('.modal');
-                    if (modal) {
-                        modal.style.display = 'none';
-                        document.body.style.overflow = '';
+                    // Get the form ID to determine which plan was selected
+                    const formId = this.getAttribute('id');
+                    let planType = '';
+                    
+                    if (formId === 'essentials-form') {
+                        planType = 'essentials';
+                    } else if (formId === 'professional-form') {
+                        planType = 'professional';
+                    } else if (formId === 'enterprise-form') {
+                        planType = 'enterprise';
+                    }
+                    
+                    // Disable the submit button and show loading state
+                    const submitButton = this.querySelector('button[type="submit"]');
+                    const originalButtonText = submitButton.textContent;
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Processing...';
+                    
+                    try {
+                        // Collect all form data
+                        const formData = {};
+                        const formElements = this.elements;
+                        
+                        for (let i = 0; i < formElements.length; i++) {
+                            const element = formElements[i];
+                            if (element.name && element.name !== '') {
+                                if (element.type === 'checkbox') {
+                                    formData[element.name] = element.checked;
+                                } else if (element.type === 'radio') {
+                                    if (element.checked) {
+                                        formData[element.name] = element.value;
+                                    }
+                                } else if (element.type !== 'submit') {
+                                    formData[element.name] = element.value;
+                                }
+                            }
+                        }
+                        
+                        // Add plan type and timestamp
+                        formData.plan_type = planType;
+                        formData.timestamp = new Date().toISOString();
+                        
+                        // For Enterprise plan, submit form data directly without payment
+                        if (planType === 'enterprise') {
+                            // Submit to the server
+                            const response = await fetch('/submit-enterprise-quote', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(formData)
+                            });
+                            
+                            const data = await response.json();
+                            
+                            if (data.success) {
+                                // Show success message
+                                this.innerHTML = `<div class="form-success">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                    </svg>
+                                    <h3>Thank you for your interest!</h3>
+                                    <p>We'll contact you within 24 hours to discuss your enterprise requirements.</p>
+                                </div>`;
+                            } else {
+                                throw new Error('Failed to submit enterprise quote');
+                            }
+                        } else {
+                            // For paid plans, first store form data then redirect to Stripe
+                            // Store form data temporarily on server
+                            const storeResponse = await fetch('/store-form-data', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(formData)
+                            });
+                            
+                            const storeData = await storeResponse.json();
+                            
+                            if (!storeData.success) {
+                                throw new Error('Failed to store form data');
+                            }
+                            
+                            // Get form data ID to retrieve after payment
+                            const formDataId = storeData.formDataId;
+                            
+                            // Create Stripe checkout session
+                            const response = await fetch('/create-checkout-session', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    priceId: planType,
+                                    formDataId: formDataId
+                                })
+                            });
+                            
+                            const data = await response.json();
+                            
+                            if (data.id) {
+                                // Redirect to Stripe Checkout
+                                const stripe = Stripe('pk_test_51RPpIs2cJTJMG24U64IUBt1htmHA8r64WC5jKDIG6bEqCaYxHvpEAY9uDj2b56B8CNuwogt6EkVfJrnTpAbl4lLf00dWTYGznk');
+                                stripe.redirectToCheckout({ sessionId: data.id });
+                            } else {
+                                throw new Error('Failed to create checkout session');
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Error during form submission:', error);
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalButtonText;
+                        alert('There was an error processing your request. Please try again.');
                     }
                 });
             });

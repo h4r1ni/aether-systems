@@ -19,8 +19,10 @@ const stripe = require('stripe')(STRIPE_SECRET_KEY);
 const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY || 'keyXXXXXXXXXXXXXX'; // Set this in your environment variables
 const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID || 'appXXXXXXXXXXXXXX'; // Set this in your environment variables
 
-// Simple in-memory storage for form submissions (in production, use a database)
+// Simple in-memory storage for form submissions and payment form data (in production, use a database)
 let formSubmissions = [];
+let paymentFormData = {}; // Store form data temporarily before payment is completed
+let completedOrders = []; // Store completed orders with form data
 
 // Middleware
 app.use(express.static(path.join(__dirname, 'public')));
@@ -46,10 +48,31 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// Store form data before redirecting to payment
+app.post('/store-form-data', async (req, res) => {
+  try {
+    const formData = req.body;
+    
+    // Generate a unique ID for this form submission
+    const formDataId = Date.now().toString() + Math.random().toString(36).substring(2, 15);
+    
+    // Store the form data with the ID
+    paymentFormData[formDataId] = formData;
+    
+    console.log(`Stored form data with ID ${formDataId} for ${formData.plan_type} plan`);
+    
+    // Return the ID so it can be used after payment
+    res.json({ success: true, formDataId: formDataId });
+  } catch (error) {
+    console.error('Error storing form data:', error);
+    res.status(500).json({ success: false, error: 'Failed to store form data' });
+  }
+});
+
 // Universal checkout session endpoint
 app.post('/create-checkout-session', async (req, res) => {
   try {
-    const { priceId, planName } = req.body;
+    const { priceId, formDataId } = req.body;
     
     // Price configuration based on plan
     let unitAmount, description, name;
@@ -88,10 +111,11 @@ app.post('/create-checkout-session', async (req, res) => {
         },
       ],
       mode: 'payment',
-      success_url: `${req.protocol}://${req.get('host')}/professional-ui.html?payment_success=true&plan_type=${priceId}`,
-      cancel_url: `${req.protocol}://${req.get('host')}/professional-ui.html#pricing`,
+      success_url: `${req.protocol}://${req.get('host')}/onboarding.html?payment_success=true&plan_type=${priceId}&form_data_id=${formDataId}`,
+      cancel_url: `${req.protocol}://${req.get('host')}/index.html#pricing`,
       metadata: {
-        plan_type: priceId
+        plan_type: priceId,
+        form_data_id: formDataId
       }
     });
 
@@ -202,7 +226,77 @@ app.post('/submit-contact-form', async (req, res) => {
   }
 });
 
-// Admin endpoint to view form submissions - password protected
+// Handle successful payment and store completed order
+app.get('/payment-success', async (req, res) => {
+  try {
+    const { form_data_id, session_id } = req.query;
+    
+    // Retrieve the stored form data
+    const formData = paymentFormData[form_data_id];
+    
+    if (!formData) {
+      return res.status(404).json({ success: false, error: 'Form data not found' });
+    }
+    
+    // In production, verify the payment with Stripe
+    // const session = await stripe.checkout.sessions.retrieve(session_id);
+    // if (session.payment_status !== 'paid') { return res.status(400).json({ error: 'Payment not completed' }); }
+    
+    // Create a completed order record
+    const orderData = {
+      ...formData,
+      payment_completed: true,
+      payment_date: new Date().toISOString(),
+      session_id: session_id || 'test_session'
+    };
+    
+    // Add to completed orders
+    completedOrders.unshift(orderData);
+    
+    // Remove from temporary storage
+    delete paymentFormData[form_data_id];
+    
+    // In production, store in your database
+    if (AIRTABLE_API_KEY !== 'keyXXXXXXXXXXXXXX') {
+      await axios({
+        method: 'post',
+        url: `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/CompletedOrders`,
+        headers: {
+          'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        data: {
+          records: [
+            {
+              fields: {
+                'Name': orderData.name,
+                'Email': orderData.email,
+                'Plan': orderData.plan_type,
+                'Company': orderData.company || '',
+                'Phone': orderData.phone || '',
+                'Requirements': orderData.description || '',
+                'Payment Date': orderData.payment_date,
+                'Session ID': orderData.session_id,
+                'Status': 'Paid'
+              }
+            }
+          ]
+        }
+      });
+    }
+    
+    // Send notification email to business owner
+    console.log(`New completed order from ${orderData.name} (${orderData.email}) for ${orderData.plan_type} plan`);
+    
+    // Redirect to onboarding page
+    res.redirect('/onboarding.html?order_complete=true');
+  } catch (error) {
+    console.error('Error processing payment success:', error);
+    res.status(500).json({ success: false, error: 'Failed to process payment success' });
+  }
+});
+
+// Admin endpoint to view both contact form submissions and completed orders
 app.get('/admin/submissions', (req, res) => {
   // In production, implement proper authentication
   const providedPassword = req.query.password;
@@ -229,16 +323,40 @@ app.get('/admin/submissions', (req, res) => {
       </style>
     </head>
     <body>
-      <h1>Form Submissions <a href="/admin/submissions" class="logout">Refresh</a></h1>
+      <h1>Admin Dashboard <a href="/admin/submissions" class="logout">Refresh</a></h1>
+      
+      <h2>Completed Orders</h2>
+  `;
+  
+  if (completedOrders.length === 0) {
+    html += '<div class="empty">No completed orders yet</div>';
+  } else {
+    completedOrders.forEach((order, index) => {
+      const date = new Date(order.payment_date || order.timestamp).toLocaleString();
+      html += `
+        <div class="submission order">
+          <h3>${order.plan_type.toUpperCase()} Plan - £${order.plan_type === 'essentials' ? '499' : order.plan_type === 'professional' ? '999' : 'Custom'}</h3>
+          <div class="meta">Customer: ${order.name} (${order.email}) - ${date}</div>
+          <p><strong>Company:</strong> ${order.company || 'N/A'}</p>
+          <p><strong>Phone:</strong> ${order.phone || 'N/A'}</p>
+          <p><strong>Requirements:</strong> ${order.description || 'N/A'}</p>
+          <div class="status paid">Payment Completed</div>
+        </div>
+      `;
+    });
+  }
+  
+  html += `
+      <h2>Contact Form Submissions</h2>
   `;
   
   if (formSubmissions.length === 0) {
-    html += '<div class="empty">No submissions yet</div>';
+    html += '<div class="empty">No contact form submissions yet</div>';
   } else {
     formSubmissions.forEach((submission, index) => {
       const date = new Date(submission.timestamp).toLocaleString();
       html += `
-        <div class="submission">
+        <div class="submission contact">
           <h3>${submission.subject || 'No Subject'}</h3>
           <div class="meta">From: ${submission.name} (${submission.email}) - ${date}</div>
           <p>${submission.message}</p>
@@ -248,7 +366,14 @@ app.get('/admin/submissions', (req, res) => {
   }
   
   html += `
-      <p>Showing ${formSubmissions.length} most recent submissions</p>
+      <p>Showing ${completedOrders.length} completed orders and ${formSubmissions.length} contact form submissions</p>
+      <style>
+        .order { border-left: 4px solid #2563eb; }
+        .contact { border-left: 4px solid #10b981; }
+        .status { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .paid { background: #dcfce7; color: #166534; }
+        h2 { margin-top: 30px; }
+      </style>
     </body>
     </html>
   `;
