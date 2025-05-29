@@ -603,6 +603,7 @@ app.get('/payment-success', async (req, res) => {
 
 // Admin endpoint to view both contact form submissions and completed orders
 app.get('/admin/submissions', (req, res) => {
+  try {
   // In production, implement proper authentication
   const providedPassword = req.query.password;
   
@@ -638,10 +639,19 @@ app.get('/admin/submissions', (req, res) => {
   } else {
     completedOrders.forEach((order, index) => {
       const date = new Date(order.payment_date || order.timestamp).toLocaleString();
+      // Handle different property names for plan type (plan or plan_type)
+      const planType = order.plan_type || order.plan || 'UNKNOWN';
+      // Convert to lowercase for comparison but display in uppercase
+      const planTypeLower = typeof planType === 'string' ? planType.toLowerCase() : '';
+      // Determine price based on plan type
+      let price = 'Custom';
+      if (planTypeLower.includes('essential')) price = '499';
+      if (planTypeLower.includes('professional') || planTypeLower.includes('executive')) price = '999';
+      
       html += `
         <div class="submission order">
-          <h3>${order.plan_type.toUpperCase()} Plan - £${order.plan_type === 'essentials' ? '499' : order.plan_type === 'professional' ? '999' : 'Custom'}</h3>
-          <div class="meta">Customer: ${order.name} (${order.email}) - ${date}</div>
+          <h3>${typeof planType === 'string' ? planType.toUpperCase() : 'UNKNOWN'} Plan - £${price}</h3>
+          <div class="meta">Customer: ${order.fullName || order.name || 'N/A'} (${order.email || 'N/A'}) - ${date}</div>
           <p><strong>Company:</strong> ${order.company || 'N/A'}</p>
           <p><strong>Phone:</strong> ${order.phone || 'N/A'}</p>
           <p><strong>Requirements:</strong> ${order.description || 'N/A'}</p>
