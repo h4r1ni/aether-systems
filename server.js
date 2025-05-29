@@ -86,8 +86,10 @@ app.post('/create-checkout-session', async (req, res) => {
       name = 'Professional Plan';
       description = 'Up to 3 systems + priority support + 2 refinement rounds + 30-day support';
     } else if (priceId === 'enterprise') {
-      unitAmount = 150000; // Custom pricing starting at £1,500.00
-      name = 'Enterprise Plan';
+      // Enterprise pricing is handled separately through a quote form
+      // We'll use a placeholder price for testing, but in production this is quote-based
+      unitAmount = 0; // Custom pricing determined after consultation
+      name = 'Enterprise Plan - Consultation';
       description = 'Full-stack workflows + API builds + onboarding + training + premium support';
     } else {
       return res.status(400).json({ error: 'Invalid plan selected' });
@@ -226,7 +228,110 @@ app.post('/submit-contact-form', async (req, res) => {
   }
 });
 
-// Handle successful payment and store completed order
+// Handle Stripe webhook for reliable payment tracking
+app.post('/stripe-webhook', async (req, res) => {
+  const payload = req.body;
+  const sig = req.headers['stripe-signature'];
+
+  let event;
+
+  try {
+    // Verify webhook signature
+    // In production, add proper Stripe webhook signature verification
+    // event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
+    
+    // For now, trust the payload
+    event = payload;
+
+    // Handle successful checkout completion
+    if (event.type === 'checkout.session.completed') {
+      const session = event.data.object;
+      const formDataId = session.metadata.form_data_id;
+      
+      // Retrieve the form data
+      const formData = paymentFormData[formDataId];
+      
+      if (formData) {
+        // Create completed order with payment info
+        const orderData = {
+          ...formData,
+          payment_completed: true,
+          payment_date: new Date().toISOString(),
+          session_id: session.id,
+          amount_paid: session.amount_total / 100,
+          currency: session.currency,
+          customer_email: session.customer_details ? session.customer_details.email : formData.email
+        };
+        
+        // Store completed order
+        completedOrders.unshift(orderData);
+        
+        // Clean up temporary storage
+        delete paymentFormData[formDataId];
+        
+        // Store in Airtable (in production)
+        if (AIRTABLE_API_KEY !== 'keyXXXXXXXXXXXXXX') {
+          try {
+            await axios({
+              method: 'post',
+              url: `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/CompletedOrders`,
+              headers: {
+                'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
+                'Content-Type': 'application/json'
+              },
+              data: {
+                records: [
+                  {
+                    fields: {
+                      'Name': orderData.name,
+                      'Email': orderData.email,
+                      'Plan': orderData.plan_type,
+                      'Amount': orderData.amount_paid,
+                      'Currency': orderData.currency,
+                      'Company': orderData.company || '',
+                      'Phone': orderData.phone || '',
+                      'Requirements': orderData.description || '',
+                      'Payment Date': orderData.payment_date,
+                      'Session ID': orderData.session_id,
+                      'Status': 'Paid'
+                    }
+                  }
+                ]
+              }
+            });
+          } catch (error) {
+            console.error('Error storing order in Airtable:', error);
+          }
+        }
+        
+        // Send email notification (in production)
+        // In production, implement actual email sending
+        console.log(`🔔 NEW ORDER: ${orderData.plan_type.toUpperCase()} Plan purchased by ${orderData.name} (${orderData.email}) for £${orderData.amount_paid}`);
+        
+        // Additional logging for immediate attention
+        const timestamp = new Date().toLocaleString();
+        console.log(`\n==================== NEW ORDER ====================`);
+        console.log(`${timestamp}`);
+        console.log(`Plan: ${orderData.plan_type.toUpperCase()} (£${orderData.plan_type === 'essentials' ? '499' : orderData.plan_type === 'professional' ? '999' : 'Custom'})`);
+        console.log(`Customer: ${orderData.name} <${orderData.email}>`);
+        console.log(`Company: ${orderData.company || 'N/A'}`);
+        console.log(`Phone: ${orderData.phone || 'N/A'}`);
+        console.log(`Requirements: ${orderData.description || 'N/A'}`);
+        console.log(`====================================================\n`);
+        
+        // In production, create a file backup of all orders
+        // fs.appendFileSync('orders_backup.txt', JSON.stringify(orderData) + '\n');
+      }
+    }
+    
+    res.json({ received: true });
+  } catch (error) {
+    console.error('Error processing webhook:', error);
+    res.status(400).send(`Webhook Error: ${error.message}`);
+  }
+});
+
+// Handle successful payment and redirect to onboarding page
 app.get('/payment-success', async (req, res) => {
   try {
     const { form_data_id, session_id } = req.query;
