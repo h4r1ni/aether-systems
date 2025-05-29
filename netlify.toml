@@ -20,7 +20,7 @@
   NODE_VERSION = "18"
 
 # Explicitly disable the Next.js plugin
-[plugins]
+[[plugins]]
   package = "@netlify/plugin-nextjs"
   [plugins.inputs]
     enable = false
