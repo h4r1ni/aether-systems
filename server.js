@@ -16,8 +16,11 @@ const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || 'sk_test_51RPpIs2cJTJ
 const stripe = require('stripe')(STRIPE_SECRET_KEY);
 
 // Airtable configuration
-const AIRTABLE_API_KEY = 'keyXXXXXXXXXXXXXX'; // Replace with your Airtable API key in production
-const AIRTABLE_BASE_ID = 'appXXXXXXXXXXXXXX'; // Replace with your Airtable Base ID in production
+const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY || 'keyXXXXXXXXXXXXXX'; // Set this in your environment variables
+const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID || 'appXXXXXXXXXXXXXX'; // Set this in your environment variables
+
+// Simple in-memory storage for form submissions (in production, use a database)
+let formSubmissions = [];
 
 // Middleware
 app.use(express.static(path.join(__dirname, 'public')));
@@ -145,6 +148,112 @@ app.post('/submit-enterprise-quote', async (req, res) => {
     console.error('Error storing enterprise quote request:', error);
     res.status(500).json({ success: false, error: 'Failed to submit quote request' });
   }
+});
+
+// Handle contact form submissions
+app.post('/submit-contact-form', async (req, res) => {
+  try {
+    const formData = req.body;
+    
+    // Add timestamp
+    formData.timestamp = new Date().toISOString();
+    
+    // Store in memory array
+    formSubmissions.unshift(formData); // Add to beginning for newest first
+    
+    // Keep only the most recent 100 submissions
+    if (formSubmissions.length > 100) {
+      formSubmissions = formSubmissions.slice(0, 100);
+    }
+    
+    // In production, send to Airtable
+    if (AIRTABLE_API_KEY !== 'keyXXXXXXXXXXXXXX') {
+      await axios({
+        method: 'post',
+        url: `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/ContactForm`,
+        headers: {
+          'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        data: {
+          records: [
+            {
+              fields: {
+                'Name': formData.name,
+                'Email': formData.email,
+                'Subject': formData.subject,
+                'Message': formData.message,
+                'Date': formData.timestamp
+              }
+            }
+          ]
+        }
+      });
+    }
+    
+    // Send email notification to business owner
+    // In production, implement email sending functionality here
+    console.log(`New contact form submission from ${formData.name} (${formData.email})`);
+    
+    res.json({ success: true, message: 'Form submitted successfully' });
+  } catch (error) {
+    console.error('Error submitting contact form:', error);
+    res.status(500).json({ success: false, error: 'Failed to submit form' });
+  }
+});
+
+// Admin endpoint to view form submissions - password protected
+app.get('/admin/submissions', (req, res) => {
+  // In production, implement proper authentication
+  const providedPassword = req.query.password;
+  
+  // Simple password protection (use much stronger auth in production)
+  if (providedPassword !== 'aether2025') {
+    return res.status(401).send('Unauthorized');
+  }
+  
+  // Create a simple HTML page to display submissions
+  let html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Aether Systems - Form Submissions</title>
+      <style>
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 20px; background: #f8f9fa; }
+        h1 { color: #1a202c; }
+        .submission { background: white; border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .submission h3 { margin-top: 0; }
+        .meta { color: #666; font-size: 0.9rem; }
+        .empty { background: #f0f0f0; padding: 30px; text-align: center; border-radius: 8px; }
+        .logout { float: right; }
+      </style>
+    </head>
+    <body>
+      <h1>Form Submissions <a href="/admin/submissions" class="logout">Refresh</a></h1>
+  `;
+  
+  if (formSubmissions.length === 0) {
+    html += '<div class="empty">No submissions yet</div>';
+  } else {
+    formSubmissions.forEach((submission, index) => {
+      const date = new Date(submission.timestamp).toLocaleString();
+      html += `
+        <div class="submission">
+          <h3>${submission.subject || 'No Subject'}</h3>
+          <div class="meta">From: ${submission.name} (${submission.email}) - ${date}</div>
+          <p>${submission.message}</p>
+        </div>
+      `;
+    });
+  }
+  
+  html += `
+      <p>Showing ${formSubmissions.length} most recent submissions</p>
+    </body>
+    </html>
+  `;
+  
+  res.send(html);
 });
 
 // Store customer data in Airtable after checkout

@@ -3908,20 +3908,38 @@
                 message: document.getElementById('message').value
             };
             
-            // Send the data to company email (using a serverless function or email service)
-            // This would connect to your backend which forwards the email to contact@aethersystems.org
-            // For now, we'll simulate the submission
-            console.log('Form submitted to contact@aethersystems.org:', formData);
+            // Show loading state
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.innerHTML;
+            submitButton.innerHTML = 'Submitting...';
+            submitButton.disabled = true;
             
-            // Show success message
-            this.innerHTML = `<div class="form-success">
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-                <h3>Thanks for reaching out!</h3>
-                <p>We'll get back to you within 24 hours to discuss your automation needs.</p>
-            </div>`;
+            // Send the data to our server endpoint
+            fetch('/submit-contact-form', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Show success message
+                this.innerHTML = `<div class="form-success">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <h3>Thanks for reaching out!</h3>
+                    <p>We'll get back to you within 24 hours to discuss your automation needs.</p>
+                </div>`;
+            })
+            .catch(error => {
+                console.error('Error submitting form:', error);
+                submitButton.innerHTML = originalButtonText;
+                submitButton.disabled = false;
+                alert('There was an error submitting your form. Please try again.');
+            });
         });
         
         // Mobile navigation toggle
