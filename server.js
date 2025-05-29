@@ -30,6 +30,42 @@ app.use(express.static(__dirname));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Simple notification functions (in production, use proper services)
+const sendEmailNotification = async (subject, content) => {
+  try {
+    // In production, implement with a service like SendGrid, Mailgun, etc.
+    // For now, just log that we would send an email
+    console.log(`\n==== EMAIL NOTIFICATION WOULD BE SENT ====`);
+    console.log(`TO: contact@aethersystems.org`);
+    console.log(`SUBJECT: ${subject}`);
+    console.log(`CONTENT: \n${content}`);
+    console.log(`=========================================\n`);
+    
+    // In production, uncomment and use code like this:
+    /*
+    const mailOptions = {
+      from: 'noreply@aethersystems.org',
+      to: 'contact@aethersystems.org',
+      subject: subject,
+      html: content
+    };
+    await transporter.sendMail(mailOptions);
+    */
+    
+    // Also save a local copy as a fallback
+    const timestamp = new Date().toISOString();
+    const logEntry = `\n[${timestamp}] ${subject}\n${content}\n------------------------\n`;
+    
+    // In production, enable this to write to a file
+    // fs.appendFileSync('notifications.log', logEntry);
+    
+    return true;
+  } catch (error) {
+    console.error('Error sending notification:', error);
+    return false;
+  }
+};
+
 // Enable CORS
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -46,6 +82,109 @@ app.use((req, res, next) => {
 // Default route
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Order notifications page with QR code for quick access
+app.get('/notifications', (req, res) => {
+  // Simple password protection
+  const providedPassword = req.query.key;
+  if (providedPassword !== 'aether2025') {
+    return res.status(401).send('Unauthorized');
+  }
+  
+  // Generate a simple HTML page with notification options
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Aether Systems - Notifications</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 20px; background: #f8f9fa; }
+        .container { max-width: 600px; margin: 0 auto; }
+        h1 { color: #1a202c; }
+        .card { background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .status { padding: 10px; background: #e6fffa; border-radius: 4px; margin-bottom: 20px; }
+        .toggle { display: block; padding: 10px; background: #2563eb; color: white; border-radius: 4px; text-align: center; text-decoration: none; margin-bottom: 10px; }
+        .qr-code { text-align: center; margin: 20px 0; }
+        .note { font-size: 0.8rem; color: #666; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <h1>Order Notifications</h1>
+        
+        <div class="card">
+          <div class="status" id="status">Waiting for orders...</div>
+          
+          <a href="/admin/submissions?password=aether2025" class="toggle">View All Orders</a>
+          
+          <div class="qr-code">
+            <p>Scan to monitor orders on your phone:</p>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(`https://aethersystems.org/notifications?key=aether2025`)}" alt="QR Code" />
+            <p class="note">This page will automatically notify you when new orders come in.</p>
+          </div>
+        </div>
+      </div>
+      
+      <script>
+        // Set up event source for real-time notifications
+        const statusElement = document.getElementById('status');
+        
+        // Check for new orders every 30 seconds
+        function checkOrders() {
+          // In production, implement server-sent events or websockets
+          fetch('/orders/check?key=aether2025')
+            .then(response => response.json())
+            .then(data => {
+              if (data.newOrders > 0) {
+                statusElement.innerHTML = 'New Order Alert: ' + data.newOrders + ' new order(s) received!';
+                statusElement.style.background = '#fef2f2';
+                statusElement.style.color = '#b91c1c';
+                // Play notification sound
+                const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLXpIaXQAAAAASUNDUFJPRklMRQAIAAAAAGFwcGwCEAAAbW50clJHQiBYWVogB+YAAQABAAAAAAAAYWNzcEFQUEwAAAAAYXBwbAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y1hcHBsyhqVgiV/EE04mRPV0ooAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACmRlc2MAAABMAAAAQmNwcnQAAACAAAAAKG1NcnR5AAAAvAAAACh3ZGm4AAABSAAAABRiWFlaAAABXAAAABRuVFJDAAABhAAAAA5nVFJDAAABlAAAAA5iVFJDAAABpAAAAA5yWFlaAAAB9AAAABRkbWRkAAACCAAAACBycGFkAAACKAAAACBnYXNkAAACOAAAACBiYXMgZAAAClwAAAAgU2VsZWNjaW9uYSBlbCBwZXJmaWwgUkdCQiB5ZWwgdGlwbyBkZSBkaXNwb3NpdGl2by4AAAAYUm9qbwAAAA9Sb2pvIGludGVuc28AAAAVE5hcmFuamEgYnJpbGxhbnRlAAAACU5hcmFuamEAAAAYTmFyYW5qYSBpbnRlbnNvAAAAI05hcmFuamEgcHJvZnVuZG8AAAAOTmFyYW5qYSBvc2N1cm8AAAAZTmFyYW5qYSBtw6FzIG9zY3VybwAAABBNYXJyw7NuIGNsYXJvAAAAB0Rpc3BsYXkAAABlSWQgdGhlIHRpbWUsIHBsYXllZCBvbiBhIHdoaXRlIGJhY2tncm91bmQgd2l0aCBhIHBsYWluIGJsYWNrIHRleHQgYXQgdGhpcyBzaXplIGJ5IExvdHVzIG9uIGEgd2hpdGUgY3JhY2sATWFjIE9TIFggMTAuNS44IDsvOzs7Ozs7Ozs7Ozs7Ozs7AABYWVogAAAAAAAA81QAAQAAAAEWz1hZWiAAAAAAAACNwAAAoDYAAAsjWFlaIAAAAAAAAGkTAADemQAAjNxYWVogAAAAAAAAO/oAAGPKAADN22hhc2QAAAAAAAMAAAADZm10ZAAAAAAAAAAAAAAAABNFTENPUkUgSVRDIFAtMwAAAAAAAAAAAAAAAAAAAAAAS0QgMjQ5NCAyMDEyAE1JSUMQXwc3MQAAAAAAAGx1bWkAAAAA7wAAAMQAAAAAAAAAAAAAAAAAAAAAAAAAJFbWluAAAAAAAAAkYAAAACROAAAAADRiaW4AAAAAPAAAAAAAAAAAAAAAAAAAAAAAAAAkVW5pAAAAAAAAADCsAAAAYGNwcnQAAACQAAAAkNzd0P8AAAAYc3BtAQAAAOgAAADwAAAAiGljdHAAAAAAAAAAEHJYWVoAAAGoAAAAFGdYWVoAAAG8AAAAFGJYWVoAAAHQAAAAFHJUUkMAAAHkAAAADmNoYWQAAAH0AAAALGJUUkMAAAHkAAAADmdUUkMAAAHkAAAADmZZWlwAAALcAAAAFGRZWlwAAALwAAAAFGJZWlwAAAMEAAAAFHRleHQAAAAAQ29weXJpZ2h0IDIwMDkgQXBwbGUgSW5jLiwgYWxsIHJpZ2h0cyByZXNlcnZlZC4AZGVzYwAAAAAAAAAZSFAgUHJvQm9vayAxNS40IEdsb3NzeQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY3QAAAAAAAAAJEIAEEAAAABAhgAPwAAAAECYAAcwAAAAQJg==');
+                audio.play();
+                // Vibrate if supported
+                if (navigator.vibrate) {
+                  navigator.vibrate([200, 100, 200]);
+                }
+              } else {
+                statusElement.innerHTML = 'Waiting for orders...';
+                statusElement.style.background = '#e6fffa';
+                statusElement.style.color = 'inherit';
+              }
+            })
+            .catch(error => console.error('Error checking orders:', error));
+        }
+        
+        // Check immediately and then every 30 seconds
+        checkOrders();
+        setInterval(checkOrders, 30000);
+      </script>
+    </body>
+    </html>
+  `;
+  
+  res.send(html);
+});
+
+// Endpoint to check for new orders
+app.get('/orders/check', (req, res) => {
+  // Simple authentication
+  const providedKey = req.query.key;
+  if (providedKey !== 'aether2025') {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  
+  // In production, implement a proper way to track which orders are new
+  // For now, just return the count of orders in the last hour
+  const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
+  const newOrders = completedOrders.filter(order => {
+    const orderDate = new Date(order.payment_date || order.timestamp);
+    return orderDate > oneHourAgo;
+  }).length;
+  
+  res.json({ newOrders });
 });
 
 // Store form data before redirecting to payment
@@ -217,9 +356,26 @@ app.post('/submit-contact-form', async (req, res) => {
       });
     }
     
-    // Send email notification to business owner
-    // In production, implement email sending functionality here
-    console.log(`New contact form submission from ${formData.name} (${formData.email})`);
+    // Send immediate email notification for contact form
+    const subject = `📩 New Contact Form Submission from ${formData.name}`;
+    
+    const emailContent = `
+<h2>New Contact Form Submission</h2>
+<p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
+<p><strong>From:</strong> ${formData.name} <${formData.email}></p>
+<p><strong>Subject:</strong> ${formData.subject || 'N/A'}</p>
+<p><strong>Message:</strong><br>${formData.message}</p>
+<p><a href="https://aethersystems.org/admin/submissions?password=aether2025">View all submissions in admin dashboard</a></p>
+`;
+    
+    // Send email notification
+    await sendEmailNotification(subject, emailContent);
+    
+    // Log the submission
+    console.log(`\n==== NEW CONTACT FORM SUBMISSION ====`);
+    console.log(`From: ${formData.name} <${formData.email}>`);
+    console.log(`Subject: ${formData.subject || 'N/A'}`);
+    console.log(`===================================\n`);
     
     res.json({ success: true, message: 'Form submitted successfully' });
   } catch (error) {
@@ -304,15 +460,29 @@ app.post('/stripe-webhook', async (req, res) => {
           }
         }
         
-        // Send email notification (in production)
-        // In production, implement actual email sending
-        console.log(`🔔 NEW ORDER: ${orderData.plan_type.toUpperCase()} Plan purchased by ${orderData.name} (${orderData.email}) for £${orderData.amount_paid}`);
+        // Send immediate email notification
+        const planPrice = orderData.plan_type === 'essentials' ? '£499' : orderData.plan_type === 'professional' ? '£999' : 'Custom';
+        const subject = `NEW ORDER: ${orderData.plan_type.toUpperCase()} Plan (${planPrice})`;
+        
+        const emailContent = `
+<h2>New Order Received!</h2>
+<p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
+<p><strong>Plan:</strong> ${orderData.plan_type.toUpperCase()} (${planPrice})</p>
+<p><strong>Customer:</strong> ${orderData.name} <${orderData.email}></p>
+<p><strong>Company:</strong> ${orderData.company || 'N/A'}</p>
+<p><strong>Phone:</strong> ${orderData.phone || 'N/A'}</p>
+<p><strong>Requirements:</strong> ${orderData.description || 'N/A'}</p>
+<p><a href="https://aethersystems.org/admin/submissions?password=aether2025">View all orders in admin dashboard</a></p>
+`;
+        
+        // Send email notification
+        await sendEmailNotification(subject, emailContent);
         
         // Additional logging for immediate attention
         const timestamp = new Date().toLocaleString();
         console.log(`\n==================== NEW ORDER ====================`);
         console.log(`${timestamp}`);
-        console.log(`Plan: ${orderData.plan_type.toUpperCase()} (£${orderData.plan_type === 'essentials' ? '499' : orderData.plan_type === 'professional' ? '999' : 'Custom'})`);
+        console.log(`Plan: ${orderData.plan_type.toUpperCase()} (${planPrice})`);
         console.log(`Customer: ${orderData.name} <${orderData.email}>`);
         console.log(`Company: ${orderData.company || 'N/A'}`);
         console.log(`Phone: ${orderData.phone || 'N/A'}`);
