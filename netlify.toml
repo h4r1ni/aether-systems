@@ -1,6 +1,6 @@
 [build]
   command = "npm install"
-  publish = "."
+  publish = "public_html"
   functions = "netlify/functions"
   framework = "#static"
 
