@@ -8,8 +8,9 @@ const axios = require('axios');
 const app = express();
 
 // Stripe API configuration - ALWAYS use environment variables in production
-const STRIPE_PUBLISHABLE_KEY = process.env.STRIPE_PUBLISHABLE_KEY || 'pk_test_placeholder_key';
-const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || 'sk_test_placeholder_key';
+// These keys should be set in your hosting environment, not hardcoded
+const STRIPE_PUBLISHABLE_KEY = process.env.STRIPE_PUBLISHABLE_KEY || 'pk_test_51RPpIs2cJTJMG24U64IUBt1htmHA8r64WC5jKDIG6bEqCaYxHvpEAY9uDj2b56B8CNuwogt6EkVfJrnTpAbl4lLf00dWTYGznk';
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || 'sk_test_51RPpIs2cJTJMG24UfIXrPEKDx4Kv5nMdwh8rRiNV1VmtxL0s7fFddAh8gxKnnHXRQClfXaBwsQ4O7pVi7wMh1MX7000IgAuOLo';
 
 // Initialize Stripe with the secret key
 const stripe = require('stripe')(STRIPE_SECRET_KEY);
@@ -51,17 +52,17 @@ app.post('/create-checkout-session', async (req, res) => {
     let unitAmount, description, name;
     
     if (priceId === 'essentials') {
-      unitAmount = 55500; // £555.00
-      name = 'Essentials Solution';
-      description = 'Premium workflow automation + 7-day expedited delivery + 2 refinement iterations';
-    } else if (priceId === 'executive') {
+      unitAmount = 49900; // £499.00
+      name = 'Essentials Plan';
+      description = '1 system or automation + 5-day delivery + 2 revisions + documentation';
+    } else if (priceId === 'professional') {
       unitAmount = 99900; // £999.00
-      name = 'Executive Solution';
-      description = 'Multi-system integration + 30-day priority support + comprehensive documentation';
+      name = 'Professional Plan';
+      description = 'Up to 3 systems + priority support + 2 refinement rounds + 30-day support';
     } else if (priceId === 'enterprise') {
-      unitAmount = 150000; // £1,500.00
-      name = 'Enterprise Transformation';
-      description = 'Complete business ecosystem transformation + dedicated CTO & success team';
+      unitAmount = 150000; // Custom pricing starting at £1,500.00
+      name = 'Enterprise Plan';
+      description = 'Full-stack workflows + API builds + onboarding + training + premium support';
     } else {
       return res.status(400).json({ error: 'Invalid plan selected' });
     }
