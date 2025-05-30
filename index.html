@@ -13,6 +13,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
+    <!-- Custom timeline CSS -->
+    <link rel="stylesheet" href="assets/css/timeline.css">
+    
     <!-- Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MEASUREMENT-ID"></script>
     <script>
@@ -2958,11 +2961,247 @@
         </div>
     </section>
 
+    <!-- How It Works Section -->
+    <section class="section" id="process">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Process</h2>
+                <p>Here's how we transform your requirements into reality</p>
+            </div>
+            
+            <style>
+                .workflow-process {
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 4rem 0;
+                    position: relative;
+                }
+                
+                /* Connecting line between boxes */
+                .workflow-line {
+                    position: absolute;
+                    top: 120px;
+                    left: 140px;
+                    right: 140px;
+                    height: 2px;
+                    background: linear-gradient(90deg, rgba(52, 152, 219, 0.2), rgba(52, 152, 219, 0.7), rgba(52, 152, 219, 0.2));
+                    z-index: 1;
+                }
+                
+                .workflow-step {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    position: relative;
+                    z-index: 2;
+                    width: 300px;
+                }
+                
+                .workflow-number {
+                    width: 48px;
+                    height: 48px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50%;
+                    background-color: #3498db;
+                    color: white;
+                    font-weight: 700;
+                    font-size: 20px;
+                    margin-bottom: 10px;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                }
+                
+                .workflow-title {
+                    font-size: 18px;
+                    font-weight: 700;
+                    color: #1a202c;
+                    margin-bottom: 20px;
+                    text-align: center;
+                    border-bottom: 1px solid #edf2f7;
+                    padding-bottom: 10px;
+                    width: 100%;
+                }
+                
+                .workflow-card {
+                    background-color: white;
+                    border: 1px solid rgba(0, 0, 0, 0.08);
+                    border-radius: 8px;
+                    padding: 20px;
+                    width: 100%;
+                    height: 250px;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: center;
+                }
+                
+                .workflow-card:hover {
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                }
+                
+                .workflow-party {
+                    margin-bottom: 15px;
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    padding: 12px 15px;
+                    border-radius: 6px;
+                    background-color: #f8fafc;
+                }
+                
+                .workflow-party:last-child {
+                    margin-bottom: 0;
+                    background-color: #ebf8ff;
+                }
+                
+                .party-label {
+                    display: inline-block;
+                    font-size: 12px;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    margin-bottom: 6px;
+                    padding: 2px 0;
+                }
+                
+                .you-label {
+                    color: #4a5568;
+                }
+                
+                .we-label {
+                    color: #3498db;
+                }
+                
+                .party-text {
+                    font-size: 14px;
+                    color: #2d3748;
+                    line-height: 1.4;
+                    font-weight: 500;
+                }
+                
+                /* Process section styles */
+                .section#process {
+                    padding: 80px 0;
+                    background-color: white;
+                }
+                
+                .section-title {
+                    margin-bottom: 3rem;
+                }
+                
+                .section-title h2 {
+                    font-size: 2.25rem;
+                    margin-bottom: 1rem;
+                }
+                
+                .section-title p {
+                    font-size: 1.1rem;
+                    max-width: 700px;
+                    margin: 0 auto;
+                }
+                
+                @media (max-width: 1100px) {
+                    .workflow-process {
+                        padding: 0 2rem;
+                    }
+                }
+                
+                @media (max-width: 992px) {
+                    .workflow-process {
+                        flex-direction: column;
+                        align-items: center;
+                        gap: 70px;
+                        padding: 0;
+                    }
+                    
+                    .workflow-line {
+                        display: none;
+                    }
+                    
+                    .workflow-step {
+                        width: 90%;
+                        max-width: 360px;
+                    }
+                }
+                
+                @media (max-width: 640px) {
+                    .section-title h2 {
+                        font-size: 1.8rem;
+                    }
+                    
+                    .workflow-step {
+                        width: 100%;
+                    }
+                }
+            </style>
+            
+            <div class="workflow-process">
+                <!-- Line connecting steps -->
+                <div class="workflow-line"></div>
+                
+                <!-- Step 1: Plan -->
+                <div class="workflow-step">
+                    <div class="workflow-card">
+                        <div class="workflow-number">1</div>
+                        <h3 class="workflow-title">Plan</h3>
+                        
+                        <div class="workflow-party">
+                            <div class="party-label you-label">YOU</div>
+                            <div class="party-text">Submit your form with business requirements</div>
+                        </div>
+                        
+                        <div class="workflow-party">
+                            <div class="party-label we-label">WE</div>
+                            <div class="party-text">Analyze your needs and create a custom solution</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Setup -->
+                <div class="workflow-step">
+                    <div class="workflow-card">
+                        <div class="workflow-number">2</div>
+                        <h3 class="workflow-title">Setup</h3>
+                        
+                        <div class="workflow-party">
+                            <div class="party-label you-label">YOU</div>
+                            <div class="party-text">Complete 2-3 quick ownership steps (domain, hosting)</div>
+                        </div>
+                        
+                        <div class="workflow-party">
+                            <div class="party-label we-label">WE</div>
+                            <div class="party-text">Build, automate, and connect everything</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Launch -->
+                <div class="workflow-step">
+                    <div class="workflow-card">
+                        <div class="workflow-number">3</div>
+                        <h3 class="workflow-title">Launch</h3>
+                        
+                        <div class="workflow-party">
+                            <div class="party-label you-label">YOU</div>
+                            <div class="party-text">Get your final dashboard and full ownership</div>
+                        </div>
+                        
+                        <div class="workflow-party">
+                            <div class="party-label we-label">WE</div>
+                            <div class="party-text">Hand over with support options</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- What You'll Receive Section -->
     <section class="section" id="deliverables">
         <div class="container">
             <div class="section-title">
-                <span class="accent-text">Business Automation</span>
                 <h2>What You'll Receive</h2>
             </div>
             
@@ -3268,7 +3507,9 @@
                         // Initially hide all answers
                         content.style.display = 'none';
                         
-                        header.addEventListener('click', () => {
+                        toggle.addEventListener('click', (e) => {
+                            e.stopPropagation(); // Prevent event from bubbling up
+                            
                             // Close all other items
                             faqCards.forEach(otherCard => {
                                 if (otherCard !== card && otherCard.querySelector('.faq-content').style.display === 'block') {
