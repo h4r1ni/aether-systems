@@ -1,7 +1,7 @@
 // Client-side JavaScript for Stripe integration
 document.addEventListener('DOMContentLoaded', function() {
     // Load Stripe.js - use your own publishable key in production
-    const stripe = Stripe('pk_test_your_publishable_key');
+    const stripe = Stripe('pk_test_51RPpIs2cJTJMG24U64IUBt1htmHA8r64WC5jKDIG6bEqCaYxHvpEAY9uDj2b56B8CNuwogt6EkVfJrnTpAbl4lLf00dWTYGznk');
 
     // Track page view for Analytics
     if (typeof gtag !== 'undefined') {
@@ -47,6 +47,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const executiveBuyButton = document.getElementById('executive-buy-button');
     const enterpriseBuyButton = document.getElementById('enterprise-buy-button');
     const heroEnterpriseButton = document.getElementById('hero-enterprise-button');
+    
+    // Get references to the monthly support buttons by directly indexing them
+    const supportButtons = document.querySelectorAll('.post-support-section .btn-submit');
+    const basicSupportButton = supportButtons[0];  // £30/month - Basic Support
+    const standardSupportButton = supportButtons[1];  // £60/month - Standard Support
+    const premiumSupportButton = supportButtons[2];  // £100/month - Premium Support
     
     // Get references to the modals
     const essentialsModal = document.getElementById('essentials-modal');
@@ -99,13 +105,57 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Add event listeners for the monthly support plan buttons
+    if (basicSupportButton) {
+        basicSupportButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Use 'basic' as the plan type and 'basic-support' as the support option
+            createCheckoutSession('basic', 'basic-support');
+        });
+    }
+    
+    if (standardSupportButton) {
+        standardSupportButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Use 'basic' as the plan type and 'standard-support' as the support option
+            createCheckoutSession('basic', 'standard-support');
+        });
+    }
+    
+    if (premiumSupportButton) {
+        premiumSupportButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Use 'basic' as the plan type and 'premium-support' as the support option
+            createCheckoutSession('basic', 'premium-support');
+        });
+    }
+    
+    // Function to get plan value for analytics
+    function getPlanValue(planType) {
+        switch (planType) {
+            case 'basic':
+                return 499;
+            case 'professional':
+                return 999;
+            case 'basic-support':
+                return 30;
+            case 'standard-support':
+                return 60;
+            case 'premium-support':
+                return 100;
+            default:
+                return 0;
+        }
+    }
+    
     // Function to create a checkout session
-    function createCheckoutSession(planType) {
+    function createCheckoutSession(planType, supportOption = 'no-support') {
         // Track click event for analytics
         if (typeof gtag !== 'undefined') {
             gtag('event', 'select_tier', {
                 'event_category': 'premium_tier',
-                'event_label': planType
+                'event_label': planType,
+                'support_option': supportOption
             });
         }
         
@@ -117,7 +167,8 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             body: JSON.stringify({
                 priceId: planType,
-                planName: planType
+                planName: planType,
+                supportOption: supportOption // Add support option to the request
             })
         })
         .then(function(response) {
@@ -129,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 gtag('event', 'begin_checkout', {
                     'event_category': 'ecommerce',
                     'event_label': planType,
-                    'value': planType === 'basic' ? 499 : 999
+                    'value': getPlanValue(planType)
                 });
             }
             

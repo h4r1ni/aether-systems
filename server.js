@@ -224,46 +224,73 @@ app.post('/store-form-data', async (req, res) => {
 app.post('/create-checkout-session', async (req, res) => {
   try {
     const { priceId, formDataId } = req.body;
+    let unitAmount, name, description, mode, recurring;
     
-    // Price configuration based on plan
-    let unitAmount, description, name;
-    
-    if (priceId === 'essentials') {
+    // One-time payment plans
+    if (priceId === 'basic') {
       unitAmount = 49900; // £499.00
       name = 'Essentials Plan';
-      description = '1 system or automation + 5-day delivery + 2 revisions + documentation';
+      description = 'Single workflow system + 5-day delivery + 2 refinement rounds + 14-day support';
+      mode = 'payment'; // one-time payment
     } else if (priceId === 'professional') {
       unitAmount = 99900; // £999.00
       name = 'Professional Plan';
       description = 'Up to 3 systems + priority support + 2 refinement rounds + 30-day support';
+      mode = 'payment'; // one-time payment
     } else if (priceId === 'enterprise') {
-      // Enterprise pricing is handled separately through a quote form
       // We'll use a placeholder price for testing, but in production this is quote-based
       unitAmount = 0; // Custom pricing determined after consultation
       name = 'Enterprise Plan - Consultation';
       description = 'Full-stack workflows + API builds + onboarding + training + premium support';
+      mode = 'payment'; // one-time payment
+    } 
+    // Monthly subscription support plans
+    else if (priceId === 'basic-support') {
+      unitAmount = 3000; // £30.00 per month
+      name = 'Basic Monthly Support';
+      description = 'Essential support for simple systems with basic functionality needs.';
+      mode = 'subscription';
+      recurring = { interval: 'month' };
+    } else if (priceId === 'standard-support') {
+      unitAmount = 6000; // £60.00 per month
+      name = 'Standard Monthly Support';
+      description = 'Enhanced support for multi-component systems with moderate complexity.';
+      mode = 'subscription';
+      recurring = { interval: 'month' };
+    } else if (priceId === 'premium-support') {
+      unitAmount = 10000; // £100.00 per month
+      name = 'Premium Monthly Support';
+      description = 'Comprehensive support for complex enterprise-grade systems.';
+      mode = 'subscription';
+      recurring = { interval: 'month' };
     } else {
       return res.status(400).json({ error: 'Invalid plan selected' });
+    }
+    
+    // Prepare line items based on whether it's a one-time payment or subscription
+    const lineItem = {
+      price_data: {
+        currency: 'gbp',
+        product_data: {
+          name: name,
+          description: description,
+          images: ['https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3'],
+        },
+        unit_amount: unitAmount,
+      },
+      quantity: 1,
+    };
+    
+    // Add recurring parameter for subscription plans
+    if (recurring) {
+      lineItem.price_data.recurring = recurring;
     }
     
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
-      line_items: [
-        {
-          price_data: {
-            currency: 'gbp',
-            product_data: {
-              name: name,
-              description: description,
-              images: ['https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3'],
-            },
-            unit_amount: unitAmount,
-          },
-          quantity: 1,
-        },
-      ],
-      mode: 'payment',
+      line_items: [lineItem],
+      mode: mode, // 'payment' for one-time or 'subscription' for recurring
       success_url: `${req.protocol}://${req.get('host')}/onboarding.html?payment_success=true&plan_type=${priceId}&form_data_id=${formDataId}`,
       cancel_url: `${req.protocol}://${req.get('host')}/index.html#pricing`,
       metadata: {
@@ -604,96 +631,100 @@ app.get('/payment-success', async (req, res) => {
 // Admin endpoint to view both contact form submissions and completed orders
 app.get('/admin/submissions', (req, res) => {
   try {
-  // In production, implement proper authentication
-  const providedPassword = req.query.password;
-  
-  // Simple password protection (use much stronger auth in production)
-  if (providedPassword !== 'aether2025') {
-    return res.status(401).send('Unauthorized');
+    // In production, implement proper authentication
+    const providedPassword = req.query.password;
+    
+    // Simple password protection (use much stronger auth in production)
+    if (providedPassword !== 'aether2025') {
+      return res.status(401).send('Unauthorized');
+    }
+    
+    // Create a simple HTML page to display submissions
+    let html = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Aether Systems - Form Submissions</title>
+        <style>
+          body { font-family: 'Inter', sans-serif; margin: 0; padding: 20px; background: #f8f9fa; }
+          h1 { color: #1a202c; }
+          .submission { background: white; border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+          .submission h3 { margin-top: 0; }
+          .meta { color: #666; font-size: 0.9rem; }
+          .empty { background: #f0f0f0; padding: 30px; text-align: center; border-radius: 8px; }
+          .logout { float: right; }
+        </style>
+      </head>
+      <body>
+        <h1>Admin Dashboard <a href="/admin/submissions" class="logout">Refresh</a></h1>
+        
+        <h2>Completed Orders</h2>
+    `;
+    
+    if (completedOrders.length === 0) {
+      html += '<div class="empty">No completed orders yet</div>';
+    } else {
+      completedOrders.forEach((order, index) => {
+        const date = new Date(order.payment_date || order.timestamp).toLocaleString();
+        // Handle different property names for plan type (plan or plan_type)
+        const planType = order.plan_type || order.plan || 'UNKNOWN';
+        // Convert to lowercase for comparison but display in uppercase
+        const planTypeLower = typeof planType === 'string' ? planType.toLowerCase() : '';
+        // Determine price based on plan type
+        let price = 'Custom';
+        if (planTypeLower.includes('essential')) price = '499';
+        if (planTypeLower.includes('professional') || planTypeLower.includes('executive')) price = '999';
+        
+        html += `
+          <div class="submission order">
+            <h3>${typeof planType === 'string' ? planType.toUpperCase() : 'UNKNOWN'} Plan - £${price}</h3>
+            <div class="meta">Customer: ${order.fullName || order.name || 'N/A'} (${order.email || 'N/A'}) - ${date}</div>
+            <p><strong>Company:</strong> ${order.company || 'N/A'}</p>
+            <p><strong>Phone:</strong> ${order.phone || 'N/A'}</p>
+            <p><strong>Requirements:</strong> ${order.description || 'N/A'}</p>
+            <div class="status paid">Payment Completed</div>
+          </div>
+        `;
+      });
+    }
+    
+    html += `
+        <h2>Contact Form Submissions</h2>
+    `;
+    
+    if (formSubmissions.length === 0) {
+      html += '<div class="empty">No contact form submissions yet</div>';
+    } else {
+      formSubmissions.forEach((submission, index) => {
+        const date = new Date(submission.timestamp).toLocaleString();
+        html += `
+          <div class="submission contact">
+            <h3>${submission.subject || 'No Subject'}</h3>
+            <div class="meta">From: ${submission.name} (${submission.email}) - ${date}</div>
+            <p>${submission.message}</p>
+          </div>
+        `;
+      });
+    }
+    
+    html += `
+        <p>Showing ${completedOrders.length} completed orders and ${formSubmissions.length} contact form submissions</p>
+        <style>
+          .order { border-left: 4px solid #2563eb; }
+          .contact { border-left: 4px solid #10b981; }
+          .status { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+          .paid { background: #dcfce7; color: #166534; }
+          h2 { margin-top: 30px; }
+        </style>
+      </body>
+      </html>
+    `;
+    
+    res.send(html);
+  } catch (error) {
+    console.error('Error rendering admin submissions page:', error);
+    res.status(500).send('An error occurred while retrieving submissions');
   }
-  
-  // Create a simple HTML page to display submissions
-  let html = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <title>Aether Systems - Form Submissions</title>
-      <style>
-        body { font-family: 'Inter', sans-serif; margin: 0; padding: 20px; background: #f8f9fa; }
-        h1 { color: #1a202c; }
-        .submission { background: white; border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .submission h3 { margin-top: 0; }
-        .meta { color: #666; font-size: 0.9rem; }
-        .empty { background: #f0f0f0; padding: 30px; text-align: center; border-radius: 8px; }
-        .logout { float: right; }
-      </style>
-    </head>
-    <body>
-      <h1>Admin Dashboard <a href="/admin/submissions" class="logout">Refresh</a></h1>
-      
-      <h2>Completed Orders</h2>
-  `;
-  
-  if (completedOrders.length === 0) {
-    html += '<div class="empty">No completed orders yet</div>';
-  } else {
-    completedOrders.forEach((order, index) => {
-      const date = new Date(order.payment_date || order.timestamp).toLocaleString();
-      // Handle different property names for plan type (plan or plan_type)
-      const planType = order.plan_type || order.plan || 'UNKNOWN';
-      // Convert to lowercase for comparison but display in uppercase
-      const planTypeLower = typeof planType === 'string' ? planType.toLowerCase() : '';
-      // Determine price based on plan type
-      let price = 'Custom';
-      if (planTypeLower.includes('essential')) price = '499';
-      if (planTypeLower.includes('professional') || planTypeLower.includes('executive')) price = '999';
-      
-      html += `
-        <div class="submission order">
-          <h3>${typeof planType === 'string' ? planType.toUpperCase() : 'UNKNOWN'} Plan - £${price}</h3>
-          <div class="meta">Customer: ${order.fullName || order.name || 'N/A'} (${order.email || 'N/A'}) - ${date}</div>
-          <p><strong>Company:</strong> ${order.company || 'N/A'}</p>
-          <p><strong>Phone:</strong> ${order.phone || 'N/A'}</p>
-          <p><strong>Requirements:</strong> ${order.description || 'N/A'}</p>
-          <div class="status paid">Payment Completed</div>
-        </div>
-      `;
-    });
-  }
-  
-  html += `
-      <h2>Contact Form Submissions</h2>
-  `;
-  
-  if (formSubmissions.length === 0) {
-    html += '<div class="empty">No contact form submissions yet</div>';
-  } else {
-    formSubmissions.forEach((submission, index) => {
-      const date = new Date(submission.timestamp).toLocaleString();
-      html += `
-        <div class="submission contact">
-          <h3>${submission.subject || 'No Subject'}</h3>
-          <div class="meta">From: ${submission.name} (${submission.email}) - ${date}</div>
-          <p>${submission.message}</p>
-        </div>
-      `;
-    });
-  }
-  
-  html += `
-      <p>Showing ${completedOrders.length} completed orders and ${formSubmissions.length} contact form submissions</p>
-      <style>
-        .order { border-left: 4px solid #2563eb; }
-        .contact { border-left: 4px solid #10b981; }
-        .status { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
-        .paid { background: #dcfce7; color: #166534; }
-        h2 { margin-top: 30px; }
-      </style>
-    </body>
-    </html>
-  `;
-  
-  res.send(html);
 });
 
 // Store customer data in Airtable after checkout
