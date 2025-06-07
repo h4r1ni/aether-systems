@@ -1263,10 +1263,10 @@
         
         .metric-value {
             display: block;
-            font-size: 1.8rem;
+            font-size: 2.4rem; /* Adjusted from 2.8rem inline / 1.8rem class */
             font-weight: 700;
-            color: var(--accent);
-            line-height: 1;
+            color: var(--primary); /* Was var(--accent) in class, var(--primary) inline */
+            line-height: 1.1;    /* Was 1 in class, 1.1 inline */
             margin-bottom: 8px;
         }
         
@@ -2900,6 +2900,149 @@
                 padding: var(--spacing-lg);
             }
         }
+
+        /* Who We Build For Section */
+        .build-for-intro {
+            font-size: 1.8rem; /* Adjusted for impact, similar to other section titles */
+            color: var(--primary);
+            /* margin-bottom: var(--spacing-xl); /* Handled by inline style on parent div */
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .build-for-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Min width for better content flow */
+            gap: var(--spacing-md);
+            max-width: 1100px; /* Wider for potentially 2-3 columns */
+            margin: 0 auto;
+        }
+
+        .build-for-item {
+            background-color: var(--white);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-lg); /* Slightly larger radius for premium feel */
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border); /* Subtle border using existing var */
+            display: flex; /* Added for flex layout */
+            flex-direction: column; /* Stack title and p vertically */
+        }
+
+        .build-for-item:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-xl); /* More pronounced hover shadow */
+        }
+
+        .build-for-item-title {
+            font-size: 1.2rem; /* Prominent item titles */
+            color: var(--primary-dark); /* Darker primary for titles */
+            font-weight: 600;
+            margin-bottom: var(--spacing-md); /* More space below title */
+            line-height: 1.4;
+        }
+
+        .build-for-item p {
+            font-size: 0.9rem;
+            line-height: 1.65; /* Increased for readability */
+            color: var(--text); /* Standard text color */
+            margin-bottom: 0;
+            flex-grow: 1; /* Allow paragraph to take available space if items have uneven text */
+        }
+
+        /* Comparison Section Styles */
+        #comparison .pull-quote {
+            text-align: center;
+            margin: 40px auto 50px;
+            max-width: 650px;
+        }
+
+        #comparison .pull-quote p {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary);
+            font-family: var(--font-serif, Georgia, serif);
+            line-height: 1.4;
+        }
+
+        #comparison .comparison-intro-text {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--text-light);
+        }
+
+        .comparison-table-wrapper {
+            margin-top: 40px;
+            overflow-x: auto;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid var(--border-color-light, #e0e0e0);
+            border-radius: var(--radius-md, 8px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.85rem;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 10px 12px;
+            vertical-align: middle;
+        }
+
+        .comparison-table thead tr {
+            border-bottom: 2px solid var(--border-color, #d0d0d0);
+        }
+
+        .comparison-table th {
+            font-weight: 600;
+            color: var(--text-primary);
+            background-color: var(--bg-very-light, #f8f9fa);
+        }
+
+        .comparison-table th.text-center,
+        .comparison-table td.text-center {
+            text-align: center;
+        }
+
+        .comparison-table td.col-feature {
+             font-weight: 500;
+             color: var(--text);
+        }
+
+        .comparison-table tbody tr {
+            border-bottom: 1px solid var(--border-color-light, #e0e0e0);
+        }
+        .comparison-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-table td {
+            color: var(--text-secondary);
+        }
+
+        .comparison-table .icon {
+            font-size: 1.2em;
+            display: inline-block;
+        }
+        .comparison-table .icon-label {
+            font-size: 0.8em;
+            display: block;
+            color: var(--text-muted, #6c757d);
+            margin-top: 2px;
+        }
+
+        .comparison-table .icon-check { color: var(--success, #28a745); }
+        .comparison-table .icon-cross { color: var(--danger, #dc3545); }
+        .comparison-table .icon-warn { color: var(--warning, #ffc107); }
     </style>
 </head>
 <body>
@@ -2965,32 +3108,31 @@
         </div>
     </section>
 
-<section class="section for-founders-section" style="padding-top: 60px; padding-bottom: 60px; background-color: var(--background-alt);">
+<section class="section who-we-build-for-section" style="padding-top: 60px; padding-bottom: 60px; background-color: var(--background-alt);">
     <div class="container">
-        <div class="section-title text-center">
-            <h2 style="font-size: 1.8rem; margin-bottom: 15px;">Who We Work With</h2>
-            <p style="font-size: 1.1rem; color: var(--text-muted); max-width: 700px; margin-left: auto; margin-right: auto;">Brands scaling fast, but held back by broken systems.</p>
+        <div class="section-title text-center" style="margin-bottom: var(--spacing-xl);">
+            <h2 class="build-for-intro">If this sounds like you — you're exactly who we build for.</h2>
         </div>
-        <div class="founder-points" style="max-width: 800px; margin: 40px auto 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
-            <div class="founder-point-item" style="background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-                <h4 style="font-size: 1.1rem; font-weight: 600; color: var(--primary); margin-bottom: 10px;">Scaling Fast, But Ops Feel Chaotic?</h4>
-                <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-dark);">You're growing rapidly, but the back-end is struggling to keep up, leading to inefficiencies and stress.</p>
+        <div class="build-for-grid">
+            <div class="build-for-item">
+                <h4 class="build-for-item-title">Scaling fast — but ops feel chaotic</h4>
+                <p>Your team is growing, but backend systems are breaking down. Bottlenecks, delays, and duplicated work are killing momentum.</p>
             </div>
-            <div class="founder-point-item" style="background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-                <h4 style="font-size: 1.1rem; font-weight: 600; color: var(--primary); margin-bottom: 10px;">Want Real Systems, Not Another SaaS Bill?</h4>
-                <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-dark);">You're tired of juggling multiple subscriptions and want a unified, owned infrastructure.</p>
+            <div class="build-for-item">
+                <h4 class="build-for-item-title">Done with SaaS sprawl</h4>
+                <p>You’ve outgrown your patchwork of tools and subscriptions. You want permanent, owned infrastructure built for how your business runs.</p>
             </div>
-            <div class="founder-point-item" style="background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-                <h4 style="font-size: 1.1rem; font-weight: 600; color: var(--primary); margin-bottom: 10px;">Value Control, Clarity & Clean Infrastructure?</h4>
-                <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-dark);">You believe in transparent operations and owning the assets that run your business.</p>
+            <div class="build-for-item">
+                <h4 class="build-for-item-title">You value control and clean execution</h4>
+                <p>You care about visibility, accuracy, and ownership — not black-box automations or clunky workflows.</p>
             </div>
-            <div class="founder-point-item" style="background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-                <h4 style="font-size: 1.1rem; font-weight: 600; color: var(--primary); margin-bottom: 10px;">Ready to Delegate, Refuse to Compromise Quality?</h4>
-                <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-dark);">You want to offload operational burdens but demand excellence and reliability.</p>
+            <div class="build-for-item">
+                <h4 class="build-for-item-title">You delegate, but never downgrade</h4>
+                <p>You're ready to offload operational complexity — but only if the build quality meets founder-level standards.</p>
             </div>
-            <div class="founder-point-item" style="background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-                 <h4 style="font-size: 1.1rem; font-weight: 600; color: var(--primary); margin-bottom: 10px;">Want to Exit, Scale, or Step Back Without Fear?</h4>
-                <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-dark);">Your goal is a business that runs smoothly, whether you're selling it, expanding it, or reducing your daily involvement.</p>
+            <div class="build-for-item">
+                <h4 class="build-for-item-title">You're scaling, selling, or stepping back</h4>
+                <p>Whether you're expanding or prepping for exit, you need a business that runs independently — with or without you.</p>
             </div>
         </div>
     </div>
@@ -3597,14 +3739,7 @@
             </div>
             <p style="text-align: center; margin-top: 40px; font-size: 1.1rem; color: var(--text-light);">Built on enterprise-grade tools. Handed over with zero strings attached. Our job ends when your system is running itself.</p>
         </div>
-<div class="founder-note-container" style="margin-top: 60px; text-align: center; border-top: 1px solid var(--border); padding-top: 50px;">
-    <img src="https://via.placeholder.com/100x100/e0e0e0/757575?text=Founder" alt="[Founder Name]" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover; margin-bottom: 20px; border: 3px solid var(--border-light);">
-    <h4 style="font-size: 1.4rem; color: var(--primary); margin-bottom: 15px; font-weight: 600;">A Word From Our Founder</h4>
-    <p style="font-size: 1.05rem; color: var(--text-dark); max-width: 650px; margin: 0 auto 20px; line-height: 1.7;">"At Aether Systems, we believe true leverage comes from systems built with precision and owned with clarity. We're dedicated to crafting the operational backbone that not only supports your vision but actively accelerates it."</p>
-    <img src="https://via.placeholder.com/220x70/ffffff/000000?text=Signature" alt="[Founder Name] Signature" style="height: 45px; margin-top: 10px; opacity: 0.85; mix-blend-mode: multiply;">
-    <p style="font-size: 1rem; color: var(--primary); margin-top: 10px; font-weight: 600;">[Founder Name]</p>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 2px;">Founder, Aether Systems</p>
-</div>
+
     </section>
 
     <!-- Client Success Stories Section -->
@@ -3647,11 +3782,11 @@
                         
                         <div class="results-container">
                             <div class="result-metric">
-                                <div class="metric-value" style="font-size: 2.8rem; font-weight: 700; color: var(--primary); line-height: 1.1;">85%</div>
+                                <div class="metric-value">85%</div>
                                 <div class="metric-label">Time Saved</div>
                             </div>
                             <div class="result-metric">
-                                <div class="metric-value" style="font-size: 2.8rem; font-weight: 700; color: var(--primary); line-height: 1.1;">£4,000+</div>
+                                <div class="metric-value">£4,000+</div>
                                 <div class="metric-label">Monthly Savings</div>
                             </div>
                         </div>
@@ -3696,11 +3831,11 @@
                         
                         <div class="results-container">
                             <div class="result-metric">
-                                <div class="metric-value" style="font-size: 2.8rem; font-weight: 700; color: var(--primary); line-height: 1.1;">80%</div>
+                                <div class="metric-value">80%</div>
                                 <div class="metric-label">Automated Responses</div>
                             </div>
                             <div class="result-metric">
-                                <div class="metric-value" style="font-size: 2.8rem; font-weight: 700; color: var(--primary); line-height: 1.1;">15+</div>
+                                <div class="metric-value">15+</div>
                                 <div class="metric-label">Hours Saved Weekly</div>
                             </div>
                         </div>
@@ -3745,11 +3880,11 @@
                         
                         <div class="results-container">
                             <div class="result-metric">
-                                <div class="metric-value" style="font-size: 2.8rem; font-weight: 700; color: var(--primary); line-height: 1.1;">70%</div>
+                                <div class="metric-value">70%</div>
                                 <div class="metric-label">Time Reduction</div>
                             </div>
                             <div class="result-metric">
-                                <div class="metric-value" style="font-size: 2.8rem; font-weight: 700; color: var(--primary); line-height: 1.1;">99%</div>
+                                <div class="metric-value">99%</div>
                                 <div class="metric-label">Output Accuracy</div>
                             </div>
                         </div>
@@ -4242,61 +4377,212 @@
                 gap: 15px;
             }
         }
+
+    /* New CSS rules for comparison intro */
+    .comparison-intro {
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 50px; /* Space before the table */
+        text-align: center;
+    }
+
+    .comparison-intro .section-title h2 {
+        font-family: var(--font-heading, 'Helvetica Neue', Helvetica, Arial, sans-serif);
+        margin-bottom: 25px;
+    }
+
+    .comparison-quote {
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+
+    .comparison-quote p {
+        font-family: var(--font-primary-italic, 'Georgia', Times, 'Times New Roman', serif);
+        font-size: 1.5em;
+        font-style: italic;
+        color: #555555;
+        line-height: 1.4;
+        max-width: 600px; /* Control quote width */
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .comparison-summary {
+        font-family: var(--font-primary, 'Helvetica Neue', Helvetica, Arial, sans-serif);
+        font-size: 1.1em;
+        line-height: 1.7;
+        color: #333333;
+        max-width: 700px; /* Control summary width for readability */
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    @media (max-width: 768px) {
+        .comparison-intro .section-title h2 {
+            font-size: 2em; /* Adjust for smaller screens */
+        }
+        .comparison-quote p {
+            font-size: 1.3em;
+        }
+        .comparison-summary {
+            font-size: 1em;
+        }
+    }
+
+    /* Post-Support Options Section Styles */
+    .post-support-options {
+        max-width: 900px;
+        margin: 70px auto 0;
+        background-color: var(--background-light, white);
+        border-radius: var(--radius-lg, 12px);
+        box-shadow: var(--shadow-md, 0 4px 6px rgba(0,0,0,0.1));
+        padding: 40px;
+        border: 1px solid var(--border, #e0e0e0);
+    }
+
+    .post-support-title {
+        text-align: center;
+        margin-bottom: 25px;
+        color: var(--primary, #C39D56); /* Assuming --primary is your gold-like accent */
+        font-family: var(--font-heading, 'Helvetica Neue', Helvetica, Arial, sans-serif);
+        font-size: 2em;
+    }
+
+    .post-support-intro {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto 40px;
+        font-size: 1.1em;
+        color: var(--text-light, #555555);
+        font-family: var(--font-primary, 'Helvetica Neue', Helvetica, Arial, sans-serif);
+        line-height: 1.6;
+    }
+
+    .support-options-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+
+    .support-option-item {
+        background-color: var(--background-card, #f9f9f9);
+        padding: 25px;
+        border-radius: var(--radius-md, 8px);
+        border: 1px solid var(--border-light, #eaeaea);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .support-option-item:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg, 0 8px 15px rgba(0,0,0,0.1));
+    }
+
+    .support-option-title {
+        color: var(--text-dark, #333333);
+        font-family: var(--font-heading, 'Helvetica Neue', Helvetica, Arial, sans-serif);
+        font-size: 1.25em;
+        margin-bottom: 10px;
+    }
+
+    .support-option-description {
+        font-family: var(--font-primary, 'Helvetica Neue', Helvetica, Arial, sans-serif);
+        font-size: 1em;
+        line-height: 1.6;
+        color: var(--text-light, #555555);
+    }
+
+    .no-forced-continuity-box {
+        margin-top: 30px;
+        padding: 25px;
+        background-color: var(--accent-bg-light, rgba(195, 157, 86, 0.05)); /* Lighter version of accent */
+        border-radius: var(--radius-md, 8px);
+        border-left: 4px solid var(--accent, #C39D56);
+    }
+
+    .no-forced-continuity-box p {
+        font-size: 1em;
+        margin-bottom: 0;
+        color: var(--text, #333333);
+        font-family: var(--font-primary, 'Helvetica Neue', Helvetica, Arial, sans-serif);
+        line-height: 1.6;
+    }
+
+    .no-forced-continuity-box strong {
+        color: var(--accent-dark, #A07D46); /* Darker accent for emphasis */
+    }
+
+    @media (max-width: 768px) {
+        .post-support-options {
+            padding: 30px;
+        }
+        .post-support-title {
+            font-size: 1.8em;
+        }
+        .support-options-grid {
+            grid-template-columns: 1fr; /* Stack on smaller screens */
+            gap: 20px;
+        }
+    }
     </style>
+
 
     
     <!-- Comparison Section -->
     <section class="section" id="comparison">
         <div class="container">
-            <div class="section-title text-center">
-                <h2>Why Aether vs Everyone Else?</h2>
+            <div class="comparison-intro">
+                <div class="section-title text-center">
+                    <h2>Why Aether vs Everyone Else?</h2>
+                </div>
+                <div class="comparison-quote">
+                    <p>“You're not buying a tool. You're investing in leverage.”</p>
+                </div>
+                <p class="comparison-summary">
+                    Most automation services either trap you in a subscription or patch together bandaid fixes. Aether Systems builds standalone infrastructure that’s built to last, designed to scale, and always 100% yours.
+                </p>
             </div>
-            <div class="pull-quote" style="text-align: center; margin: 60px auto; max-width: 600px;">
-    <p style="font-size: 1.8rem; font-weight: 600; color: var(--primary); font-family: Georgia, serif; line-height: 1.4;">
-        “You're not buying a tool. You're investing in leverage.”
-    </p>
-</div>
-<p style="text-align: center; max-width: 700px; margin: 0 auto 40px; font-size: 1.1rem; line-height: 1.6; color: var(--text-light);">Most automation services either trap you in a subscription or patch together bandaid fixes. Aether Systems builds standalone infrastructure that’s built to last, designed to scale, and always 100% yours.</p>
-            <div class="comparison-table-container" style="margin-top: 40px; overflow-x: auto;">
-                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
+            <div class="comparison-table-wrapper">
+                <table class="comparison-table">
                     <thead>
-                        <tr style="border-bottom: 2px solid var(--border-color-light, #e0e0e0);">
-                            <th style="padding: 12px 8px; font-weight: 600; color: var(--text-primary, #212529);">Feature</th>
-                            <th style="padding: 12px 8px; font-weight: 600; color: var(--text-primary, #212529); text-align: center;">Aether Systems</th>
-                            <th style="padding: 12px 8px; font-weight: 600; color: var(--text-primary, #212529); text-align: center;">SaaS Tools</th>
-                            <th style="padding: 12px 8px; font-weight: 600; color: var(--text-primary, #212529); text-align: center;">Freelancers</th>
+                        <tr>
+                            <th class="col-feature">Feature</th>
+                            <th class="text-center">Aether Systems</th>
+                            <th class="text-center">SaaS Tools</th>
+                            <th class="text-center">Freelancers</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style="border-bottom: 1px solid var(--border-color-light, #e0e0e0);">
-                            <td style="padding: 12px 8px; color: var(--text-secondary, #555);">100% Ownership</td>
-                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--accent, #007bff);">✅</td>
-                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--danger, #dc3545);">❌</td>
-                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--danger, #dc3545);">❌ <span style="font-size: 0.8em; vertical-align: middle;">Inconsistent</span></td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid var(--border-color-light, #e0e0e0);">
-                            <td style="padding: 12px 8px; color: var(--text-secondary, #555);">No Lock-In</td>
-                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--accent, #007bff);">✅</td>
-                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--danger, #dc3545);">❌</td>
-                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--danger, #dc3545);">❌ <span style="font-size: 0.8em; vertical-align: middle;">Inconsistent</span></td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid var(--border-color-light, #e0e0e0);">
-                            <td style="padding: 12px 8px; color: var(--text-secondary, #555);">Custom-Built</td>
-                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--accent, #007bff);">✅</td>
-                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--danger, #dc3545);">❌</td>
-                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--warning, #ffc107);">⚠️ <span style="font-size: 0.8em; vertical-align: middle;">Patchwork</span></td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid var(--border-color-light, #e0e0e0);">
-                            <td style="padding: 12px 8px; color: var(--text-secondary, #555);">High-End UX</td>
-                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--accent, #007bff);">✅</td>
-                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--danger, #dc3545);">❌ <span style="font-size: 0.8em; vertical-align: middle;">Generic</span></td>
-                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--danger, #dc3545);">❌</td>
+                        <tr>
+                            <td class="col-feature">100% Ownership</td>
+                            <td class="text-center"><span class="icon icon-check">✅</span></td>
+                            <td class="text-center"><span class="icon icon-cross">❌</span></td>
+                            <td class="text-center"><span class="icon icon-cross">❌</span> <span class="icon-label">Inconsistent</span></td>
                         </tr>
                         <tr>
-                            <td style="padding: 12px 8px; color: var(--text-secondary, #555);">Real Support</td>
-                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--accent, #007bff);">✅</td>
-                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--danger, #dc3545);">❌ <span style="font-size: 0.8em; vertical-align: middle;">Slow & Scripted</span></td>
-                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--warning, #ffc107);">⚠️ <span style="font-size: 0.8em; vertical-align: middle;">Unreliable</span></td>
+                            <td class="col-feature">No Lock-In</td>
+                            <td class="text-center"><span class="icon icon-check">✅</span></td>
+                            <td class="text-center"><span class="icon icon-cross">❌</span></td>
+                            <td class="text-center"><span class="icon icon-cross">❌</span> <span class="icon-label">Inconsistent</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-feature">Custom-Built</td>
+                            <td class="text-center"><span class="icon icon-check">✅</span></td>
+                            <td class="text-center"><span class="icon icon-cross">❌</span></td>
+                            <td class="text-center"><span class="icon icon-warn">⚠️</span> <span class="icon-label">Patchwork</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-feature">High-End UX</td>
+                            <td class="text-center"><span class="icon icon-check">✅</span></td>
+                            <td class="text-center"><span class="icon icon-cross">❌</span> <span class="icon-label">Generic</span></td>
+                            <td class="text-center"><span class="icon icon-cross">❌</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-feature">Real Support</td>
+                            <td class="text-center"><span class="icon icon-check">✅</span></td>
+                            <td class="text-center"><span class="icon icon-cross">❌</span> <span class="icon-label">Slow & Scripted</span></td>
+                            <td class="text-center"><span class="icon icon-warn">⚠️</span> <span class="icon-label">Unreliable</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -4391,28 +4677,25 @@
             </div>
 
             <!-- Post-Support Options Section -->
-            <div class="post-support-section" style="max-width: 900px; margin: 70px auto 0; background-color: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: 40px; border: 1px solid var(--border);">
-                <h3 style="text-align: center; margin-bottom: 25px; color: var(--primary);">After Your Support Period</h3>
-                <p style="text-align: center; max-width: 700px; margin: 0 auto 30px; font-size: 1.1rem; color: var(--text-light);">You have three options — no surprises, no strings:</p>
-                <ol style="max-width: 600px; margin: 0 auto 40px; padding-left: 20px; list-style-position: outside; color: var(--text-light);">
-                    <li style="margin-bottom: 20px; font-size: 1rem; line-height: 1.6;">
-                        <strong style="color: var(--text-dark); display: block; margin-bottom: 5px;">1. Self-Management</strong>
-                        You own the system. It's built to run on autopilot.
-                    </li>
-                    <li style="margin-bottom: 20px; font-size: 1rem; line-height: 1.6;">
-                        <strong style="color: var(--text-dark); display: block; margin-bottom: 5px;">2. Extended Support</strong>
-                        Add maintenance month-by-month, only if needed. From £30/mo.
-                    </li>
-                    <li style="font-size: 1rem; line-height: 1.6;">
-                        <strong style="color: var(--text-dark); display: block; margin-bottom: 5px;">3. System Evolution</strong>
-                        Ready to grow? Commission upgrades or new automations anytime.
-                    </li>
-                </ol>
-                
-
-                
-                <div style="margin-top: 30px; padding: 25px; background-color: rgba(195, 157, 86, 0.05); border-radius: var(--radius-md); border-left: 3px solid var(--accent);">
-                    <p style="font-size: 15px; margin-bottom: 0; color: var(--text);">
+            <div class="post-support-options">
+                <h3 class="post-support-title">After Your Support Period</h3>
+                <p class="post-support-intro">You have three options — no surprises, no strings:</p>
+                <div class="support-options-grid">
+                    <div class="support-option-item">
+                        <h4 class="support-option-title">1. Self-Management</h4>
+                        <p class="support-option-description">You own the system. It's built to run on autopilot.</p>
+                    </div>
+                    <div class="support-option-item">
+                        <h4 class="support-option-title">2. Extended Support</h4>
+                        <p class="support-option-description">Add maintenance month-by-month, only if needed. From £30/mo.</p>
+                    </div>
+                    <div class="support-option-item">
+                        <h4 class="support-option-title">3. System Evolution</h4>
+                        <p class="support-option-description">Ready to grow? Commission upgrades or new automations anytime.</p>
+                    </div>
+                </div>
+                <div class="no-forced-continuity-box">
+                    <p>
                         <strong>No Forced Continuity:</strong> We never require ongoing contracts or maintenance fees. Your system is designed to operate independently after handover. Our business model is built on delivering exceptional value upfront, not creating dependency.
                     </p>
                 </div>
@@ -4590,17 +4873,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-        <!-- NEW: Tech Stack / Trust Logos -->
-        <div class="footer-tech-logos" style="text-align: center; margin-bottom: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
-            <h5 style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Technologies We Leverage</h5>
-            <div style="display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap;">
-                <span style="color: rgba(255,255,255,0.8); font-size: 1rem;">Airtable</span>
-                <span style="color: rgba(255,255,255,0.8); font-size: 1rem;">Make.com</span>
-                <span style="color: rgba(255,255,255,0.8); font-size: 1rem;">Stripe</span>
-                <span style="color: rgba(255,255,255,0.8); font-size: 1rem;">Webflow</span>
-                <span style="color: rgba(255,255,255,0.8); font-size: 1rem;">Zapier</span>
-            </div>
-        </div>
+
 
             <div class="footer-content">
                 <div class="footer-info">
@@ -4714,10 +4987,7 @@
                 </div>
             </div>
             
-        <!-- NEW: "Used by teams in..." line -->
-        <div class="footer-industry-mention" style="text-align: center; margin-top: 30px; margin-bottom: 30px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1);">
-            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; margin:0;">Used by teams in: legal, e-commerce, and coaching.</p>
-        </div>
+
 
             <div class="footer-bottom">
                 <p>&copy; 2025 Aether Systems. All rights reserved.</p>
