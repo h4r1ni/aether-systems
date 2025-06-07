@@ -135,6 +135,10 @@
             margin: 0 auto;
             padding: 0 20px;
         }
+
+        .hero .container {
+            max-width: 1400px; /* Increase hero container width */
+        }
         
         .container-sm {
             width: 100%;
@@ -444,7 +448,7 @@
         
         .hero-content {
             flex: 1;
-            max-width: 750px; /* Increased for better text flow */
+            max-width: 950px; /* Increased for better text flow and wider hero */
             position: relative;
             z-index: 5;
             text-align: center;
@@ -471,7 +475,7 @@
             font-size: 3.2rem; /* Consolidated and adjusted size */
             line-height: 1.15; /* Adjusted for readability */
             font-weight: 700;
-            margin-top: 60px; /* Added to push title down */
+            margin-top: 80px; /* Increased to push title down further */
             margin-bottom: 1.5rem; /* Spacing below title */
             /* color: var(--text); */ /* Commented out to allow global H1 gradient to take effect */
             letter-spacing: -0.02em;
@@ -511,6 +515,9 @@
             border: 1px solid rgba(0, 0, 0, 0.05);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
             margin-bottom: 0.75rem;
+            max-width: 650px; /* Added to make it less wide */
+            margin-left: auto;   /* Added to center it */
+            margin-right: auto;  /* Added to center it */
         }
         
         .stats-source {
@@ -3075,7 +3082,7 @@
         <div class="container">
             <div class="hero-content-container">
                 <div class="hero-content">
-                    <h1 class="hero-title">Powering Peak Performance: Your Custom Operations Infrastructure</h1>
+                    <h1 class="hero-title">Powering Peak Performance:<br> Your Custom Operations Infrastructure</h1>
                     <p class="hero-description">Custom-built systems that reduce manual work, unlock scalable growth, and are 100% owned by your business. We deliver the operational backbone you'd expect from a $10M+ team, without the complexity or bloat.</p>
                     
                     <div style="max-width: 1140px; margin-left: auto; margin-right: auto; width: 100%;">
@@ -4389,16 +4396,16 @@
 
     .comparison-intro .section-title h2 {
         font-family: var(--font-heading, 'Helvetica Neue', Helvetica, Arial, sans-serif);
-        margin-bottom: 25px;
+        margin-bottom: 40px; /* Further increased spacing */
     }
 
     .comparison-quote {
-        margin-top: 20px;
-        margin-bottom: 30px;
+        margin-top: 40px; /* Further increased spacing */
+        margin-bottom: 50px; /* Further increased spacing */
     }
 
     .comparison-quote p {
-        font-family: var(--font-primary-italic, 'Georgia', Times, 'Times New Roman', serif);
+        font-family: var(--font-primary, 'Helvetica Neue', Helvetica, Arial, sans-serif); /* Standardized font */
         font-size: 1.5em;
         font-style: italic;
         color: #555555;
@@ -4853,8 +4860,8 @@
                             </div>
                             
                             <div class="form-group">
-                                <label for="message">Describe Your Operational Bottlenecks</label>
-                                <textarea id="message" name="message" rows="4" placeholder="Detail the key operational challenges or system requirements you're facing." required></textarea>
+                                <label for="message">Your Message</label>
+                                <textarea id="message" name="message" rows="4" placeholder="Type your message or query here..." required></textarea>
                             </div>
                             
                             <button type="submit" class="btn-submit" style="background: linear-gradient(135deg, #d5b778, #a88a45); color: white; font-size: 16px; padding: 15px; border-radius: 8px; font-weight: 600; width: 100%; display: flex; align-items: center; justify-content: center; margin-top: 20px; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(195, 157, 86, 0.25);">
@@ -4887,11 +4894,11 @@
                 <div class="footer-links">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="#what-we-build">Solutions</a></li>
-                        <li><a href="#process">Process</a></li>
-                        <li><a href="#results">Results</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#what-we-build">SYSTEMS WE BUILD</a></li>
+                        <li><a href="#process">PROCESS</a></li>
+                        <li><a href="#results">CLIENT OUTCOMES</a></li>
+                        <li><a href="#pricing">PRICING</a></li>
+                        <li><a href="#contact">CONTACT</a></li>
                     </ul>
                 </div>
                 
