@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Stripe JavaScript library -->
     <script src="https://js.stripe.com/v3/"></script>
-    <title>Aether Systems | Premium Business Automation with Full Ownership</title>
-    <meta name="description" content="Premium business automation systems with full ownership. Tailored solutions for established businesses ready to streamline operations and scale efficiently.">
+    <title>Aether Systems | Premium Business Infrastructure & Full Ownership</title>
+    <meta name="description" content="Bespoke operational systems with full ownership. Tailored solutions for established businesses ready to streamline operations and scale efficiently.">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -141,7 +141,7 @@
             max-width: var(--container-sm);
             margin: 0 auto;
             padding: 0 var(--spacing-lg);
-            margin-bottom: 0;
+            margin-bottom: 40px;
         }
         
         /* Base section styling */
@@ -180,7 +180,7 @@
         
         .section-title {
             text-align: center;
-            margin-bottom: 35px;
+            margin-bottom: 40px;
             position: relative;
         }
         
@@ -197,7 +197,7 @@
         }
         
         .section-title h2 {
-            margin-bottom: var(--spacing-xs);
+            margin-bottom: 20px;
         }
         
         .section-title p {
@@ -293,7 +293,7 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(195, 157, 86, 0.1);
+            box-shadow: var(--shadow-md);
             height: 90px; /* Set a specific height */
         }
         
@@ -403,11 +403,6 @@
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
         
-        .hero-spacer {
-            height: 40px; /* Further reduced from 60px */
-            width: 100%;
-            display: block;
-        }
         
         .hero-bg {
             position: absolute;
@@ -434,8 +429,7 @@
         .hero {
             position: relative;
             overflow: hidden;
-            padding: 6rem 0 5rem;
-            margin-top: 1rem;
+            padding: 120px 0 5rem; /* Reverted to original top padding */
             background-color: white;
         }
         
@@ -443,16 +437,17 @@
             display: flex;
             gap: 4rem;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             position: relative;
             padding: 2rem 0;
         }
         
         .hero-content {
             flex: 1;
-            max-width: 560px;
+            max-width: 750px; /* Increased for better text flow */
             position: relative;
             z-index: 5;
+            text-align: center;
         }
         
         .hero-badge {
@@ -473,20 +468,24 @@
         }
         
         .hero-title {
-            font-size: 3.5rem;
-            line-height: 1.1;
+            font-size: 3.2rem; /* Consolidated and adjusted size */
+            line-height: 1.15; /* Adjusted for readability */
             font-weight: 700;
-            margin-bottom: 0.8rem;
-            color: var(--text);
+            margin-top: 60px; /* Added to push title down */
+            margin-bottom: 1.5rem; /* Spacing below title */
+            /* color: var(--text); */ /* Commented out to allow global H1 gradient to take effect */
             letter-spacing: -0.02em;
+            /* Full-width styles removed for natural centering within .hero-content */
         }
         
         .hero-description {
-            font-size: 1.35rem;
-            color: var(--primary);
-            margin-bottom: 0.75rem;
+            font-size: 1.2rem; /* Adjusted font size */
+            color: var(--primary); /* Or var(--text-light) for softer text */
+            margin-top: 0; /* Adjusted spacing */
+            margin-bottom: 2.5rem; /* Increased space before buttons */
             font-weight: 500;
-            line-height: 1.4;
+            line-height: 1.45; /* Adjusted for readability */
+            /* Full-width styles removed for natural centering */
         }
         
         .hero-subtitle {
@@ -500,6 +499,7 @@
             display: flex;
             gap: 1.25rem;
             margin-bottom: 3rem;
+            justify-content: center;
         }
         
         .hero-stats {
@@ -2761,6 +2761,8 @@
         .legal-disclaimer {
             font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.4);
+            overflow-wrap: break-word; /* Added to prevent overflow */
+            word-wrap: break-word; /* For older browser compatibility */
         }
         
         .regional-trust {
@@ -2911,9 +2913,9 @@
                 </a>
                 <nav class="main-nav">
                     <div class="nav-links">
-                        <a href="#what-we-build" class="nav-link">SOLUTIONS</a>
+                        <a href="#what-we-build" class="nav-link">SYSTEMS WE BUILD</a>
                         <a href="#process" class="nav-link">PROCESS</a>
-                        <a href="#results" class="nav-link">RESULTS</a>
+                        <a href="#results" class="nav-link">CLIENT OUTCOMES</a>
                         <a href="#contact" class="nav-link">CONTACT</a>
                     </div>
                     <a href="#pricing" class="btn btn-primary cta-button sticky-cta" style="position: sticky; top: 20px; z-index: 100;">View Pricing Options</a>
@@ -2928,59 +2930,71 @@
     <!-- Hero Section -->
     <section class="hero section" id="hero">
         <div class="container">
-            <div class="hero-spacer"></div>
             <div class="hero-content-container">
                 <div class="hero-content">
-                    <div class="hero-badge">PREMIUM BUSINESS AUTOMATION</div>
-                    <h1 class="hero-title">Bespoke Systems That Scale</h1>
-                    <p class="hero-description">Transforming complex operations into elegant, automated workflows designed for your growth.</p>
-                    <p class="hero-subtitle">Custom-built solutions with complete ownership and dedicated support.</p>
-                    <div class="hero-buttons">
-                        <a href="#pricing" class="btn btn-primary">View Pricing Options</a>
-                        <a href="#what-we-build" class="btn btn-outline">Explore Solutions</a>
-                    </div>
-                    <div class="hero-stats">
-                        <div class="stat">
-                            <div class="stat-value">15+</div>
-                            <div class="stat-label">HOURS SAVED WEEKLY</div>
+                    <h1 class="hero-title">Powering Peak Performance: Your Custom Operations Infrastructure</h1>
+                    <p class="hero-description">Custom-built systems that reduce manual work, unlock scalable growth, and are 100% owned by your business. We deliver the operational backbone you'd expect from a $10M+ team, without the complexity or bloat.</p>
+                    
+                    <div style="max-width: 1140px; margin-left: auto; margin-right: auto; width: 100%;">
+                        <p class="hero-locations" style="margin-top: 15px; margin-bottom: 25px; font-size: 0.9rem; color: var(--text-muted); text-align: center;">
+                            Trusted by scaling brands in legal, health, and e-commerce across Dubai, London, and San Francisco.
+                        </p>
+                        <div class="hero-buttons">
+                            <a href="#pricing" class="btn btn-primary">Design My Ops Engine</a>
+                            <a href="#what-we-build" class="btn btn-outline">Explore Solutions</a>
                         </div>
-                        <div class="stat">
-                            <div class="stat-value">93%</div>
-                            <div class="stat-label">LESS MANUAL WORK</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-value">60+</div>
-                            <div class="stat-label">TOOLS INTEGRATED</div>
-                        </div>
-                    </div>
-                    <div class="stats-source">Data from 50+ implementations in legal, finance & e-commerce</div>
-                </div>
-                <div class="hero-image">
-                    <div class="hero-dashboard-container">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Business automation dashboard" class="dashboard-image">
-                        <div class="dashboard-card automation-card">
-                            <div class="card-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                        <div class="hero-stats">
+                            <div class="stat">
+                                <div class="stat-value">15+</div>
+                                <div class="stat-label">HOURS SAVED WEEKLY</div>
                             </div>
-                            <div class="card-content">
-                                <span class="card-label">AUTOMATION RATE</span>
-                                <span class="card-value">93% Complete</span>
+                            <div class="stat">
+                                <div class="stat-value">93%</div>
+                                <div class="stat-label">LESS MANUAL WORK</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">60+</div>
+                                <div class="stat-label">TOOLS INTEGRATED</div>
                             </div>
                         </div>
-                        <div class="dashboard-card savings-card">
-                            <div class="card-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M16 8l-8 8"></path><path d="M8 8l8 8"></path></svg>
-                            </div>
-                            <div class="card-content">
-                                <span class="card-label">MONTHLY SAVINGS</span>
-                                <span class="card-value">£4,800</span>
-                            </div>
-                        </div>
+                        <div class="stats-source">Data from 50+ implementations in legal, finance & e-commerce</div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
+
+<section class="section for-founders-section" style="padding-top: 60px; padding-bottom: 60px; background-color: var(--background-alt);">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2 style="font-size: 1.8rem; margin-bottom: 15px;">Who We Work With</h2>
+            <p style="font-size: 1.1rem; color: var(--text-muted); max-width: 700px; margin-left: auto; margin-right: auto;">Brands scaling fast, but held back by broken systems.</p>
+        </div>
+        <div class="founder-points" style="max-width: 800px; margin: 40px auto 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
+            <div class="founder-point-item" style="background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                <h4 style="font-size: 1.1rem; font-weight: 600; color: var(--primary); margin-bottom: 10px;">Scaling Fast, But Ops Feel Chaotic?</h4>
+                <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-dark);">You're growing rapidly, but the back-end is struggling to keep up, leading to inefficiencies and stress.</p>
+            </div>
+            <div class="founder-point-item" style="background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                <h4 style="font-size: 1.1rem; font-weight: 600; color: var(--primary); margin-bottom: 10px;">Want Real Systems, Not Another SaaS Bill?</h4>
+                <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-dark);">You're tired of juggling multiple subscriptions and want a unified, owned infrastructure.</p>
+            </div>
+            <div class="founder-point-item" style="background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                <h4 style="font-size: 1.1rem; font-weight: 600; color: var(--primary); margin-bottom: 10px;">Value Control, Clarity & Clean Infrastructure?</h4>
+                <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-dark);">You believe in transparent operations and owning the assets that run your business.</p>
+            </div>
+            <div class="founder-point-item" style="background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                <h4 style="font-size: 1.1rem; font-weight: 600; color: var(--primary); margin-bottom: 10px;">Ready to Delegate, Refuse to Compromise Quality?</h4>
+                <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-dark);">You want to offload operational burdens but demand excellence and reliability.</p>
+            </div>
+            <div class="founder-point-item" style="background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                 <h4 style="font-size: 1.1rem; font-weight: 600; color: var(--primary); margin-bottom: 10px;">Want to Exit, Scale, or Step Back Without Fear?</h4>
+                <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-dark);">Your goal is a business that runs smoothly, whether you're selling it, expanding it, or reducing your daily involvement.</p>
+            </div>
+        </div>
+    </div>
+</section>
     
 
     
@@ -3047,12 +3061,14 @@
         }
     </style>
 
+
+
     <!-- What We Build Section -->
     <section class="section" id="what-we-build">
         <div class="container">
             <div class="section-title">
-                <h2>What We Build</h2>
-                <p>We design custom automation systems that eliminate manual work and deliver actionable insights so growth-focused businesses can scale smarter, not harder.</p>
+                <h2>Operational Clarity for Growth-Driven Brands</h2>
+                <p>Operational clarity without the cost of operations staff. We design custom operational systems that eliminate manual work and deliver actionable insights so growth-focused businesses can scale smarter, not harder.</p>
             </div>
             
             <div class="services-grid">
@@ -3062,11 +3078,11 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
                     </div>
                     <h3>Workflow Automation</h3>
-                    <p>Smart processes that maintain operational excellence 24/7, eliminating manual administration with complete reliability.</p>
+                    <p>Manual workflows are the silent tax on scale. We eliminate them.</p>
                     <ul class="feature-list">
-                        <li>Intelligent process orchestration</li>
-                        <li>Cross-platform data sync</li>
-                        <li>Smart forms & approval flows</li>
+                        <li>We replace recurring tasks with clean automations.</li>
+                        <li>Your systems run reliably in the background — no micromanaging, no firefighting.</li>
+                        <li>Implement clear, automated approval processes that keep work moving, not stalled.</li>
                     </ul>
                 </div>
 
@@ -3076,11 +3092,11 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
                     </div>
                     <h3>Connect Your Stack</h3>
-                    <p>Custom connections between your essential tools like Stripe, HubSpot, Airtable, and more for seamless data flow.</p>
+                    <p>Tired of being the human API? We build custom connections between your essential tools (Stripe, HubSpot, Airtable, etc.) for truly seamless data flow.</p>
                     <ul class="feature-list">
-                        <li>All your platforms finally talk to each other — automatically</li>
-                        <li>No more copy-pasting between systems</li>
-                        <li>Information flows exactly where it needs to go, when it needs to</li>
+                        <li>All your platforms finally talk to each other — automatically.</li>
+                        <li>No more human middleware.</li>
+                        <li>Ensure critical information flows exactly where it's needed, when it's needed, without manual intervention.</li>
                     </ul>
                 </div>
 
@@ -3090,11 +3106,11 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
                     </div>
                     <h3>Business Dashboards</h3>
-                    <p>KPI tracking, analytics, and forecasting in real-time to help you make data-driven decisions.</p>
+                    <p>Get real-time clarity on your business performance.</p>
                     <ul class="feature-list">
-                        <li>See your business health at a glance — no spreadsheet exports</li>
-                        <li>Charts and metrics that update themselves in real-time</li>
-                        <li>Spot trends before they become problems or opportunities</li>
+                        <li>See what’s working, what’s stalling, and where to scale — no spreadsheets, no guesswork.</li>
+                        <li>Live dashboards designed for clarity, not clutter — so your team knows what’s working, what’s stuck, and where growth is hiding.</li>
+                        <li>Spot trends, opportunities, and potential issues before they impact your bottom line.</li>
                     </ul>
                 </div>
 
@@ -3104,25 +3120,39 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                     </div>
                     <h3>Payment & Monetization</h3>
-                    <p>Subscription billing, invoicing, and payment gateways via Stripe to create reliable revenue streams.</p>
+                    <p>Automated Payment Systems.</p>
                     <ul class="feature-list">
-                        <li>Establish reliable, automated payment collection with complete visibility and control</li>
-                        <li>No more chasing invoices or manual payment reconciliation</li>
-                        <li>Know exactly how much you'll earn next month</li>
+                        <li>Establish reliable, automated payment collection with complete visibility and control.</li>
+                        <li>We set up automated payment systems — from invoicing to client billing — so you can collect revenue without chasing or checking.</li>
+                        
                     </ul>
                 </div>
 
-                <!-- Service 5 -->
+                <!-- Service 5: Client Portals & Onboarding -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </div>
+                    <h3>Client Portals & Onboarding</h3>
+                    <p>Deliver a premium first impression — without the manual lift.</p>
+                    <ul class="feature-list">
+                        <li>Custom-branded portals for seamless client interaction and updates</li>
+                        <li>Automated onboarding workflows to guide clients step-by-step</li>
+                        <li>No more messy spreadsheets or scattered emails — just clarity and speed</li>
+                    </ul>
+                </div>
+
+                <!-- Service 6 -->
                 <div class="service-card">
                     <div class="service-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                     </div>
                     <h3>Operational Infrastructure</h3>
-                    <p>Seamless portals, automated onboarding, and smooth migration from legacy tools — all built for scale and user experience.</p>
+                    <p>Build the operational backbone your business needs to scale gracefully. From branded client portals to automated onboarding and seamless legacy system migrations, we ensure your infrastructure supports your ambition.</p>
                     <ul class="feature-list">
-                        <li>Branded client portals</li>
-                        <li>Automated onboarding journeys</li>
-                        <li>Clean, verified data migration</li>
+                        <li>Deliver a premium, branded experience to your clients with custom portals for communication and self-service.</li>
+                        <li>Transform your client or team onboarding from a manual chore into a smooth, automated journey that sets them up for success.</li>
+                        <li>Migrate from outdated systems with confidence, ensuring clean, verified data powers your new infrastructure.</li>
                         <li>Seamless migration with zero data loss</li>
                     </ul>
                 </div>
@@ -3135,7 +3165,7 @@
         <div class="container">
             <div class="section-title">
                 <h2>Our Process</h2>
-                <p>Here's how we transform your requirements into reality</p>
+                <p>Our Structured Approach to Building Your Automated Infrastructure</p>
             </div>
             
             <style>
@@ -3334,7 +3364,7 @@
                 <div class="workflow-step">
                     <div class="workflow-card">
                         <div class="workflow-number">1</div>
-                        <h3 class="workflow-title">Plan</h3>
+                        <h3 class="workflow-title">Scope & Design</h3>
                         
                         <div class="workflow-text">Select your plan and share your business requirements</div>
                         
@@ -3354,7 +3384,7 @@
                 <div class="workflow-step">
                     <div class="workflow-card">
                         <div class="workflow-number">2</div>
-                        <h3 class="workflow-title">Build</h3>
+                        <h3 class="workflow-title">Develop & Test</h3>
                         
                         <div class="workflow-text">We develop your custom system with enterprise-grade technology</div>
                         
@@ -3374,7 +3404,7 @@
                 <div class="workflow-step">
                     <div class="workflow-card">
                         <div class="workflow-number">3</div>
-                        <h3 class="workflow-title">Launch</h3>
+                        <h3 class="workflow-title">Deploy & Support</h3>
                         
                         <div class="workflow-text">Your system goes live with full ownership transfer to you</div>
                         
@@ -3540,7 +3570,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
                     </div>
                     <div class="premium-content">
-                        <h3>Custom Automations</h3>
+                        <h3>Tailored Systems</h3>
                         <p>Integrated workflows that eliminate manual tasks and connect your tools for seamless operation across your business.</p>
                     </div>
                 </div>
@@ -3561,19 +3591,28 @@
                     </div>
                     <div class="premium-content">
                         <h3>Transparent Pricing, Zero Lock-In</h3>
-                        <p>Clear upfront costs with no recurring platform fees. One-time payment with complete ownership and no ongoing dependency.</p>
+                        <p>Fixed-price builds. Zero recurring software fees.</p>
                     </div>
                 </div>
             </div>
+            <p style="text-align: center; margin-top: 40px; font-size: 1.1rem; color: var(--text-light);">Built on enterprise-grade tools. Handed over with zero strings attached. Our job ends when your system is running itself.</p>
         </div>
+<div class="founder-note-container" style="margin-top: 60px; text-align: center; border-top: 1px solid var(--border); padding-top: 50px;">
+    <img src="https://via.placeholder.com/100x100/e0e0e0/757575?text=Founder" alt="[Founder Name]" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover; margin-bottom: 20px; border: 3px solid var(--border-light);">
+    <h4 style="font-size: 1.4rem; color: var(--primary); margin-bottom: 15px; font-weight: 600;">A Word From Our Founder</h4>
+    <p style="font-size: 1.05rem; color: var(--text-dark); max-width: 650px; margin: 0 auto 20px; line-height: 1.7;">"At Aether Systems, we believe true leverage comes from systems built with precision and owned with clarity. We're dedicated to crafting the operational backbone that not only supports your vision but actively accelerates it."</p>
+    <img src="https://via.placeholder.com/220x70/ffffff/000000?text=Signature" alt="[Founder Name] Signature" style="height: 45px; margin-top: 10px; opacity: 0.85; mix-blend-mode: multiply;">
+    <p style="font-size: 1rem; color: var(--primary); margin-top: 10px; font-weight: 600;">[Founder Name]</p>
+    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 2px;">Founder, Aether Systems</p>
+</div>
     </section>
 
     <!-- Client Success Stories Section -->
     <section class="section bg-gradient-light" id="results">
         <div class="container">
             <div class="section-title text-center">
-                <h2>Client Results</h2>
-                <p class="section-description">Real outcomes our automation solutions deliver for businesses</p>
+                <h2>Client Outcomes</h2>
+                <p class="section-description">Real outcomes our operational solutions deliver for businesses</p>
             </div>
             
             <div class="success-stories-grid">
@@ -3608,18 +3647,20 @@
                         
                         <div class="results-container">
                             <div class="result-metric">
-                                <div class="metric-value">85%</div>
+                                <div class="metric-value" style="font-size: 2.8rem; font-weight: 700; color: var(--primary); line-height: 1.1;">85%</div>
                                 <div class="metric-label">Time Saved</div>
                             </div>
                             <div class="result-metric">
-                                <div class="metric-value">£4,000+</div>
+                                <div class="metric-value" style="font-size: 2.8rem; font-weight: 700; color: var(--primary); line-height: 1.1;">£4,000+</div>
                                 <div class="metric-label">Monthly Savings</div>
                             </div>
                         </div>
                         
-                        <div class="tech-used">
-                            <span class="tech-label">Technology:</span>
-                            <span class="tech-stack">Airtable + Make + Stripe</span>
+                        <div class="tech-stack-used" style="margin-top: 20px; text-align: center;">
+                            <h6 style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">Tech Stack</h6>
+                            <span style="background-color: #e9ecef; color: #495057; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; margin: 0 3px;">Airtable</span>
+                            <span style="background-color: #e9ecef; color: #495057; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; margin: 0 3px;">Make</span>
+                            <span style="background-color: #e9ecef; color: #495057; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; margin: 0 3px;">Stripe</span>
                         </div>
                     </div>
                 </div>
@@ -3655,18 +3696,20 @@
                         
                         <div class="results-container">
                             <div class="result-metric">
-                                <div class="metric-value">80%</div>
+                                <div class="metric-value" style="font-size: 2.8rem; font-weight: 700; color: var(--primary); line-height: 1.1;">80%</div>
                                 <div class="metric-label">Automated Responses</div>
                             </div>
                             <div class="result-metric">
-                                <div class="metric-value">15+</div>
+                                <div class="metric-value" style="font-size: 2.8rem; font-weight: 700; color: var(--primary); line-height: 1.1;">15+</div>
                                 <div class="metric-label">Hours Saved Weekly</div>
                             </div>
                         </div>
                         
-                        <div class="tech-used">
-                            <span class="tech-label">Technology:</span>
-                            <span class="tech-stack">HubSpot + Zapier + Airtable</span>
+                        <div class="tech-stack-used" style="margin-top: 20px; text-align: center;">
+                            <h6 style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">Tech Stack</h6>
+                            <span style="background-color: #e9ecef; color: #495057; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; margin: 0 3px;">HubSpot</span>
+                            <span style="background-color: #e9ecef; color: #495057; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; margin: 0 3px;">Zapier</span>
+                            <span style="background-color: #e9ecef; color: #495057; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; margin: 0 3px;">Airtable</span>
                         </div>
                     </div>
                 </div>
@@ -3702,18 +3745,20 @@
                         
                         <div class="results-container">
                             <div class="result-metric">
-                                <div class="metric-value">70%</div>
+                                <div class="metric-value" style="font-size: 2.8rem; font-weight: 700; color: var(--primary); line-height: 1.1;">70%</div>
                                 <div class="metric-label">Time Reduction</div>
                             </div>
                             <div class="result-metric">
-                                <div class="metric-value">99%</div>
+                                <div class="metric-value" style="font-size: 2.8rem; font-weight: 700; color: var(--primary); line-height: 1.1;">99%</div>
                                 <div class="metric-label">Output Accuracy</div>
                             </div>
                         </div>
                         
-                        <div class="tech-used">
-                            <span class="tech-label">Technology:</span>
-                            <span class="tech-stack">Airtable + Make + DocuSign</span>
+                        <div class="tech-stack-used" style="margin-top: 20px; text-align: center;">
+                            <h6 style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">Tech Stack</h6>
+                            <span style="background-color: #e9ecef; color: #495057; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; margin: 0 3px;">Airtable</span>
+                            <span style="background-color: #e9ecef; color: #495057; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; margin: 0 3px;">Make</span>
+                            <span style="background-color: #e9ecef; color: #495057; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; margin: 0 3px;">DocuSign</span>
                         </div>
                     </div>
                 </div>
@@ -4199,27 +4244,87 @@
         }
     </style>
 
+    
+    <!-- Comparison Section -->
+    <section class="section" id="comparison">
+        <div class="container">
+            <div class="section-title text-center">
+                <h2>Why Aether vs Everyone Else?</h2>
+            </div>
+            <div class="pull-quote" style="text-align: center; margin: 60px auto; max-width: 600px;">
+    <p style="font-size: 1.8rem; font-weight: 600; color: var(--primary); font-family: Georgia, serif; line-height: 1.4;">
+        “You're not buying a tool. You're investing in leverage.”
+    </p>
+</div>
+<p style="text-align: center; max-width: 700px; margin: 0 auto 40px; font-size: 1.1rem; line-height: 1.6; color: var(--text-light);">Most automation services either trap you in a subscription or patch together bandaid fixes. Aether Systems builds standalone infrastructure that’s built to last, designed to scale, and always 100% yours.</p>
+            <div class="comparison-table-container" style="margin-top: 40px; overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--border-color-light, #e0e0e0);">
+                            <th style="padding: 12px 8px; font-weight: 600; color: var(--text-primary, #212529);">Feature</th>
+                            <th style="padding: 12px 8px; font-weight: 600; color: var(--text-primary, #212529); text-align: center;">Aether Systems</th>
+                            <th style="padding: 12px 8px; font-weight: 600; color: var(--text-primary, #212529); text-align: center;">SaaS Tools</th>
+                            <th style="padding: 12px 8px; font-weight: 600; color: var(--text-primary, #212529); text-align: center;">Freelancers</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid var(--border-color-light, #e0e0e0);">
+                            <td style="padding: 12px 8px; color: var(--text-secondary, #555);">100% Ownership</td>
+                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--accent, #007bff);">✅</td>
+                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--danger, #dc3545);">❌</td>
+                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--danger, #dc3545);">❌ <span style="font-size: 0.8em; vertical-align: middle;">Inconsistent</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-color-light, #e0e0e0);">
+                            <td style="padding: 12px 8px; color: var(--text-secondary, #555);">No Lock-In</td>
+                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--accent, #007bff);">✅</td>
+                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--danger, #dc3545);">❌</td>
+                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--danger, #dc3545);">❌ <span style="font-size: 0.8em; vertical-align: middle;">Inconsistent</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-color-light, #e0e0e0);">
+                            <td style="padding: 12px 8px; color: var(--text-secondary, #555);">Custom-Built</td>
+                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--accent, #007bff);">✅</td>
+                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--danger, #dc3545);">❌</td>
+                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--warning, #ffc107);">⚠️ <span style="font-size: 0.8em; vertical-align: middle;">Patchwork</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-color-light, #e0e0e0);">
+                            <td style="padding: 12px 8px; color: var(--text-secondary, #555);">High-End UX</td>
+                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--accent, #007bff);">✅</td>
+                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--danger, #dc3545);">❌ <span style="font-size: 0.8em; vertical-align: middle;">Generic</span></td>
+                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--danger, #dc3545);">❌</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px 8px; color: var(--text-secondary, #555);">Real Support</td>
+                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--accent, #007bff);">✅</td>
+                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--danger, #dc3545);">❌ <span style="font-size: 0.8em; vertical-align: middle;">Slow & Scripted</span></td>
+                            <td style="padding: 12px 8px; text-align: center; font-size: 1.3em; color: var(--warning, #ffc107);">⚠️ <span style="font-size: 0.8em; vertical-align: middle;">Unreliable</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
     <!-- Pricing Section -->
     <section class="section" id="pricing">
         <div class="container">
             <div class="section-title">
                 <h2>Pricing</h2>
+                <p class="pricing-disclaimer" style="text-align: center; margin-top: 15px; font-size: 1.1rem; color: var(--text-muted);">Every system is bespoke. These plans are simply starting points.</p>
 
 
             </div>
             
             <div class="pricing-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px;">
-                <!-- Essentials Plan -->
+                <!-- Foundation System Plan -->
                 <div class="pricing-card">
                     <div class="pricing-header">
-                        <h3 class="pricing-name">Essentials</h3>
-                        <div class="pricing-price" style="font-size: 2.75rem; font-weight: 700; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; margin: 20px 0; display: inline-block;">£499</div>
-                        <p class="pricing-description">Single system automation for focused needs</p>
+                        <h3 class="pricing-name">Foundation System</h3>
+                        <div class="pricing-price" style="font-size: 2.75rem; font-weight: 700; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; margin: 20px 0; display: inline-block;">£699</div>
+                        <p class="pricing-description">Best for early-stage founders automating a single process</p>
                     </div>
                     <div class="pricing-features">
-                        <p class="pricing-ideal">Perfect for solopreneurs or small teams focused on one key workflow.</p>
                         
-                        <h4>Core Features</h4>
+                        <h4>Key Deliverables & Scope</h4>
                         <ul class="pricing-feature-list pricing-checkmarks">
                             <li>1 complete automation workflow</li>
                             <li>7-10 day delivery</li>
@@ -4228,23 +4333,23 @@
                         </ul>
                     </div>
                     <div class="pricing-footer">
-                        <a href="#" id="essentials-buy-button" class="btn btn-primary pricing-cta">Start My Project</a>
+                        <a href="#" id="essentials-buy-button" class="btn btn-primary pricing-cta">Design My System</a>
 
                     </div>
                 </div>
                 
-                <!-- Professional Plan -->
-                <div class="pricing-card popular" style="background-color: var(--white); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); transition: all 0.3s ease; position: relative; border: 1px solid var(--border); transform: translateY(-10px);">
-                    <div class="popular-badge" style="position: absolute; top: 10px; right: 15px; background: var(--accent-gradient); color: white; font-size: 0.65rem; padding: 5px 12px; border-radius: 8px; box-shadow: 0 4px 12px rgba(195, 157, 86, 0.25); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; z-index: 10;">Most Popular</div>
-                    <div class="pricing-header">
-                        <h3 class="pricing-name">Professional</h3>
+                <!-- Operator Engine Plan -->
+                <div class="pricing-card" style="background-color: var(--white); border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08); transition: all 0.3s ease; position: relative; border: 1px solid var(--accent);">
+                    <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--accent-gradient);"></div>
+                    <div style="position: absolute; top: 8px; right: 8px; background: var(--accent-gradient); color: white; font-size: 0.55rem; font-weight: 600; padding: 2px 5px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; z-index: 1;">Most Popular</div>
+                    <div class="pricing-header" style="padding-top: 30px;">
+                        <h3 class="pricing-name">Operator Engine</h3>
                         <div class="pricing-price" style="font-size: 2.75rem; font-weight: 700; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; margin: 20px 0; display: inline-block;">£999</div>
-                        <p class="pricing-description">Multi-system automation for growing teams</p>
+                        <p class="pricing-description">For teams scaling beyond spreadsheets</p>
                     </div>
                     <div class="pricing-features">
-                        <p class="pricing-ideal">Perfect for growing businesses needing multiple connected workflows and team coordination.</p>
                         
-                        <h4>Core Features</h4>
+                        <h4>Key Deliverables & Scope</h4>
                         <ul class="pricing-feature-list pricing-checkmarks">
                             <li>Up to 3 connected systems</li>
                             <li>14-21 day delivery</li>
@@ -4254,33 +4359,33 @@
                         </ul>
                     </div>
                     <div class="pricing-footer">
-                        <a href="#" id="executive-buy-button" class="btn btn-primary pricing-cta">Start My Project</a>
+                        <a href="#" id="operator-buy-button" class="btn btn-primary pricing-cta">Design My System</a>
 
                     </div>
                 </div>
                 
-                <!-- Enterprise Plan -->
+                <!-- Full Stack Infrastructure Plan -->
                 <div class="pricing-card">
                     <div class="pricing-header">
-                        <h3 class="pricing-name">Enterprise</h3>
+                        <h3 class="pricing-name">Full Stack Infrastructure</h3>
                         <div class="pricing-price" style="font-size: 2.75rem; font-weight: 700; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; margin: 20px 0; display: inline-block;">Custom</div>
-                        <p class="pricing-description">Full-stack workflow systems for scale</p>
+                        <p class="pricing-description">Built for operators who want leverage, not legacy</p>
                     </div>
                     <div class="pricing-features">
-                        <p class="pricing-ideal">Ideal for established businesses with complex, multi-department automation needs.</p>
                         
-                        <h4>Core Features</h4>
+                        <h4>Key Deliverables & Scope</h4>
                         <ul class="pricing-feature-list pricing-checkmarks">
                             <li>Full-stack workflow systems</li>
                             <li>Custom API integrations</li>
+                            <li>Direct Founder's Concierge access</li>
                             <li>4-6 week delivery</li>
                             <li>Bespoke dashboard & reporting</li>
                             <li>Premium 90-day support</li>
                         </ul>
                     </div>
                     <div class="pricing-footer">
-                        <a href="#" id="enterprise-buy-button" class="btn btn-primary pricing-cta"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px; position: relative; top: 2px;"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Request My Automation Map</a>
-                        <span class="pricing-note">Enterprise solutions starting from £2,000.</span>
+                        <a href="#" id="enterprise-buy-button" class="btn btn-primary pricing-cta"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px; position: relative; top: 2px;"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Schedule Founder's Concierge Call</a>
+                        <span class="pricing-note">Full Stack Infrastructure solutions starting from £2,000.</span>
                     </div>
                 </div>
             </div>
@@ -4288,30 +4393,21 @@
             <!-- Post-Support Options Section -->
             <div class="post-support-section" style="max-width: 900px; margin: 70px auto 0; background-color: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: 40px; border: 1px solid var(--border);">
                 <h3 style="text-align: center; margin-bottom: 25px; color: var(--primary);">After Your Support Period</h3>
-                <p style="text-align: center; max-width: 700px; margin: 0 auto 30px; font-size: 17px; color: var(--text);">We believe in complete transparency about what happens after your included support period ends. Here are your options:</p>
-                
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;" class="support-options">
-                    <!-- Option 1 -->
-                    <div style="background-color: rgba(195, 157, 86, 0.04); border-radius: var(--radius-md); padding: 30px; border-top: 4px solid var(--accent); transition: all 0.3s ease; box-shadow: var(--shadow-sm);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--shadow-md)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)'">
-                        <h4 style="font-size: 18px; margin-bottom: 15px;">Self-Management</h4>
-                        <p style="font-size: 15px; line-height: 1.5; color: var(--text-light); margin-bottom: 15px;">Your system is designed to be easily managed through an intuitive interface. Most clients successfully maintain their systems independently.</p>
-                        <p style="font-size: 15px; font-weight: 600; color: var(--primary); margin-bottom: 0;">Cost: £0</p>
-                    </div>
-                    
-                    <!-- Option 2 -->
-                    <div style="background-color: rgba(195, 157, 86, 0.04); border-radius: var(--radius-md); padding: 30px; border-top: 4px solid var(--accent); transition: all 0.3s ease; box-shadow: var(--shadow-sm);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--shadow-md)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)'">
-                        <h4 style="font-size: 18px; margin-bottom: 15px;">Extended Support</h4>
-                        <p style="font-size: 15px; line-height: 1.5; color: var(--text-light); margin-bottom: 15px;">Purchase additional support in monthly increments if you need continued assistance. No pressure or auto-renewals—only when you need it.</p>
-                        <p style="font-size: 15px; font-weight: 600; color: var(--primary); margin-bottom: 0;">From £30/month</p>
-                    </div>
-                    
-                    <!-- Option 3 -->
-                    <div style="background-color: rgba(195, 157, 86, 0.04); border-radius: var(--radius-md); padding: 30px; border-top: 4px solid var(--accent); transition: all 0.3s ease; box-shadow: var(--shadow-sm);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--shadow-md)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)'">
-                        <h4 style="font-size: 18px; margin-bottom: 15px;">System Evolution</h4>
-                        <p style="font-size: 15px; line-height: 1.5; color: var(--text-light); margin-bottom: 15px;">As your business grows, commission additional features or integrations as one-time projects. Each enhancement includes its own support period.</p>
-                        <p style="font-size: 15px; font-weight: 600; color: var(--primary); margin-bottom: 0;">Custom Quotes</p>
-                    </div>
-                </div>
+                <p style="text-align: center; max-width: 700px; margin: 0 auto 30px; font-size: 1.1rem; color: var(--text-light);">You have three options — no surprises, no strings:</p>
+                <ol style="max-width: 600px; margin: 0 auto 40px; padding-left: 20px; list-style-position: outside; color: var(--text-light);">
+                    <li style="margin-bottom: 20px; font-size: 1rem; line-height: 1.6;">
+                        <strong style="color: var(--text-dark); display: block; margin-bottom: 5px;">1. Self-Management</strong>
+                        You own the system. It's built to run on autopilot.
+                    </li>
+                    <li style="margin-bottom: 20px; font-size: 1rem; line-height: 1.6;">
+                        <strong style="color: var(--text-dark); display: block; margin-bottom: 5px;">2. Extended Support</strong>
+                        Add maintenance month-by-month, only if needed. From £30/mo.
+                    </li>
+                    <li style="font-size: 1rem; line-height: 1.6;">
+                        <strong style="color: var(--text-dark); display: block; margin-bottom: 5px;">3. System Evolution</strong>
+                        Ready to grow? Commission upgrades or new automations anytime.
+                    </li>
+                </ol>
                 
 
                 
@@ -4386,7 +4482,7 @@
                         <span class="faq-toggle">+</span>
                     </div>
                     <div class="faq-content">
-                        <p>Additional refinements beyond the included rounds can be arranged at a pre-agreed rate. We're flexible and understand that requirements may evolve. Enterprise clients benefit from more comprehensive change management options.</p>
+                        <p>Additional refinements beyond the included rounds can be arranged at a pre-agreed rate. We're flexible and understand that requirements may evolve. Full Stack Infrastructure clients benefit from more comprehensive change management options.</p>
                     </div>
                 </div>
                 
@@ -4417,8 +4513,7 @@
     <section id="contact" class="section">
         <div class="container">
             <div class="section-title text-center">
-                <h2>Contact Us</h2>
-                <p>We're here to help with your business automation needs</p>
+                <h2>We’re here when you’re ready to build real infrastructure.</h2>
             </div>
             
             <div class="contact-wrapper">
@@ -4475,8 +4570,8 @@
                             </div>
                             
                             <div class="form-group">
-                                <label for="message">Your Question</label>
-                                <textarea id="message" name="message" rows="3" placeholder="Type your question here..."></textarea>
+                                <label for="message">Describe Your Operational Bottlenecks</label>
+                                <textarea id="message" name="message" rows="4" placeholder="Detail the key operational challenges or system requirements you're facing." required></textarea>
                             </div>
                             
                             <button type="submit" class="btn-submit" style="background: linear-gradient(135deg, #d5b778, #a88a45); color: white; font-size: 16px; padding: 15px; border-radius: 8px; font-weight: 600; width: 100%; display: flex; align-items: center; justify-content: center; margin-top: 20px; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(195, 157, 86, 0.25);">
@@ -4495,6 +4590,18 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
+        <!-- NEW: Tech Stack / Trust Logos -->
+        <div class="footer-tech-logos" style="text-align: center; margin-bottom: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+            <h5 style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Technologies We Leverage</h5>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap;">
+                <span style="color: rgba(255,255,255,0.8); font-size: 1rem;">Airtable</span>
+                <span style="color: rgba(255,255,255,0.8); font-size: 1rem;">Make.com</span>
+                <span style="color: rgba(255,255,255,0.8); font-size: 1rem;">Stripe</span>
+                <span style="color: rgba(255,255,255,0.8); font-size: 1rem;">Webflow</span>
+                <span style="color: rgba(255,255,255,0.8); font-size: 1rem;">Zapier</span>
+            </div>
+        </div>
+
             <div class="footer-content">
                 <div class="footer-info">
                     <a href="#" class="footer-logo">
@@ -4607,6 +4714,11 @@
                 </div>
             </div>
             
+        <!-- NEW: "Used by teams in..." line -->
+        <div class="footer-industry-mention" style="text-align: center; margin-top: 30px; margin-bottom: 30px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1);">
+            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; margin:0;">Used by teams in: legal, e-commerce, and coaching.</p>
+        </div>
+
             <div class="footer-bottom">
                 <p>&copy; 2025 Aether Systems. All rights reserved.</p>
                 <div class="footer-links">
@@ -4757,11 +4869,11 @@
     <script src="stripe-client.js"></script>
 
     <!-- Modal Forms -->
-    <!-- Get Started Modal (Essentials) -->
+    <!-- Get Started Modal (Foundation System) -->
     <div id="essentials-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Build Your Essentials System</h3>
+                <h3>Build Your Foundation System</h3>
                 <span class="close-modal">&times;</span>
             </div>
             <div class="modal-body">
@@ -4858,7 +4970,7 @@
                         </label>
                     </div>
                     <div class="form-footer">
-                        <p class="price-summary">Essentials Plan: <strong>£499</strong> (one-time payment)</p>
+                        <p class="price-summary">Foundation System Plan: <strong>£499</strong> (one-time payment)</p>
                         <p class="form-note">Includes 1 automation system, 5-day delivery, 2 refinement rounds, and 14-day support.</p>
                         <button type="submit" class="btn-submit">Continue to Payment</button>
                     </div>
@@ -4867,38 +4979,38 @@
         </div>
     </div>
 
-    <!-- Get Started Modal (Professional) -->
-    <div id="professional-modal" class="modal">
+    <!-- Get Started Modal (Operator Engine) -->
+    <div id="operator-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Design Your Professional Systems</h3>
+                <h3>Design Your Operator Engine</h3>
                 <span class="close-modal">&times;</span>
             </div>
             <div class="modal-body">
-                <form id="professional-form" class="modal-form">
+                <form id="operator-form" class="modal-form">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="professional-name">Full Name</label>
-                            <input type="text" id="professional-name" name="name" placeholder="Enter your full name" required>
+                            <label for="operator-name">Full Name</label>
+                            <input type="text" id="operator-name" name="name" placeholder="Enter your full name" required>
                         </div>
                         <div class="form-group">
-                            <label for="professional-email">Email Address</label>
-                            <input type="email" id="professional-email" name="email" placeholder="Enter your work email" required>
+                            <label for="operator-email">Email Address</label>
+                            <input type="email" id="operator-email" name="email" placeholder="Enter your work email" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="professional-company">Company Name</label>
-                            <input type="text" id="professional-company" name="company" placeholder="Enter your company name" required>
+                            <label for="operator-company">Company Name</label>
+                            <input type="text" id="operator-company" name="company" placeholder="Enter your company name" required>
                         </div>
                         <div class="form-group">
-                            <label for="professional-phone">Phone Number</label>
-                            <input type="tel" id="professional-phone" name="phone" placeholder="Enter your phone number">
+                            <label for="operator-website">Company Website (Optional)</label>
+                            <input type="url" id="operator-website" name="website" placeholder="Enter your company website">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="professional-team-size">Team Size</label>
-                        <select id="professional-team-size" name="team-size" required>
+                        <label for="operator-team-size">Team Size</label>
+                        <select id="operator-team-size" name="team-size" required>
                             <option value="">Select team size</option>
                             <option value="1-5">1-5 people</option>
                             <option value="6-15">6-15 people</option>
@@ -4942,24 +5054,24 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="professional-current-tools">What tools do you currently use?</label>
-                        <textarea id="professional-current-tools" name="current-tools" rows="2" placeholder="List any tools or software you're currently using (CRM, accounting, etc.)"></textarea>
+                        <label for="operator-current-tools">What tools do you currently use?</label>
+                        <textarea id="operator-current-tools" name="current-tools" rows="2" placeholder="List any tools or software you're currently using (CRM, accounting, etc.)"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="professional-description">Specific requirements for your systems</label>
-                        <textarea id="professional-description" name="description" rows="3" placeholder="Describe the workflows you need connected and any specific requirements..."></textarea>
+                        <label for="operator-description">Specific requirements for your systems</label>
+                        <textarea id="operator-description" name="description" rows="3" placeholder="Describe the workflows you need connected and any specific requirements..."></textarea>
                     </div>
                     <div class="form-group checkbox-group">
                         <label class="checkbox-container">
-                            <input type="checkbox" id="professional-has-system" name="has-system" onchange="toggleExistingSystem('professional')">
+                            <input type="checkbox" id="operator-has-system" name="has-system" onchange="toggleExistingSystem('operator')">
                             <span class="checkmark"></span>
                             I have existing systems I'd like to integrate or improve
                         </label>
                     </div>
-                    <div id="professional-existing-system-details" style="display: none;">
+                    <div id="operator-existing-system-details" style="display: none;">
                         <div class="form-group">
-                            <label for="professional-repo-type">Repository Type</label>
-                            <select id="professional-repo-type" name="repo-type">
+                            <label for="operator-repo-type">Repository Type</label>
+                            <select id="operator-repo-type" name="repo-type">
                                 <option value="">Select repository type</option>
                                 <option value="github">GitHub</option>
                                 <option value="gitlab">GitLab</option>
@@ -4972,23 +5084,23 @@
                             <input type="text" id="professional-repo-url" name="repo-url" placeholder="Enter the URL to your repository or system">
                         </div>
                         <div class="form-group">
-                            <label for="professional-system-details">Additional System Details</label>
-                            <textarea id="professional-system-details" name="system-details" rows="2" placeholder="Please provide any additional details about your current systems that would help us understand them better"></textarea>
+                            <label for="operator-system-details">Additional System Details</label>
+                            <textarea id="operator-system-details" name="system-details" rows="2" placeholder="Please provide any additional details about your current systems that would help us understand them better"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label><strong>Monthly Support</strong> (Optional)</label>
                         <div class="support-options-container support-options-two">
                             <div class="support-option">
-                                <input type="radio" id="professional-no-support" name="professional-support-option" value="no-support" checked>
-                                <label for="professional-no-support">
+                                <input type="radio" id="operator-no-support" name="operator-support-option" value="no-support" checked>
+                                <label for="operator-no-support">
                                     <span class="support-name">No Monthly Support</span>
                                     <span class="support-price">£0</span>
                                 </label>
                             </div>
                             <div class="support-option">
-                                <input type="radio" id="professional-standard-support" name="professional-support-option" value="standard-support">
-                                <label for="professional-standard-support">
+                                <input type="radio" id="operator-standard-support" name="operator-support-option" value="standard-support">
+                                <label for="operator-standard-support">
                                     <span class="support-name">Standard Support</span>
                                     <span class="support-price">£60/month</span>
                                     <span class="support-description">Email & phone support within 24 hours</span>
@@ -4999,13 +5111,13 @@
                     </div>
                     <div class="form-group checkbox-group">
                         <label class="checkbox-container">
-                            <input type="checkbox" id="professional-terms" required>
+                            <input type="checkbox" id="operator-terms" required>
                             <span class="checkmark"></span>
                             I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
                         </label>
                     </div>
                     <div class="form-footer">
-                        <p class="price-summary">Professional Plan: <strong>£999</strong> (one-time payment)</p>
+                        <p class="price-summary">Operator Engine Plan: <strong>£999</strong> (one-time payment)</p>
                         <p class="form-note">Includes up to 3 connected systems, dedicated specialist, 5 refinement rounds, and 30-day priority support.</p>
                         <button type="submit" class="btn-submit">Continue to Payment</button>
                     </div>
@@ -5014,11 +5126,11 @@
         </div>
     </div>
 
-    <!-- Request Consultation Modal (Enterprise) -->
+    <!-- Request Consultation Modal (Full Stack Infrastructure) -->
     <div id="enterprise-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Scale Your Enterprise Solution</h3>
+                <h3>Schedule Your Founder's Concierge Call</h3>
                 <span class="close-modal">&times;</span>
             </div>
             <div class="modal-body">
@@ -5127,7 +5239,7 @@
                             <input type="text" id="enterprise-repo-url" name="repo-url" placeholder="Enter the URL to your repository or system if publicly accessible">
                         </div>
                         <div class="form-group">
-                            <label for="enterprise-system-details">Enterprise System Details</label>
+                            <label for="enterprise-system-details">Full Stack Infrastructure System Details</label>
                             <textarea id="enterprise-system-details" name="system-details" rows="3" placeholder="Please provide details about your existing systems - including architecture, technologies used, integration points, and any specific requirements for extending them"></textarea>
                         </div>
                     </div>
@@ -5191,7 +5303,7 @@
                         </label>
                     </div>
                     <div class="form-footer">
-                        <p class="price-summary">Enterprise Plan: <strong>Custom Pricing</strong></p>
+                        <p class="price-summary">Full Stack Infrastructure Plan: <strong>Custom Pricing</strong></p>
                         <p class="form-note">Includes full-stack workflow systems, custom API development, executive onboarding, dedicated CTO team for 90 days, and premium support.</p>
                         <button type="submit" class="btn-submit">Schedule Consultation</button>
                     </div>
@@ -5933,7 +6045,7 @@
                         // Add plan type and timestamp to form data
                         formData.plan_type = planType;
                         formData.timestamp = new Date().toISOString();
-                        // For Enterprise plan, submit form data directly without payment
+                        // For Full Stack Infrastructure plan, submit form data directly without payment
                         if (planType === 'enterprise') {
                             // Submit to the server
                             const response = await fetch('/submit-enterprise-quote', {
