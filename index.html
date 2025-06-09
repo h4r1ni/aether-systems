@@ -475,7 +475,7 @@
             font-size: 3.2rem; /* Consolidated and adjusted size */
             line-height: 1.15; /* Adjusted for readability */
             font-weight: 700;
-            margin-top: 80px; /* Increased to push title down further */
+            margin-top: 100px; /* Increased to push title down further */
             margin-bottom: 1.5rem; /* Spacing below title */
             /* color: var(--text); */ /* Commented out to allow global H1 gradient to take effect */
             letter-spacing: -0.02em;
@@ -483,13 +483,27 @@
         }
         
         .hero-description {
-            font-size: 1.2rem; /* Adjusted font size */
-            color: var(--primary); /* Or var(--text-light) for softer text */
-            margin-top: 0; /* Adjusted spacing */
-            margin-bottom: 2.5rem; /* Increased space before buttons */
+            /* Existing text styles */
+            font-size: 1.2rem;
+            color: var(--primary);
             font-weight: 500;
-            line-height: 1.45; /* Adjusted for readability */
-            /* Full-width styles removed for natural centering */
+            line-height: 1.45;
+            text-align: center; /* Ensure text is centered within the breakout block */
+
+            /* New breakout styles */
+            position: relative;
+            width: 100%;
+            max-width: 1600px; /* Wider than its container, aiming for two lines */
+            left: 50%;
+            transform: translateX(-50%);
+            box-sizing: border-box;
+            
+            /* Adjust padding and margin */
+            padding: 0 20px; /* Horizontal padding for text within the breakout block */
+            margin-top: 0; /* Keep original top margin */
+            margin-bottom: 2.5rem; /* Keep original bottom margin */
+            margin-left: auto; /* For centering if not full max-width */
+            margin-right: auto; /* For centering if not full max-width */
         }
         
         .hero-subtitle {
@@ -2910,10 +2924,10 @@
 
         /* Who We Build For Section */
         .build-for-intro {
-            font-size: 1.8rem; /* Adjusted for impact, similar to other section titles */
+            font-size: 1.7rem; /* Adjusted for impact, similar to other section titles */
             color: var(--primary);
             /* margin-bottom: var(--spacing-xl); /* Handled by inline style on parent div */
-            font-weight: 700;
+            font-weight: 600; /* Reduced for a slightly lighter feel */
             line-height: 1.3;
         }
 
@@ -2927,32 +2941,33 @@
 
         .build-for-item {
             background-color: var(--white);
-            padding: var(--spacing-md);
+            padding: var(--spacing-lg); /* Increased padding for more whitespace */
             border-radius: var(--radius-lg); /* Slightly larger radius for premium feel */
-            box-shadow: var(--shadow-md);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--shadow-sm); /* Reduced shadow for subtlety */
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Added border-color transition */
             border: 1px solid var(--border); /* Subtle border using existing var */
             display: flex; /* Added for flex layout */
             flex-direction: column; /* Stack title and p vertically */
         }
 
         .build-for-item:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-xl); /* More pronounced hover shadow */
+            transform: translateY(-4px); /* Slightly less movement */
+            box-shadow: var(--shadow-md); /* Refined hover shadow */
+            border-color: var(--accent); /* Accent border on hover */
         }
 
         .build-for-item-title {
-            font-size: 1.2rem; /* Prominent item titles */
-            color: var(--primary-dark); /* Darker primary for titles */
+            font-size: 1.1rem; /* Refined item title size */
+            color: var(--primary); /* Corrected to use defined theme variable */
             font-weight: 600;
-            margin-bottom: var(--spacing-md); /* More space below title */
+            margin-bottom: var(--spacing-sm); /* Reduced space below title */
             line-height: 1.4;
         }
 
         .build-for-item p {
             font-size: 0.9rem;
             line-height: 1.65; /* Increased for readability */
-            color: var(--text); /* Standard text color */
+            color: var(--text-light); /* Softer text color */
             margin-bottom: 0;
             flex-grow: 1; /* Allow paragraph to take available space if items have uneven text */
         }
@@ -2961,7 +2976,7 @@
         #comparison .pull-quote {
             text-align: center;
             margin: 40px auto 50px;
-            max-width: 650px;
+            max-width: 100%;
         }
 
         #comparison .pull-quote p {
@@ -2974,7 +2989,7 @@
 
         #comparison .comparison-intro-text {
             text-align: center;
-            max-width: 700px;
+            max-width: 100%;
             margin: 0 auto 40px;
             font-size: 1.05rem;
             line-height: 1.6;
@@ -2984,7 +2999,7 @@
         .comparison-table-wrapper {
             margin-top: 40px;
             overflow-x: auto;
-            max-width: 900px;
+            max-width: none;
             margin-left: auto;
             margin-right: auto;
             border: 1px solid var(--border-color-light, #e0e0e0);
@@ -2996,7 +3011,7 @@
             width: 100%;
             border-collapse: collapse;
             text-align: left;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
 
         .comparison-table th,
@@ -3115,7 +3130,7 @@
         </div>
     </section>
 
-<section class="section who-we-build-for-section" style="padding-top: 60px; padding-bottom: 60px; background-color: var(--background-alt);">
+<section class="section who-we-build-for-section" style="padding-top: 60px; padding-bottom: 60px; background-color: var(--light-bg);">
     <div class="container">
         <div class="section-title text-center" style="margin-bottom: var(--spacing-xl);">
             <h2 class="build-for-intro">If this sounds like you — you're exactly who we build for.</h2>
@@ -4536,6 +4551,383 @@
 
 
     
+    <style>
+    /* Comparison Section Styling */
+    #comparison {
+        background-color: var(--light-bg); /* Match pricing section background */
+        padding-top: 60px;
+        padding-bottom: 60px;
+        box-sizing: border-box;
+    }
+
+    #comparison .container {
+        max-width: 1140px; /* Match default .container width for consistent breakout centering */
+    }
+
+    #comparison .comparison-summary {
+        position: relative;
+        width: 100%;
+        max-width: 1600px; /* Match .hero-description breakout width */
+        left: 50%;
+        transform: translateX(-50%);
+        box-sizing: border-box;
+        /* Top, R/L, Bottom padding. Original margin-bottom was 40px */
+        padding: 0 20px 40px 20px; 
+        margin: 0; /* Reset margins as padding now handles spacing */
+
+        /* Text properties */
+        text-align: center;
+        font-size: 1.05rem;
+        line-height: 1.6;
+        color: var(--text-light);
+    }
+
+    .comparison-intro {
+        max-width: none; /* Further increased width */
+        margin: 0 auto 40px auto;
+        /* text-align: center; Removed to allow children to define alignment */
+    }
+
+    .comparison-quote {
+        text-align: center; /* Center the quote block */
+    }
+
+    .comparison-quote p {
+        font-size: 1.5rem;
+        font-style: italic;
+        color: var(--primary);
+        margin-top: var(--spacing-lg);
+        margin-bottom: var(--spacing-md);
+        position: relative; /* For quote marks positioning */
+        display: inline-block; /* Shrink-wrap to content for better quote mark placement */
+        /* max-width: 700px; Removed, inline-block will manage width */
+        /* margin-left: auto; Removed, parent's text-align:center handles centering */
+        /* margin-right: auto; Removed */
+        text-align: center; /* Ensure text inside p is centered, for multi-line quotes */
+    }
+
+    .comparison-quote p::before {
+        content: "“";
+        font-size: 3rem; /* Larger quote marks */
+        color: var(--accent);
+        line-height: 0;
+        position: absolute;
+        left: -1.5rem; /* Adjust position */
+        top: 0.8rem;   /* Adjust position */
+    }
+
+    .comparison-quote p::after {
+        content: "”";
+        font-size: 3rem; /* Larger quote marks */
+        color: var(--accent);
+        line-height: 0;
+        position: absolute;
+        right: -1.5rem; /* Adjust position */
+        bottom: 0.5rem;  /* Adjust position */
+    }
+
+    .comparison-summary {
+        font-size: 1.1rem;
+        color: var(--text-light);
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .comparison-table-wrapper {
+        overflow-x: auto;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-md);
+        background-color: var(--white);
+        margin-top: 30px; /* Add space above table */
+        max-width: 800px; /* Further reduced table wrapper width */
+        margin-left: auto; /* Center the narrower table */
+        margin-right: auto; /* Center the narrower table */
+    }
+
+    .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+        padding: var(--spacing-md) var(--spacing-lg);
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+        vertical-align: middle; /* Align content vertically */
+    }
+
+    .comparison-table th {
+        background-color: var(--background);
+        color: var(--primary);
+        font-weight: 600;
+        font-size: 0.9rem; /* Slightly smaller header font */
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .comparison-table thead th.text-center,
+    .comparison-table tbody td.text-center {
+        text-align: center;
+    }
+
+    .comparison-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .comparison-table tbody tr:nth-child(even) {
+        background-color: var(--light-bg);
+    }
+    .comparison-table tbody tr:hover {
+        background-color: #f0f0f0;
+    }
+
+    .comparison-table .col-feature {
+        font-weight: 500;
+        color: var(--text);
+        width: 30%; /* Adjusted width */
+    }
+
+    .comparison-table .icon {
+        font-size: 1.2rem; /* Adjusted icon size */
+        margin-right: var(--spacing-xs);
+        vertical-align: middle;
+    }
+
+    .comparison-table .icon-check {
+        color: #28a745;
+    }
+
+    .comparison-table .icon-cross {
+        color: #dc3545;
+    }
+
+    .comparison-table .icon-warn {
+        color: #ffc107;
+    }
+
+    .comparison-table .icon-label {
+        display: block;
+        font-size: 0.75rem; /* Smaller label */
+        color: var(--text-light);
+        margin-top: 2px; /* Reduced margin */
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .comparison-table th,
+        .comparison-table td {
+            padding: var(--spacing-sm) var(--spacing-md);
+            font-size: 0.85rem;
+        }
+        .comparison-table .col-feature {
+            width: 25%;
+        }
+        .comparison-quote p {
+            font-size: 1.3rem;
+        }
+        .comparison-quote p::before { left: -1rem; top: 0.6rem; font-size: 2.5rem; }
+        .comparison-quote p::after { right: -1rem; bottom: 0.4rem; font-size: 2.5rem; }
+        .comparison-summary {
+            font-size: 1rem;
+        }
+    }
+
+    @media (max-width: 600px) { /* Adjusted breakpoint for stacked table */
+        .comparison-table thead {
+            display: none;
+        }
+        .comparison-table tr {
+            display: block;
+            margin-bottom: var(--spacing-md);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background-color: var(--white); /* Ensure white background for rows */
+        }
+        .comparison-table tr:nth-child(even) {
+            background-color: var(--white); /* Override zebra for stacked */
+        }
+        .comparison-table td {
+            display: block;
+            text-align: right;
+            padding-left: 45%; /* Adjusted for label */
+            position: relative;
+            border-bottom: 1px solid var(--border);
+        }
+        .comparison-table td:last-child {
+            border-bottom: none;
+        }
+        .comparison-table td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: var(--spacing-sm);
+            width: calc(45% - var(--spacing-lg)); /* Adjusted for padding */
+            padding-right: var(--spacing-sm);
+            font-weight: 600;
+            text-align: left;
+            white-space: nowrap;
+            color: var(--primary);
+            font-size: 0.8rem; /* Smaller label font */
+        }
+        .comparison-table td.text-center {
+            text-align: right;
+        }
+        .comparison-table .col-feature {
+            background-color: var(--light-bg);
+            font-weight: bold;
+            text-align: left; /* Align feature name to left */
+            padding-left: var(--spacing-sm); 
+            width: 100%; /* Full width for feature name */
+        }
+        .comparison-table .col-feature::before {
+            display: none;
+        }
+        .comparison-table .icon-label {
+            display: inline-block; /* Keep label on same line */
+            margin-left: var(--spacing-xs);
+        }
+        .comparison-table .icon {
+            margin-right: 5px;
+        }
+    }
+        /* Comparison Section Styles */
+        #comparison {
+            padding: var(--section-padding-y, 60px) 0;
+            background-color: var(--background-light, #ffffff); /* Assuming a light background */
+        }
+
+        .comparison-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+        }
+
+        #comparison .section-title h2 {
+            font-size: 2.2rem; /* Consistent with other h2 or slightly adjusted */
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .comparison-summary {
+            font-size: 1.15rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 0rem;
+        }
+
+        .comparison-quote {
+            margin-top: 0rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: var(--background-accent-light, rgba(195, 157, 86, 0.05)); /* Light accent background */
+            border-left: 5px solid var(--accent, #c39d56);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .comparison-quote p {
+            font-style: italic;
+            font-size: 1.25rem;
+            color: var(--text, #444);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .comparison-table-wrapper {
+            overflow-x: auto;
+            margin-top: 2.5rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            background-color: var(--white); /* Ensure table background is distinct if page bg is not white */
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            min-width: 600px; /* Prevent excessive squishing on small screens before scroll */
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem 0.85rem;
+            text-align: left;
+            vertical-align: middle;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table th {
+            background-color: var(--light-bg);
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1rem;
+            border-bottom-width: 2px;
+            border-color: var(--accent-light); /* Accent border for header */
+        }
+        
+        .comparison-table th.text-center,
+        .comparison-table td.text-center {
+            text-align: center;
+        }
+
+        .comparison-table .col-feature {
+            font-weight: 500;
+            color: var(--text, #444);
+            width: 30%; /* Allocate more space for feature names */
+        }
+
+        .comparison-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tbody tr:hover {
+            background-color: var(--table-row-hover-bg, rgba(195, 157, 86, 0.03));
+        }
+
+        .comparison-table .icon {
+            font-size: 1.4em;
+            vertical-align: middle;
+        }
+
+        .comparison-table .icon-check {
+            color: var(--success-color, #28a745);
+        }
+
+        .comparison-table .icon-cross {
+            color: var(--error-color, #dc3545);
+        }
+
+        .comparison-table .icon-warn {
+            color: var(--warning-color, #ffc107);
+        }
+
+        .comparison-table .icon-label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-light, #777);
+            margin-top: 0.3rem;
+        }
+
+        /* Responsive adjustments for smaller screens if needed */
+        @media (max-width: 768px) {
+            #comparison .section-title h2 {
+                font-size: 1.8rem;
+            }
+            .comparison-summary,
+            .comparison-quote p {
+                font-size: 1.05rem;
+            }
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.8rem 0.6rem;
+            }
+            .comparison-table .icon-label {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+
     <!-- Comparison Section -->
     <section class="section" id="comparison">
         <div class="container">
@@ -4543,12 +4935,12 @@
                 <div class="section-title text-center">
                     <h2>Why Aether vs Everyone Else?</h2>
                 </div>
-                <div class="comparison-quote">
-                    <p>“You're not buying a tool. You're investing in leverage.”</p>
-                </div>
                 <p class="comparison-summary">
                     Most automation services either trap you in a subscription or patch together bandaid fixes. Aether Systems builds standalone infrastructure that’s built to last, designed to scale, and always 100% yours.
                 </p>
+                <div class="comparison-quote">
+                    <p>“You're not buying a tool. You're investing in leverage.”</p>
+                </div>
             </div>
             <div class="comparison-table-wrapper">
                 <table class="comparison-table">
@@ -4562,34 +4954,34 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="col-feature">100% Ownership</td>
-                            <td class="text-center"><span class="icon icon-check">✅</span></td>
-                            <td class="text-center"><span class="icon icon-cross">❌</span></td>
-                            <td class="text-center"><span class="icon icon-cross">❌</span> <span class="icon-label">Inconsistent</span></td>
+                            <td class="col-feature" data-label="Feature">100% Ownership</td>
+                            <td class="text-center" data-label="Aether Systems"><span class="icon icon-check">✅</span></td>
+                            <td class="text-center" data-label="SaaS Tools"><span class="icon icon-cross">❌</span></td>
+                            <td class="text-center" data-label="Freelancers"><span class="icon icon-cross">❌</span> <span class="icon-label">Inconsistent</span></td>
                         </tr>
                         <tr>
-                            <td class="col-feature">No Lock-In</td>
-                            <td class="text-center"><span class="icon icon-check">✅</span></td>
-                            <td class="text-center"><span class="icon icon-cross">❌</span></td>
-                            <td class="text-center"><span class="icon icon-cross">❌</span> <span class="icon-label">Inconsistent</span></td>
+                            <td class="col-feature" data-label="Feature">No Lock-In</td>
+                            <td class="text-center" data-label="Aether Systems"><span class="icon icon-check">✅</span></td>
+                            <td class="text-center" data-label="SaaS Tools"><span class="icon icon-cross">❌</span></td>
+                            <td class="text-center" data-label="Freelancers"><span class="icon icon-cross">❌</span> <span class="icon-label">Inconsistent</span></td>
                         </tr>
                         <tr>
-                            <td class="col-feature">Custom-Built</td>
-                            <td class="text-center"><span class="icon icon-check">✅</span></td>
-                            <td class="text-center"><span class="icon icon-cross">❌</span></td>
-                            <td class="text-center"><span class="icon icon-warn">⚠️</span> <span class="icon-label">Patchwork</span></td>
+                            <td class="col-feature" data-label="Feature">Custom-Built</td>
+                            <td class="text-center" data-label="Aether Systems"><span class="icon icon-check">✅</span></td>
+                            <td class="text-center" data-label="SaaS Tools"><span class="icon icon-cross">❌</span></td>
+                            <td class="text-center" data-label="Freelancers"><span class="icon icon-warn">⚠️</span> <span class="icon-label">Patchwork</span></td>
                         </tr>
                         <tr>
-                            <td class="col-feature">High-End UX</td>
-                            <td class="text-center"><span class="icon icon-check">✅</span></td>
-                            <td class="text-center"><span class="icon icon-cross">❌</span> <span class="icon-label">Generic</span></td>
-                            <td class="text-center"><span class="icon icon-cross">❌</span></td>
+                            <td class="col-feature" data-label="Feature">High-End UX</td>
+                            <td class="text-center" data-label="Aether Systems"><span class="icon icon-check">✅</span></td>
+                            <td class="text-center" data-label="SaaS Tools"><span class="icon icon-cross">❌</span> <span class="icon-label">Generic</span></td>
+                            <td class="text-center" data-label="Freelancers"><span class="icon icon-cross">❌</span></td>
                         </tr>
                         <tr>
-                            <td class="col-feature">Real Support</td>
-                            <td class="text-center"><span class="icon icon-check">✅</span></td>
-                            <td class="text-center"><span class="icon icon-cross">❌</span> <span class="icon-label">Slow & Scripted</span></td>
-                            <td class="text-center"><span class="icon icon-warn">⚠️</span> <span class="icon-label">Unreliable</span></td>
+                            <td class="col-feature" data-label="Feature">Real Support</td>
+                            <td class="text-center" data-label="Aether Systems"><span class="icon icon-check">✅</span></td>
+                            <td class="text-center" data-label="SaaS Tools"><span class="icon icon-cross">❌</span> <span class="icon-label">Slow & Scripted</span></td>
+                            <td class="text-center" data-label="Freelancers"><span class="icon icon-warn">⚠️</span> <span class="icon-label">Unreliable</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -4612,7 +5004,7 @@
                 <div class="pricing-card">
                     <div class="pricing-header">
                         <h3 class="pricing-name">Foundation System</h3>
-                        <div class="pricing-price" style="font-size: 2.75rem; font-weight: 700; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; margin: 20px 0; display: inline-block;">£699</div>
+                        <div class="pricing-price" style="font-size: 2.75rem; font-weight: 700; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; margin: 20px 0; display: inline-block;">£499</div>
                         <p class="pricing-description">Best for early-stage founders automating a single process</p>
                     </div>
                     <div class="pricing-features">
@@ -4678,7 +5070,7 @@
                     </div>
                     <div class="pricing-footer">
                         <a href="#" id="enterprise-buy-button" class="btn btn-primary pricing-cta"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px; position: relative; top: 2px;"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Schedule Founder's Concierge Call</a>
-                        <span class="pricing-note">Full Stack Infrastructure solutions starting from £2,000.</span>
+                        <span class="pricing-note">Full Stack Infrastructure solutions starting from £1,500.</span>
                     </div>
                 </div>
             </div>
