@@ -3254,13 +3254,24 @@
             .service-cta a:hover {
                 text-decoration: underline;
             }
+
+            .section-description-wide {
+                max-width: 1100px; /* Genuinely wider text block */
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 20px;
+                margin-bottom: 40px;
+                text-align: center;
+                font-size: 1.1rem;
+                line-height: 1.6;
+                color: var(--secondary);
+            }
         </style>
         <div class="container">
             <div class="section-title">
                 <h2>Operational Clarity Without the Overhead</h2>
-                <p>We design custom systems that eliminate manual work and replace clunky workflows. So you can scale, without bloated operation teams or scattered tools.</p>
             </div>
-            
+            <p class="section-description-wide">We design custom systems that eliminate manual work and replace clunky workflows. So you can scale, without bloated operation teams or scattered tools.</p>
             <div class="services-grid">
                 <!-- 1. Automate -->
                 <div class="service-card">
@@ -4948,17 +4959,13 @@
     <!-- Comparison Section -->
     <section class="section" id="comparison">
         <div class="container">
-            <div class="comparison-intro">
-                <div class="section-title text-center">
-                    <h2>Why Aether vs Everyone Else?</h2>
-                </div>
-                <p class="comparison-summary">
-                    Most automation services either trap you in a subscription or patch together bandaid fixes. Aether Systems builds standalone infrastructure that’s built to last, designed to scale, and always 100% yours.
-                </p>
-                <div class="comparison-quote">
-                    <p>“You're not buying a tool. You're investing in leverage.”</p>
-                </div>
+            <div class="section-title text-center">
+                <h2>Why Aether vs Everyone Else?</h2>
             </div>
+            <p class="section-description-wide">
+                Aether Systems builds standalone infrastructure that’s built to last, designed to scale, and always 100% yours.
+            </p>
+
             <div class="comparison-table-wrapper">
                 <table class="comparison-table">
                     <thead>
@@ -5484,8 +5491,9 @@
     <style>
         /* Base section spacing */
         .section {
-            padding: 40px 0;
-            margin: 0;
+            padding: var(--spacing-xl) 0;
+            position: relative;
+            overflow-x: hidden; /* CRITICAL: Prevents breakout content from causing horizontal scroll */
         }
         
         /* Process and Contact specific CSS */
