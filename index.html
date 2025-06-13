@@ -3229,98 +3229,115 @@
 
     <!-- What We Build Section -->
     <section class="section" id="what-we-build">
+        <style>
+            .service-card {
+                display: flex;
+                flex-direction: column;
+            }
+            .service-card .feature-list {
+                flex-grow: 1;
+            }
+            .service-cta {
+                margin-top: 20px;
+                padding-top: 20px;
+                border-top: 1px solid var(--border);
+                font-weight: 500;
+            }
+            .service-cta p {
+                margin: 0;
+            }
+            .service-cta a {
+                color: var(--accent);
+                text-decoration: none;
+                font-weight: 600;
+            }
+            .service-cta a:hover {
+                text-decoration: underline;
+            }
+        </style>
         <div class="container">
             <div class="section-title">
-                <h2>Operational Clarity for Growth-Driven Brands</h2>
-                <p>Operational clarity without the cost of operations staff. We design custom operational systems that eliminate manual work and deliver actionable insights so growth-focused businesses can scale smarter, not harder.</p>
+                <h2>Operational Clarity Without the Overhead</h2>
+                <p>We design custom systems that eliminate manual work and replace clunky workflows. So you can scale, without bloated operation teams or scattered tools.</p>
             </div>
             
             <div class="services-grid">
-                <!-- Service 1 -->
+                <!-- 1. Automate -->
                 <div class="service-card">
-                    <div class="service-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
-                    </div>
-                    <h3>Workflow Automation</h3>
-                    <p>Manual workflows are the silent tax on scale. We eliminate them.</p>
+                    <h3>1. Automate What Slows You Down</h3>
+                    <p>Manual workflows are a hidden tax on growth. We eliminate them.</p>
                     <ul class="feature-list">
-                        <li>We replace recurring tasks with clean automations.</li>
-                        <li>Your systems run reliably in the background — no micromanaging, no firefighting.</li>
-                        <li>Implement clear, automated approval processes that keep work moving, not stalled.</li>
+                        <li>Replace repetitive tasks with clean, reliable automations</li>
+                        <li>Systems run quietly in the background—no micromanaging, no firefighting</li>
+                        <li>Set up automated approval flows that keep work moving, not stalled</li>
+                    </ul>
+                    <div class="service-cta">
+                        <p>🔗 Want to automate onboarding or invoicing? <a href="#" onclick="document.getElementById('operator-modal').style.display='block'; return false;">Design My System</a></p>
+                    </div>
+                </div>
+
+                <!-- 2. Connect -->
+                <div class="service-card">
+                    <h3>2. Connect Every Tool in Your Stack</h3>
+                    <p>No more acting as the “human API.”</p>
+                    <ul class="feature-list">
+                        <li>Build custom integrations between Stripe, HubSpot, Airtable, and more</li>
+                        <li>Data flows automatically—no re-entry, no human middleware</li>
+                        <li>Ensure critical info lands where it’s needed, exactly when it’s needed</li>
+                    </ul>
+                    <div class="service-cta">
+                        <p>🔗 We integrate your stack. You own the system.</p>
+                    </div>
+                </div>
+
+                <!-- 3. Visualize -->
+                <div class="service-card">
+                    <h3>3. Visualize Your Business in Real Time</h3>
+                    <p>Dashboards that deliver clarity—not clutter.</p>
+                    <ul class="feature-list">
+                        <li>Track sales, operations, and client metrics at a glance</li>
+                        <li>Spot what’s working, what’s stuck, and where to optimize</li>
+                        <li>Identify trends and risks before they impact your bottom line</li>
                     </ul>
                 </div>
 
-                <!-- Service 2 -->
+                <!-- 4. Payments -->
                 <div class="service-card">
-                    <div class="service-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                    </div>
-                    <h3>Connect Your Stack</h3>
-                    <p>Tired of being the human API? We build custom connections between your essential tools (Stripe, HubSpot, Airtable, etc.) for truly seamless data flow.</p>
+                    <h3>4. Streamline Payments & Revenue Ops</h3>
+                    <p>Automated systems that handle revenue without the hassle.</p>
                     <ul class="feature-list">
-                        <li>All your platforms finally talk to each other — automatically.</li>
-                        <li>No more human middleware.</li>
-                        <li>Ensure critical information flows exactly where it's needed, when it's needed, without manual intervention.</li>
+                        <li>Invoicing, billing, and reminders—no chasing required</li>
+                        <li>Full visibility and control over your payment flows</li>
+                        <li>No more missed payments or spreadsheet guesswork</li>
                     </ul>
                 </div>
 
-                <!-- Service 3 -->
+                <!-- 5. Onboarding -->
                 <div class="service-card">
-                    <div class="service-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
-                    </div>
-                    <h3>Business Dashboards</h3>
-                    <p>Get real-time clarity on your business performance.</p>
+                    <h3>5. Deliver a Premium Onboarding Experience</h3>
+                    <p>Delight clients from day one—without the manual lift.</p>
                     <ul class="feature-list">
-                        <li>See what’s working, what’s stalling, and where to scale — no spreadsheets, no guesswork.</li>
-                        <li>Live dashboards designed for clarity, not clutter — so your team knows what’s working, what’s stuck, and where growth is hiding.</li>
-                        <li>Spot trends, opportunities, and potential issues before they impact your bottom line.</li>
+                        <li>Custom-branded portals for updates, tasks, and resources</li>
+                        <li>Automated onboarding workflows that guide clients step-by-step</li>
+                        <li>Say goodbye to scattered emails and inconsistent handoffs</li>
                     </ul>
                 </div>
 
-                <!-- Service 4 -->
+                <!-- 6. Infrastructure -->
                 <div class="service-card">
-                    <div class="service-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                    </div>
-                    <h3>Payment & Monetization</h3>
-                    <p>Automated Payment Systems.</p>
+                    <h3>6. Build Long-Term Operational Infrastructure</h3>
+                    <p>Systems that grow with your business—not against it.</p>
                     <ul class="feature-list">
-                        <li>Establish reliable, automated payment collection with complete visibility and control.</li>
-                        <li>We set up automated payment systems — from invoicing to client billing — so you can collect revenue without chasing or checking.</li>
-                        
+                        <li>Full operational setup: portals, dashboards, automations, migrations</li>
+                        <li>Cleanly migrate from legacy systems with verified data integrity</li>
+                        <li>100% ownership—no platform fees, no vendor lock-in</li>
                     </ul>
-                </div>
-
-                <!-- Service 5: Client Portals & Onboarding -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    <div class="service-cta">
+                        <p>💡 Need clean migrations and full-stack automation? <a href="#" onclick="document.getElementById('enterprise-modal').style.display='block'; return false;">Request Full Stack Quote</a></p>
                     </div>
-                    <h3>Client Portals & Onboarding</h3>
-                    <p>Deliver a premium first impression — without the manual lift.</p>
-                    <ul class="feature-list">
-                        <li>Custom-branded portals for seamless client interaction and updates</li>
-                        <li>Automated onboarding workflows to guide clients step-by-step</li>
-                        <li>No more messy spreadsheets or scattered emails — just clarity and speed</li>
-                    </ul>
-                </div>
-
-                <!-- Service 6 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                    </div>
-                    <h3>Operational Infrastructure</h3>
-                    <p>Build the operational backbone your business needs to scale gracefully. From branded client portals to automated onboarding and seamless legacy system migrations, we ensure your infrastructure supports your ambition.</p>
-                    <ul class="feature-list">
-                        <li>Deliver a premium, branded experience to your clients with custom portals for communication and self-service.</li>
-                        <li>Transform your client or team onboarding from a manual chore into a smooth, automated journey that sets them up for success.</li>
-                        <li>Migrate from outdated systems with confidence, ensuring clean, verified data powers your new infrastructure.</li>
-                        <li>Seamless migration with zero data loss</li>
-                    </ul>
                 </div>
             </div>
+
         </div>
     </section>
 
