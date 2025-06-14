@@ -3009,6 +3009,143 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
+        /* Pricing Section */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0 60px;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #eee;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pricing-card-featured {
+            border: 1px solid var(--accent);
+            transform: scale(1.02);
+        }
+        
+        .pricing-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--accent-gradient);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 1;
+        }
+        
+        .pricing-header {
+            padding: 30px 25px 20px;
+            text-align: center;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .pricing-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 0 0 5px;
+        }
+        
+        .pricing-price {
+            font-size: 2.75rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            margin: 15px 0;
+            display: inline-block;
+            line-height: 1;
+        }
+        
+        .pricing-description {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin: 0;
+            line-height: 1.5;
+        }
+        
+        .pricing-features {
+            padding: 25px;
+            flex-grow: 1;
+        }
+        
+        .pricing-feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .pricing-feature-list li {
+            position: relative;
+            padding: 8px 0 8px 28px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--text);
+            border-bottom: 1px solid #f5f5f5;
+        }
+        
+        .pricing-feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .pricing-feature-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .pricing-footer {
+            padding: 0 25px 30px;
+            text-align: center;
+        }
+        
+        .pricing-footer .btn {
+            width: 100%;
+            padding: 12px 20px;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 8px;
+        }
+        
+        @media (max-width: 1024px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .pricing-card {
+                max-width: 100%;
+            }
+        }
+        
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
@@ -3132,38 +3269,7 @@
         </div>
     </section>
 
-<section class="section who-we-build-for-section">
-    <div class="container">
-        <div class="section-title text-center">
-            <h2 class="build-for-intro">If this sounds like you — you're exactly who we build for.</h2>
-        </div>
-        <div class="build-for-grid">
-            <div class="build-for-item">
-                <h4 class="build-for-item-title">Scaling fast — but ops feel chaotic</h4>
-                <p>Your team is scaling fast, but backend systems can’t keep up — bottlenecks and busywork are killing momentum.</p>
-            </div>
-            <div class="build-for-item">
-                <h4 class="build-for-item-title">Done with SaaS sprawl</h4>
-                <p>You’ve outgrown your patchwork of SaaS tools and want permanent, owned infrastructure built for how you run.</p>
-            </div>
-            <div class="build-for-item">
-                <h4 class="build-for-item-title">You value control and clean execution</h4>
-                <p>You want visibility and ownership, not black-box automations or clunky workflows.</p>
-            </div>
-            <div class="build-for-item">
-                <h4 class="build-for-item-title">You delegate, but never downgrade</h4>
-                <p>You're ready to offload complexity, but only if the quality meets founder-level standards.</p>
-            </div>
-            <div class="build-for-item">
-                <h4 class="build-for-item-title">You're scaling, selling, or stepping back</h4>
-                <p>You're expanding or prepping for exit and need a business that runs independently.</p>
-            </div>
-        </div>
-    </div>
-</section>
-    
 
-    
     <style>
         .trust-badge-section {
             background-color: var(--light-bg);
@@ -5005,6 +5111,37 @@
         </div>
     </section>
 
+    <!-- Who We Build For Section -->
+    <section class="section who-we-build-for-section">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2 class="build-for-intro">If this sounds like you — you're exactly who we build for.</h2>
+        </div>
+        <div class="build-for-grid">
+            <div class="build-for-item">
+                <h4 class="build-for-item-title">Scaling fast — but ops feel chaotic</h4>
+                <p>Your team is scaling fast, but backend systems can’t keep up — bottlenecks and busywork are killing momentum.</p>
+            </div>
+            <div class="build-for-item">
+                <h4 class="build-for-item-title">Done with SaaS sprawl</h4>
+                <p>You’ve outgrown your patchwork of SaaS tools and want permanent, owned infrastructure built for how you run.</p>
+            </div>
+            <div class="build-for-item">
+                <h4 class="build-for-item-title">You value control and clean execution</h4>
+                <p>You want visibility and ownership, not black-box automations or clunky workflows.</p>
+            </div>
+            <div class="build-for-item">
+                <h4 class="build-for-item-title">You delegate, but never downgrade</h4>
+                <p>You're ready to offload complexity, but only if the quality meets founder-level standards.</p>
+            </div>
+            <div class="build-for-item">
+                <h4 class="build-for-item-title">You're scaling, selling, or stepping back</h4>
+                <p>You're expanding or prepping for exit and need a business that runs independently.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
     <!-- Pricing Section -->
     <section class="section" id="pricing">
         <div class="container">
@@ -5012,48 +5149,47 @@
                 <h2>Pricing</h2>
             </div>
             
-            <div class="pricing-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px;">
+            <div class="pricing-grid">
                 <!-- Foundation System -->
                 <div class="pricing-card">
                     <div class="pricing-header">
                         <h3 class="pricing-name">Foundation System</h3>
-                        <div class="pricing-price" style="font-size: 2.75rem; font-weight: 700; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; margin: 20px 0; display: inline-block;">£499</div>
+                        <div class="pricing-price">£499</div>
                         <p class="pricing-description">For founders automating one essential process</p>
                     </div>
                     <div class="pricing-features">
-                        <ul class="pricing-feature-list pricing-checkmarks">
+                        <ul class="pricing-feature-list">
                             <li>One complete automation (e.g. lead intake, invoicing, onboarding)</li>
                             <li>Delivered in 10–14 business days</li>
                             <li>2 refinement rounds</li>
                             <li>14 days of email-based support</li>
-                            <li>Fully owned — no subscriptions, no lock-in</li>
+                            <li>100% ownership — no SaaS fees, no vendor lock-in</li>
                         </ul>
                     </div>
                     <div class="pricing-footer">
-                        <a href="#" class="btn btn-primary pricing-cta">Design My System</a>
+                        <a href="#" class="btn btn-primary">Design My System</a>
                     </div>
                 </div>
 
                 <!-- Operator Engine -->
-                <div class="pricing-card" style="background-color: var(--white); border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08); transition: all 0.3s ease; position: relative; border: 1px solid var(--accent);">
-                    <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--accent-gradient);"></div>
-                    <div style="position: absolute; top: 8px; right: 8px; background: var(--accent-gradient); color: white; font-size: 0.55rem; font-weight: 600; padding: 2px 5px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; z-index: 1;">Most Popular</div>
-                    <div class="pricing-header" style="padding-top: 30px;">
+                <div class="pricing-card pricing-card-featured">
+                    <div class="pricing-badge">Most Popular</div>
+                    <div class="pricing-header">
                         <h3 class="pricing-name">Operator Engine</h3>
-                        <div class="pricing-price" style="font-size: 2.75rem; font-weight: 700; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; margin: 20px 0; display: inline-block;">£999</div>
+                        <div class="pricing-price">£999</div>
                         <p class="pricing-description">For teams replacing messy tools with connected systems</p>
                     </div>
                     <div class="pricing-features">
-                        <ul class="pricing-feature-list pricing-checkmarks">
+                        <ul class="pricing-feature-list">
                             <li>Up to 3 integrated workflows (e.g. CRM + payments + dashboards)</li>
                             <li>Delivered in 3–4 weeks</li>
-                            <li>2 refinement rounds</li>
+                            <li>4 refinement rounds</li>
                             <li>30 days of email-based support</li>
-                            <li>Fully owned — you control the stack and data</li>
+                            <li>100% ownership — no SaaS fees, no vendor lock-in</li>
                         </ul>
                     </div>
                     <div class="pricing-footer">
-                        <a href="#" class="btn btn-primary pricing-cta">Design My System</a>
+                        <a href="#" class="btn btn-primary">Design My System</a>
                     </div>
                 </div>
 
@@ -5061,21 +5197,20 @@
                 <div class="pricing-card">
                     <div class="pricing-header">
                         <h3 class="pricing-name">Full Stack Infrastructure</h3>
-                        <div class="pricing-price" style="font-size: 2.75rem; font-weight: 700; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; margin: 20px 0; display: inline-block;">Custom</div>
+                        <div class="pricing-price">Custom</div>
                         <p class="pricing-description">For businesses scaling fast and replacing legacy systems</p>
                     </div>
                     <div class="pricing-features">
-                        <ul class="pricing-feature-list pricing-checkmarks">
+                        <ul class="pricing-feature-list">
                             <li>End-to-end automation across your entire workflow</li>
-                            <li>Live business dashboards (sales, ops, or client insights)</li>
-                            <li>Custom integrations (e.g. Stripe, Airtable, HubSpot, DocuSign)</li>
                             <li>Delivered in 6–8 weeks</li>
+                            <li>10 refinement rounds</li>
                             <li>90 days of email-based support</li>
                             <li>100% ownership — no SaaS fees, no vendor lock-in</li>
                         </ul>
                     </div>
                     <div class="pricing-footer">
-                        <a href="#" id="enterprise-buy-button" class="btn btn-primary pricing-cta">Request a Quote</a>
+                        <a href="#" id="enterprise-buy-button" class="btn btn-primary">Request a Quote</a>
                     </div>
                 </div>
             </div>
