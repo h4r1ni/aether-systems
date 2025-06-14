@@ -184,8 +184,9 @@
         
         .section-title {
             text-align: center;
-            margin-bottom: 40px;
             position: relative;
+            margin-top: var(--spacing-xl);
+            margin-bottom: var(--spacing-lg);
         }
         
         .section-title h2::after {
@@ -472,10 +473,10 @@
         }
         
         .hero-title {
-            font-size: 3.2rem; /* Consolidated and adjusted size */
+            font-size: 3.2rem; /* Larger for more impact */
             line-height: 1.15; /* Adjusted for readability */
             font-weight: 700;
-            margin-top: 100px; /* Increased to push title down further */
+            margin-top: 140px; /* Increased to push title down further */
             margin-bottom: 1.5rem; /* Spacing below title */
             /* color: var(--text); */ /* Commented out to allow global H1 gradient to take effect */
             letter-spacing: -0.02em;
@@ -757,10 +758,7 @@
             font-size: 1.3rem;
         }
         
-        .service-card p {
-            margin-bottom: var(--spacing-md);
-            color: var(--text-light);
-        }
+
         
         .feature-list {
             list-style: none;
@@ -2923,51 +2921,55 @@
         }
 
         /* Who We Build For Section */
+        .who-we-build-for-section {
+            padding: 40px 0;
+            margin-top: 0; /* Removed top margin */
+            background-color: transparent; /* Remove grey background */
+        }
         .build-for-intro {
-            font-size: 1.7rem; /* Adjusted for impact, similar to other section titles */
+            font-size: 1.5rem; /* More compact title */
             color: var(--primary);
-            /* margin-bottom: var(--spacing-xl); /* Handled by inline style on parent div */
-            font-weight: 600; /* Reduced for a slightly lighter feel */
+            font-weight: 600;
             line-height: 1.3;
         }
 
         .build-for-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Min width for better content flow */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Smaller min-width for more columns */
             gap: var(--spacing-md);
-            max-width: 1100px; /* Wider for potentially 2-3 columns */
+            max-width: 1100px;
             margin: 0 auto;
         }
 
         .build-for-item {
             background-color: var(--white);
-            padding: var(--spacing-lg); /* Increased padding for more whitespace */
-            border-radius: var(--radius-lg); /* Slightly larger radius for premium feel */
-            box-shadow: var(--shadow-sm); /* Reduced shadow for subtlety */
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Added border-color transition */
-            border: 1px solid var(--border); /* Subtle border using existing var */
-            display: flex; /* Added for flex layout */
-            flex-direction: column; /* Stack title and p vertically */
+            padding: var(--spacing-md); /* Reduced padding */
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
         }
 
         .build-for-item:hover {
-            transform: translateY(-4px); /* Slightly less movement */
-            box-shadow: var(--shadow-md); /* Refined hover shadow */
-            border-color: var(--accent); /* Accent border on hover */
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent);
         }
 
         .build-for-item-title {
-            font-size: 1.1rem; /* Refined item title size */
-            color: var(--primary); /* Corrected to use defined theme variable */
+            font-size: 1rem; /* Smaller title */
+            color: var(--primary);
             font-weight: 600;
-            margin-bottom: var(--spacing-sm); /* Reduced space below title */
+            margin-bottom: var(--spacing-sm);
             line-height: 1.4;
         }
 
         .build-for-item p {
-            font-size: 0.9rem;
-            line-height: 1.65; /* Increased for readability */
-            color: var(--text-light); /* Softer text color */
+            font-size: 0.85rem; /* Smaller text */
+            line-height: 1.6;
+            color: var(--text-light);
             margin-bottom: 0;
             flex-grow: 1; /* Allow paragraph to take available space if items have uneven text */
         }
@@ -3130,9 +3132,9 @@
         </div>
     </section>
 
-<section class="section who-we-build-for-section" style="padding-top: 60px; padding-bottom: 60px; background-color: var(--light-bg);">
+<section class="section who-we-build-for-section">
     <div class="container">
-        <div class="section-title text-center" style="margin-bottom: var(--spacing-xl);">
+        <div class="section-title text-center">
             <h2 class="build-for-intro">If this sounds like you — you're exactly who we build for.</h2>
         </div>
         <div class="build-for-grid">
