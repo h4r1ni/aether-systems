@@ -19,10 +19,35 @@ const stripe = require('stripe')(STRIPE_SECRET_KEY);
 const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY || 'keyXXXXXXXXXXXXXX'; // Set this in your environment variables
 const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID || 'appXXXXXXXXXXXXXX'; // Set this in your environment variables
 
-// Simple in-memory storage for form submissions and payment form data (in production, use a database)
+// Initialize data persistence
+const { saveJsonRecord, readJsonRecords } = require('./utils/data-persistence');
+
+// In-memory cache for faster reads (data is also persisted to disk)
 let formSubmissions = [];
 let paymentFormData = {}; // Store form data temporarily before payment is completed
 let completedOrders = []; // Store completed orders with form data
+
+// Load existing data from disk on startup
+async function loadExistingData() {
+  try {
+    formSubmissions = await readJsonRecords('form_submissions');
+    const pendingPayments = await readJsonRecords('pending_payments');
+    const completedOrdersData = await readJsonRecords('completed_orders');
+    
+    // Load pending payments into memory (they'll be cleared on payment success)
+    pendingPayments.forEach(payment => {
+      paymentFormData[payment.id] = payment;
+    });
+    
+    // Load completed orders into memory
+    completedOrders = completedOrdersData;
+  } catch (error) {
+    console.error('Error loading existing data:', error);
+  }
+}
+
+// Load data on server startup
+loadExistingData();
 
 // Middleware
 app.use(express.static(path.join(__dirname, 'public')));
@@ -30,40 +55,207 @@ app.use(express.static(__dirname));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Simple notification functions (in production, use proper services)
-const sendEmailNotification = async (subject, content) => {
+// Email configuration
+const EMAIL_CONFIG = {
+  maxRetries: 3,                    // Maximum number of retry attempts
+  initialRetryDelay: 3000,         // Initial delay in ms (3 seconds)
+  maxRetryDelay: 300000,           // Maximum delay between retries (5 minutes)
+  retryBackoffFactor: 2,           // Exponential backoff factor
+  logFile: 'email_notifications.log', // Log file for email attempts
+  maxLogSize: 10 * 1024 * 1024,     // 10MB max log file size
+  maxLogFiles: 5,                   // Keep 5 rotated log files
+};
+
+// In-memory queue for failed emails
+const emailQueue = [];
+let isProcessingQueue = false;
+
+/**
+ * Rotate log file if it exceeds max size
+ */
+const rotateLogFile = () => {
   try {
-    // In production, implement with a service like SendGrid, Mailgun, etc.
-    // For now, just log that we would send an email
-    console.log(`\n==== EMAIL NOTIFICATION WOULD BE SENT ====`);
-    console.log(`TO: contact@aethersystems.org`);
-    console.log(`SUBJECT: ${subject}`);
-    console.log(`CONTENT: \n${content}`);
-    console.log(`=========================================\n`);
-    
-    // In production, uncomment and use code like this:
-    /*
-    const mailOptions = {
-      from: 'noreply@aethersystems.org',
-      to: 'contact@aethersystems.org',
-      subject: subject,
-      html: content
-    };
-    await transporter.sendMail(mailOptions);
-    */
-    
-    // Also save a local copy as a fallback
-    const timestamp = new Date().toISOString();
-    const logEntry = `\n[${timestamp}] ${subject}\n${content}\n------------------------\n`;
-    
-    // In production, enable this to write to a file
-    // fs.appendFileSync('notifications.log', logEntry);
-    
-    return true;
+    if (fs.existsSync(EMAIL_CONFIG.logFile)) {
+      const stats = fs.statSync(EMAIL_CONFIG.logFile);
+      if (stats.size > EMAIL_CONFIG.maxLogSize) {
+        // Rotate logs
+        for (let i = EMAIL_CONFIG.maxLogFiles - 1; i >= 0; i--) {
+          const currentFile = i === 0 ? EMAIL_CONFIG.logFile : `${EMAIL_CONFIG.logFile}.${i}`;
+          const nextFile = `${EMAIL_CONFIG.logFile}.${i + 1}`;
+          
+          if (fs.existsSync(currentFile)) {
+            if (i === EMAIL_CONFIG.maxLogFiles - 1) {
+              // Remove the oldest log if we've reached max files
+              fs.unlinkSync(currentFile);
+            } else {
+              // Otherwise rotate the log file
+              fs.renameSync(currentFile, nextFile);
+            }
+          }
+        }
+      }
+    }
   } catch (error) {
-    console.error('Error sending notification:', error);
-    return false;
+    console.error('Error rotating log file:', error);
   }
+};
+
+/**
+ * Log email attempt to file
+ */
+const logEmailAttempt = (data) => {
+  try {
+    rotateLogFile();
+    const timestamp = new Date().toISOString();
+    const logEntry = `[${timestamp}] ${JSON.stringify(data)}\n`;
+    fs.appendFileSync(EMAIL_CONFIG.logFile, logEntry, 'utf8');
+  } catch (error) {
+    console.error('Error logging email attempt:', error);
+  }
+};
+
+/**
+ * Process the email queue
+ */
+const processEmailQueue = async () => {
+  if (isProcessingQueue || emailQueue.length === 0) return;
+  
+  isProcessingQueue = true;
+  const emailTask = emailQueue.shift();
+  
+  try {
+    const result = await sendEmailWithRetry(
+      emailTask.subject,
+      emailTask.content,
+      emailTask.recipient,
+      emailTask.metadata || {}
+    );
+    
+    if (!result.success && emailTask.attempts < 3) {
+      // Requeue with backoff if max attempts not reached
+      emailTask.attempts = (emailTask.attempts || 0) + 1;
+      emailTask.nextRetry = Date.now() + 
+        Math.min(
+          EMAIL_CONFIG.initialRetryDelay * Math.pow(EMAIL_CONFIG.retryBackoffFactor, emailTask.attempts - 1),
+          EMAIL_CONFIG.maxRetryDelay
+        );
+      emailQueue.push(emailTask);
+    }
+  } catch (error) {
+    console.error('Error processing email queue:', error);
+  } finally {
+    isProcessingQueue = false;
+    
+    // Process next item in queue if any
+    if (emailQueue.length > 0) {
+      const nextTask = emailQueue[0];
+      const delay = Math.max(0, (nextTask.nextRetry || 0) - Date.now());
+      setTimeout(processEmailQueue, delay);
+    }
+  }
+};
+
+/**
+ * Send email with retry logic
+ */
+const sendEmailWithRetry = async (subject, content, recipient = 'contact@aethersystems.org', metadata = {}) => {
+  let lastError = null;
+  
+  for (let attempt = 1; attempt <= EMAIL_CONFIG.maxRetries; attempt++) {
+    try {
+      // In production, implement with a service like SendGrid, Mailgun, etc.
+      console.log(`\n==== EMAIL NOTIFICATION ATTEMPT ${attempt}/${EMAIL_CONFIG.maxRetries} ====`);
+      console.log(`TO: ${recipient}`);
+      console.log(`SUBJECT: ${subject}`);
+      console.log(`METADATA:`, JSON.stringify(metadata, null, 2));
+      console.log(`CONTENT: \n${content}`);
+      console.log(`=========================================\n`);
+      
+      // In production, uncomment and use code like this:
+      /*
+      const mailOptions = {
+        from: 'noreply@aethersystems.org',
+        to: recipient,
+        subject: subject,
+        html: content,
+        headers: {
+          'X-Attempt': attempt,
+          'X-Max-Attempts': EMAIL_CONFIG.maxRetries
+        }
+      };
+      
+      await transporter.sendMail(mailOptions);
+      */
+      
+      // Log successful attempt
+      logEmailAttempt({
+        status: 'success',
+        attempt,
+        subject,
+        recipient,
+        metadata,
+        timestamp: new Date().toISOString()
+      });
+      
+      return { success: true, attempt };
+      
+    } catch (error) {
+      lastError = error;
+      console.error(`Attempt ${attempt} failed:`, error);
+      
+      // Log failed attempt
+      logEmailAttempt({
+        status: 'error',
+        attempt,
+        subject,
+        recipient,
+        error: error.message,
+        stack: error.stack,
+        metadata,
+        timestamp: new Date().toISOString()
+      });
+      
+      // If not the last attempt, wait before retrying with exponential backoff
+      if (attempt < EMAIL_CONFIG.maxRetries) {
+        const delay = Math.min(
+          EMAIL_CONFIG.initialRetryDelay * Math.pow(EMAIL_CONFIG.retryBackoffFactor, attempt - 1),
+          EMAIL_CONFIG.maxRetryDelay
+        );
+        
+        console.log(`Retrying in ${delay}ms...`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+    }
+  }
+  
+  // If we get here, all attempts failed
+  return { success: false, error: lastError };
+};
+
+/**
+ * Queue an email for sending with retry logic
+ */
+const sendEmailNotification = async (subject, content, recipient = 'contact@aethersystems.org', metadata = {}) => {
+  const emailTask = {
+    subject,
+    content,
+    recipient,
+    metadata,
+    timestamp: Date.now(),
+    attempts: 0,
+    nextRetry: Date.now()
+  };
+  
+  // Add to queue
+  emailQueue.push(emailTask);
+  
+  // Start processing queue if not already running
+  if (!isProcessingQueue) {
+    processEmailQueue();
+  }
+  
+  // Return immediately, actual sending happens in the background
+  return { queued: true, id: emailTask.timestamp };
 };
 
 // Enable CORS
@@ -195,22 +387,17 @@ app.post('/store-form-data', async (req, res) => {
     // Generate a unique ID for this form submission
     const formDataId = Date.now().toString() + Math.random().toString(36).substring(2, 15);
     
-    // Store the form data with the ID
+    // Store in memory and persist to disk
     paymentFormData[formDataId] = formData;
+    await saveJsonRecord('pending_payments', { ...formData, id: formDataId });
     
     // Create comprehensive logs of payment form data
-    console.log('\n========== PAYMENT FORM DATA STORED ==========');
+    console.log(`\n==== PAYMENT FORM DATA STORED ====`);
     console.log(`PLAN: ${formData.plan_type?.toUpperCase() || 'Unknown'}`);
     console.log(`CUSTOMER: ${formData.name} (${formData.email})`);
     console.log(`FORM DATA ID: ${formDataId}`);
     console.log(JSON.stringify(formData, null, 2));
-    console.log('==============================================\n');
-    
-    // Create a backup file record - in production, uncomment this
-    // const fs = require('fs');
-    // const backupDir = './data_backups';
-    // if (!fs.existsSync(backupDir)) fs.mkdirSync(backupDir);
-    // fs.writeFileSync(`${backupDir}/payment_${formDataId}.json`, JSON.stringify(formData));
+    console.log(`===================================\n`);
     
     // Return the ID so it can be used after payment
     res.json({ success: true, formDataId: formDataId });
@@ -315,6 +502,14 @@ app.post('/submit-enterprise-quote', async (req, res) => {
     const customerData = req.body;
     console.log(`Enterprise quote request received from ${customerData.fullName}`);
     
+    // Store in memory and persist to disk
+    formSubmissions.push(customerData);
+    await saveJsonRecord('form_submissions', {
+      ...customerData,
+      type: 'enterprise_quote',
+      timestamp: new Date().toISOString()
+    });
+    
     // In production, send to Airtable
     if (AIRTABLE_API_KEY !== 'keyXXXXXXXXXXXXXX') {
       await axios({
@@ -346,7 +541,22 @@ app.post('/submit-enterprise-quote', async (req, res) => {
       });
     }
     
-    // Return success response
+    // Send email notification
+    const subject = `NEW ENTERPRISE QUOTE: ${customerData.company || customerData.fullName}`;
+    const emailContent = `
+<h2>New Enterprise Quote Request</h2>
+<p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
+<p><strong>Company:</strong> ${customerData.company || 'N/A'}</p>
+<p><strong>Contact:</strong> ${customerData.fullName} <${customerData.email}></p>
+<p><strong>Phone:</strong> ${customerData.phone || 'N/A'}</p>
+<p><strong>System to Automate:</strong> ${customerData.systemToAutomate}</p>
+<p><strong>Project Description:</strong> ${customerData.projectDescription}</p>
+<p><strong>Timeline:</strong> ${customerData.timeline}</p>
+<p><a href="https://aethersystems.org/admin/submissions?password=aether2025">View in admin dashboard</a></p>
+`;
+    
+    await sendEmailNotification(subject, emailContent);
+    
     res.json({ success: true, message: 'Quote request received' });
   } catch (error) {
     console.error('Error storing enterprise quote request:', error);
@@ -358,31 +568,18 @@ app.post('/submit-enterprise-quote', async (req, res) => {
 app.post('/submit-contact-form', async (req, res) => {
   try {
     const formData = req.body;
+    const timestamp = new Date().toISOString();
     
-    // Add timestamp
-    formData.timestamp = new Date().toISOString();
+    // Store in memory and persist to disk
+    formSubmissions.push(formData);
+    await saveJsonRecord('form_submissions', {
+      ...formData,
+      type: 'contact_form',
+      timestamp: timestamp
+    });
     
-    // Store in memory array
-    formSubmissions.unshift(formData); // Add to beginning for newest first
-    
-    // Keep only the most recent 100 submissions
-    if (formSubmissions.length > 100) {
-      formSubmissions = formSubmissions.slice(0, 100);
-    }
-    
-    // Always log the submission to ensure it's never lost
-    console.log('\n========== CONTACT FORM SUBMISSION DATA ==========');
-    console.log(JSON.stringify(formData, null, 2));
-    console.log('===================================================\n');
-    
-    // Create a backup file record - in production, uncomment this
-    // const fs = require('fs');
-    // const backupDir = './data_backups';
-    // if (!fs.existsSync(backupDir)) fs.mkdirSync(backupDir);
-    // fs.writeFileSync(`${backupDir}/contact_${new Date().toISOString().replace(/:/g, '-')}.json`, JSON.stringify(formData));
-    
-    // In production, send to Airtable
-    if (AIRTABLE_API_KEY !== 'keyXXXXXXXXXXXXXX') {
+    // Store in Airtable if in production
+    if (AIRTABLE_API_KEY && AIRTABLE_API_KEY !== 'keyXXXXXXXXXXXXXX') {
       try {
         await axios({
           method: 'post',
@@ -397,9 +594,9 @@ app.post('/submit-contact-form', async (req, res) => {
                 fields: {
                   'Name': formData.name,
                   'Email': formData.email,
-                  'Subject': formData.subject,
+                  'Subject': formData.subject || 'No Subject',
                   'Message': formData.message,
-                  'Date': formData.timestamp
+                  'Date': timestamp
                 }
               }
             ]
@@ -410,9 +607,8 @@ app.post('/submit-contact-form', async (req, res) => {
       }
     }
     
-    // Send immediate email notification for contact form
+    // Send email notification
     const subject = `📩 New Contact Form Submission from ${formData.name}`;
-    
     const emailContent = `
 <h2>New Contact Form Submission</h2>
 <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
@@ -422,7 +618,6 @@ app.post('/submit-contact-form', async (req, res) => {
 <p><a href="https://aethersystems.org/admin/submissions?password=aether2025">View all submissions in admin dashboard</a></p>
 `;
     
-    // Send email notification
     await sendEmailNotification(subject, emailContent);
     
     // Log the submission
@@ -570,36 +765,36 @@ app.get('/payment-success', async (req, res) => {
       return res.status(404).json({ success: false, error: 'Form data not found' });
     }
     
-    // In production, verify the payment with Stripe
-    // const session = await stripe.checkout.sessions.retrieve(session_id);
-    // if (session.payment_status !== 'paid') { return res.status(400).json({ error: 'Payment not completed' }); }
-    
     // Create a completed order record
     const orderData = {
       ...formData,
       payment_completed: true,
       payment_date: new Date().toISOString(),
-      session_id: session_id || 'test_session'
+      session_id: session_id || 'test_session',
+      timestamp: new Date().toISOString()
     };
     
-    // Add to completed orders
-    completedOrders.unshift(orderData);
+    // Persist to disk
+    await saveJsonRecord('completed_orders', orderData);
     
     // Remove from temporary storage
     delete paymentFormData[form_data_id];
     
-    // In production, store in your database
-    if (AIRTABLE_API_KEY !== 'keyXXXXXXXXXXXXXX') {
-      await axios({
-        method: 'post',
-        url: `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/CompletedOrders`,
-        headers: {
-          'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        data: {
-          records: [
-            {
+    // Add to in-memory cache
+    completedOrders.unshift(orderData);
+    
+    // Store in Airtable if in production
+    if (AIRTABLE_API_KEY && AIRTABLE_API_KEY !== 'keyXXXXXXXXXXXXXX') {
+      try {
+        await axios({
+          method: 'post',
+          url: `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/CompletedOrders`,
+          headers: {
+            'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          data: {
+            records: [{
               fields: {
                 'Name': orderData.name,
                 'Email': orderData.email,
@@ -611,17 +806,47 @@ app.get('/payment-success', async (req, res) => {
                 'Session ID': orderData.session_id,
                 'Status': 'Paid'
               }
-            }
-          ]
-        }
-      });
+            }]
+          }
+        });
+      } catch (airtableError) {
+        console.error('Error storing in Airtable:', airtableError);
+      }
     }
     
-    // Send notification email to business owner
-    console.log(`New completed order from ${orderData.name} (${orderData.email}) for ${orderData.plan_type} plan`);
+    // Send email notification to admin
+    const planPrice = orderData.plan_type === 'essentials' ? '£499' : 
+                     orderData.plan_type === 'operator' ? '£999' : 'Custom';
+    const subject = `NEW ORDER: ${orderData.plan_type.toUpperCase()} Plan (${planPrice})`;
+    const emailContent = `
+<h2>New Order Received!</h2>
+<p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
+<p><strong>Plan:</strong> ${orderData.plan_type.toUpperCase()} (${planPrice})</p>
+<p><strong>Customer:</strong> ${orderData.name} &lt;${orderData.email}&gt;</p>
+<p><strong>Company:</strong> ${orderData.company || 'N/A'}</p>
+<p><strong>Phone:</strong> ${orderData.phone || 'N/A'}</p>
+<p><strong>Requirements:</strong> ${orderData.description || 'N/A'}</p>
+<p><a href="https://aethersystems.org/admin/submissions?password=aether2025">View all orders in admin dashboard</a></p>
+`;
     
-    // Redirect to onboarding page
-    res.redirect('/onboarding.html?order_complete=true');
+    await sendEmailNotification(subject, emailContent);
+    
+    // Send order confirmation email to customer
+    await sendOrderConfirmationEmail(orderData);
+    
+    // Additional logging
+    console.log(`\n==================== NEW ORDER ====================`);
+    console.log(`${new Date().toLocaleString()}`);
+    console.log(`Plan: ${orderData.plan_type.toUpperCase()} (${planPrice})`);
+    console.log(`Customer: ${orderData.name} <${orderData.email}>`);
+    console.log(`Company: ${orderData.company || 'N/A'}`);
+    console.log(`Phone: ${orderData.phone || 'N/A'}`);
+    console.log(`Requirements: ${orderData.description || 'N/A'}`);
+    
+    // Generate order number and redirect to onboarding page
+    const orderNumber = `AETH-${Date.now()}`;
+    const redirectUrl = `/onboarding.html?payment_success=true&order_number=${orderNumber}&plan_type=${orderData.plan_type}`;
+    res.redirect(redirectUrl);
   } catch (error) {
     console.error('Error processing payment success:', error);
     res.status(500).json({ success: false, error: 'Failed to process payment success' });
@@ -629,7 +854,72 @@ app.get('/payment-success', async (req, res) => {
 });
 
 // Admin endpoint to view both contact form submissions and completed orders
-app.get('/admin/submissions', (req, res) => {
+app.get('/admin/submissions', async (req, res) => {
+  try {
+    // In production, implement proper authentication
+    const providedPassword = req.query.password;
+    if (providedPassword !== 'aether2025') {
+      return res.status(401).send('Unauthorized');
+    }
+
+    // Load data from disk and combine with in-memory data
+    const formSubmissions = await readJsonRecords('form_submissions');
+    const completedOrders = await readJsonRecords('completed_orders');
+    
+    // Generate HTML response
+    const html = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Aether Systems - Admin Dashboard</title>
+        <style>
+          body { font-family: Arial, sans-serif; padding: 20px; }
+          .container { max-width: 1200px; margin: 0 auto; }
+          .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; }
+          .order { border-left: 4px solid #2563eb; padding-left: 10px; margin-bottom: 15px; }
+          .contact { border-left: 4px solid #10b981; padding-left: 10px; margin-bottom: 15px; }
+          .status { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+          .paid { background: #dcfce7; color: #166534; }
+          h2 { margin-top: 30px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>Aether Systems - Admin Dashboard</h1>
+          
+          <div class="card">
+            <h2>Completed Orders</h2>
+            ${completedOrders.map(order => `
+              <div class="order">
+                <h3>${order.plan_type.toUpperCase()} Plan (${order.unit_amount / 100} GBP)</h3>
+                <div class="meta">From: ${order.name} (${order.email}) - ${order.timestamp}</div>
+                <div class="status paid">Paid</div>
+              </div>
+            `).join('')}
+          </div>
+
+          <div class="card">
+            <h2>Contact Form Submissions</h2>
+            ${formSubmissions.map(submission => `
+              <div class="contact">
+                <h3>${submission.subject || 'No Subject'}</h3>
+                <div class="meta">From: ${submission.name} (${submission.email}) - ${submission.timestamp}</div>
+                <p>${submission.message}</p>
+              </div>
+            `).join('')}
+          </div>
+
+          <p>Showing ${completedOrders.length} completed orders and ${formSubmissions.length} contact form submissions</p>
+        </div>
+      </body>
+      </html>
+    `;
+    
+    res.send(html);
+  } catch (error) {
+    console.error('Error rendering admin submissions page:', error);
+    res.status(500).send('An error occurred while retrieving submissions');
+  }
   try {
     // In production, implement proper authentication
     const providedPassword = req.query.password;
@@ -818,6 +1108,6 @@ app.use((err, req, res, next) => {
 
 // Start server
 const PORT = process.env.PORT || 3000;
-app.listen(3001, () => {
-  console.log('Server is running on port 3001');
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

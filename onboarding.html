@@ -306,9 +306,11 @@
                     <div class="check-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     </div>
-                    <h2>Onboarding Complete</h2>
-                    <p>Thank you for providing your information. One of our engineers will contact you within 24 hours to discuss the next steps in creating your custom system.</p>
-                    <a href="professional-ui.html" class="btn">Return to Homepage</a>
+                    <h2>Thank You for Your Order!</h2>
+                    <p>We've received your order and payment successfully. You'll receive an onboarding email within 24 hours with your order details and next steps.</p>
+                    <p>Your order number is: <strong id="order-number"></strong></p>
+                    <p>If you have any questions, please contact us at <a href="mailto:support@aethersystems.org" style="color: var(--primary); text-decoration: underline;">support@aethersystems.org</a></p>
+                    <a href="/" class="btn" style="margin-top: 1rem;">Return to Homepage</a>
                 </div>
             </div>
         </div>
@@ -320,6 +322,33 @@
             const urlParams = new URLSearchParams(window.location.search);
             const planType = urlParams.get('plan_type');
             const recordId = urlParams.get('record_id');
+            const paymentSuccess = urlParams.get('payment_success');
+            const orderNumber = urlParams.get('order_number');
+
+            // If coming from payment success, show success message immediately
+            if (paymentSuccess === 'true') {
+                document.getElementById('onboarding-form').style.display = 'none';
+                const successMessage = document.getElementById('success-message');
+                successMessage.style.display = 'block';
+                
+                if (orderNumber) {
+                    document.getElementById('order-number').textContent = `#${orderNumber}`;
+                }
+                
+                // Track successful payment for Analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'purchase', {
+                        transaction_id: orderNumber || 'unknown',
+                        value: planType === 'essentials' ? 499 : planType === 'operator' ? 999 : 0,
+                        currency: 'GBP',
+                        items: [{
+                            item_name: planType ? `${planType.charAt(0).toUpperCase() + planType.slice(1)} Plan` : 'Unknown Plan',
+                            price: planType === 'essentials' ? 499 : planType === 'operator' ? 999 : 0,
+                            quantity: 1
+                        }]
+                    });
+                }
+            }
             
             // Track onboarding page view for Analytics
             if (typeof gtag !== 'undefined') {
