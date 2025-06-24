@@ -1938,8 +1938,9 @@
         }
         
         .pricing-cta {
-            display: block;
-            width: 100%;
+            display: inline-block;
+            min-width: 200px;
+            text-align: center;
         }
         
         .pricing-note {
@@ -3130,10 +3131,13 @@
         
         .pricing-footer .btn {
             width: 100%;
+            max-width: 250px;
             padding: 12px 20px;
             font-weight: 600;
             font-size: 1rem;
             border-radius: 8px;
+            margin: 0 auto;
+            display: block;
         }
         
         @media (max-width: 1024px) {
@@ -3673,12 +3677,12 @@
                         
                         <div class="workflow-party">
                             <div class="party-label you-label">YOU</div>
-                            <div class="party-text">Choose the right plan, complete the form and tell us your business needs</div>
+                            <div class="party-text">Choose the right plan, complete the setup form, and share your business needs.</div>
                         </div>
                         
                         <div class="workflow-party">
                             <div class="party-label we-label">WE</div>
-                            <div class="party-text">Analyze your requirements and design the optimal solution</div>
+                            <div class="party-text">Analyze your requirements and design your custom build plan.</div>
                         </div>
                     </div>
                 </div>
@@ -3858,44 +3862,6 @@
             </style>
             
             <div class="premium-deliverables">
-                <div class="premium-deliverable">
-                    <div class="premium-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-                    </div>
-                    <div class="premium-content">
-                        <h3>Live System</h3>
-                        <p>Fully-built, ready-to-launch system with custom interface and dashboard, configured for your unique business needs.</p>
-                    </div>
-                </div>
-                
-                <div class="premium-deliverable">
-                    <div class="premium-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-                    </div>
-                    <div class="premium-content">
-                        <h3>Tailored Systems</h3>
-                        <p>Integrated workflows that eliminate manual tasks and connect your tools for seamless operation across your business.</p>
-                    </div>
-                </div>
-                
-                <div class="premium-deliverable">
-                    <div class="premium-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path></svg>
-                    </div>
-                    <div class="premium-content">
-                        <h3>Full Ownership</h3>
-                        <p>Your system, your code, your data—forever. We build systems that are 100% yours, designed to scale with your business.</p>
-                    </div>
-                </div>
-                
-                <div class="premium-deliverable">
-                    <div class="premium-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M16 8l-8 8"></path><path d="M8 8l8 8"></path></svg>
-                    </div>
-                    <div class="premium-content">
-                        <h3>Transparent Pricing, Zero Lock-In</h3>
-                        <p>Fixed-price builds. Zero recurring software fees.</p>
-                    </div>
                 </div>
             </div>
             <p style="text-align: center; margin-top: 40px; font-size: 1.1rem; color: var(--text-light);">Built on enterprise-grade tools. Handed over with zero strings attached. Our job ends when your system is running itself.</p>
@@ -5170,7 +5136,7 @@
                         </ul>
                     </div>
                     <div class="pricing-footer">
-                        <a href="#" class="btn btn-primary" onclick="document.getElementById('essentials-modal').style.display='block'; return false;">Design My System</a>
+                        <a href="foundation-onboarding.html" class="btn btn-primary">Design My System</a>
                     </div>
                 </div>
 
@@ -5192,7 +5158,7 @@
                         </ul>
                     </div>
                     <div class="pricing-footer">
-                        <a href="#" class="btn btn-primary" onclick="document.getElementById('operator-modal').style.display='block'; return false;">Design My System</a>
+                        <a href="operator-onboarding.html" class="btn btn-primary">Design My System</a>
                     </div>
                 </div>
 
@@ -5213,7 +5179,7 @@
                         </ul>
                     </div>
                     <div class="pricing-footer">
-                        <a href="#" id="enterprise-buy-button" class="btn btn-primary">Request a Quote</a>
+                        <a href="enterprise-onboarding.html" class="btn btn-primary">Request a Quote</a>
                     </div>
                 </div>
             </div>
@@ -5288,6 +5254,15 @@
             </div>
             
             <div class="faq-grid" style="display: grid; grid-template-columns: 1fr; gap: 15px; max-width: 900px; margin: 0 auto;">
+                <div class="faq-card" style="background: white; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border); transition: all 0.3s ease; margin-bottom: 15px; box-shadow: var(--shadow-sm);">
+                    <div class="faq-header" style="padding: 20px 25px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: linear-gradient(135deg, rgba(195, 157, 86, 0.02) 0%, rgba(213, 183, 120, 0.05) 100%);">
+                        <h3>Do I need to buy my own domain or hosting?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-content">
+                        <p>Yes, you'll need to purchase your own domain name (e.g., yourbusiness.com) and set up hosting. This ensures you maintain full ownership and control of your digital assets. We'll guide you through the process, which typically takes less than 10 minutes to complete.</p>
+                    </div>
+                </div>
 
                 <div class="faq-card" style="background: white; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border); transition: all 0.3s ease; margin-bottom: 15px; box-shadow: var(--shadow-sm);">
                     <div class="faq-header" style="padding: 20px 25px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: linear-gradient(135deg, rgba(195, 157, 86, 0.02) 0%, rgba(213, 183, 120, 0.05) 100%);">
@@ -5299,7 +5274,6 @@
                     </div>
                 </div>
                 
-
                 <div class="faq-card" style="background: white; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border); transition: all 0.3s ease; margin-bottom: 15px; box-shadow: var(--shadow-sm);">
                     <div class="faq-header" style="padding: 20px 25px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: linear-gradient(135deg, rgba(195, 157, 86, 0.02) 0%, rgba(213, 183, 120, 0.05) 100%);">
                         <h3>What happens if I need changes after the refinement rounds?</h3>

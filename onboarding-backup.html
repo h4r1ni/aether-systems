@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Aether Systems | Complete Your Onboarding</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #D4AF37;
+            --primary-light: rgba(212, 175, 55, 0.1);
+            --primary-dark: #B89B30;
+            --text: #333333;
+            --text-light: #666666;
+            --background: #FFFFFF;
+            --gray-100: #F5F5F5;
+            --gray-200: #EEEEEE;
+            --gray-300: #666666;
+            --gray-400: #999999;
+            --gray-500: #CCCCCC;
+            --gray-700: #E5E5E5;
+            --error: #D64045;
+            --success: #4CAF50;
+            --border-radius: 4px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--background);
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-700);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        h1 span {
+            color: var(--primary);
+        }
+        
+        .intro-text {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-light);
+        }
+        
+        .welcome-badge {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .form-section {
+            margin-top: 3rem;
+            margin-bottom: 2.5rem;
+            border-top: 1px solid var(--gray-700);
+            padding-top: 2rem;
+        }
+        
+        .form-section:first-child {
+            margin-top: 0;
+            border-top: none;
+            padding-top: 0;
+        }
+        
+        .form-section h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="url"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-500);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            color: var(--text);
+            background-color: white;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        input[type="url"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .status-message {
+            display: none;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+        }
+        
+        .status-message.error {
+            background-color: rgba(214, 64, 69, 0.1);
+            color: var(--error);
+            border: 1px solid var(--error);
+        }
+        
+        .status-message.success {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+        
+        .success-message h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        
+        .success-message p {
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+        
+        .check-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 2rem;
+            background-color: rgba(76, 175, 80, 0.1);
+            border-radius: 50%;
+        }
+        
+        .check-icon svg {
+            color: var(--success);
+        }
+        
+        .explanation-block {
+            background-color: var(--gray-100);
+            border-left: 3px solid var(--primary);
+            padding: 1.25rem;
+            margin-bottom: 2rem;
+            border-radius: 4px;
+        }
+        
+        .explanation-block p {
+            margin-bottom: 0.75rem;
+            color: var(--text-light);
+        }
+        
+        .explanation-block ul {
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .explanation-block li {
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+        
+        .explanation-block p:last-child,
+        .explanation-block ul:last-child,
+        .explanation-block li:last-child {
+            margin-bottom: 0;
+        }
+        
+        .radio-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .radio-container {
+            display: block;
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+        
+        .radio-container:last-child {
+            margin-bottom: 0;
+        }
+        
+        .radio-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .radio-checkmark {
+            position: absolute;
+            top: 2px;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: white;
+            border: 2px solid var(--gray-400);
+            border-radius: 50%;
+        }
+        
+        .radio-container:hover input ~ .radio-checkmark {
+            border-color: var(--primary);
+        }
+        
+        .radio-container input:checked ~ .radio-checkmark {
+            background-color: white;
+            border-color: var(--primary);
+        }
+        
+        .radio-checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        
+        .radio-container input:checked ~ .radio-checkmark:after {
+            display: block;
+        }
+        
+        .radio-container .radio-checkmark:after {
+            top: 3px;
+            left: 3px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+        
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -1rem;
+            margin-right: -1rem;
+        }
+        
+        .col {
+            flex: 1;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .row {
+                flex-direction: column;
+            }
+            
+            .col {
+                margin-bottom: 1.5rem;
+            }
+            
+            .col:last-child {
+                margin-bottom: 0;
+            }
+        }
+    </style>
+    <!-- Google Analytics code if applicable -->
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Aether <span>Systems</span></div>
+        </header>
+        
+        <div class="welcome-badge">WELCOME</div>
+        
+        <h1>Complete Your <span>Onboarding</span></h1>
+        <p class="intro-text">We're excited to begin crafting your custom operating system. Please provide the details below so we can understand your unique requirements.</p>
+        
+        <div class="form-container">
+            <div id="status-message" class="status-message"></div>
+            
+            <form id="onboarding-form">
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="businessName">Business Name</label>
+                        <input type="text" id="businessName" name="businessName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="yourName">Your Name</label>
+                        <input type="text" id="yourName" name="yourName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="website">Website (if you have one)</label>
+                        <input type="url" id="website" name="website">
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>🛠 Domain & Hosting Setup</h3>
+                    
+                    <div class="explanation-block">
+                        <p>To launch your system online, you'll need two free or low-cost accounts:</p>
+                        <ul>
+                            <li>A domain – your website's name (e.g. yourbusiness.com)</li>
+                            <li>A hosting platform – this runs the system (e.g. Netlify or Vercel)</li>
+                        </ul>
+                        <p>These accounts must be in your name so you retain full ownership.</p>
+                        <p>We'll guide you through setup step-by-step once your project starts.</p>
+                        <p>If you're stuck, choose "I need help" and we'll send instructions.</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Account Status <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-container">
+                                Yes – I already have both accounts
+                                <input type="radio" name="accountStatus" value="have-accounts" required>
+                                <span class="radio-checkmark"></span>
+                            </label>
+                            <label class="radio-container">
+                                Not yet – I'll do that now
+                                <input type="radio" name="accountStatus" value="will-setup">
+                                <span class="radio-checkmark"></span>
+                            </label>
+                            <label class="radio-container">
+                                I need help – send me the setup guide
+                                <input type="radio" name="accountStatus" value="need-help">
+                                <span class="radio-checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div id="platforms-group" style="display: none;">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="domainRegistrar">Your Domain Registrar</label>
+                                    <input type="text" id="domainRegistrar" name="domainRegistrar" placeholder="e.g. GoDaddy, Namecheap">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="hostingPlatform">Your Hosting Platform</label>
+                                    <input type="text" id="hostingPlatform" name="hostingPlatform" placeholder="e.g. Netlify, Vercel">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Access Preference <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-container">
+                                I'll invite your dev as a collaborator (recommended)
+                                <input type="radio" name="accessPreference" value="invite-collaborator" required>
+                                <span class="radio-checkmark"></span>
+                            </label>
+                            <label class="radio-container">
+                                I'll send login details securely (we'll give instructions)
+                                <input type="radio" name="accessPreference" value="send-login">
+                                <span class="radio-checkmark"></span>
+                            </label>
+                            <label class="radio-container">
+                                Not sure – send me the access guide
+                                <input type="radio" name="accessPreference" value="send-guide">
+                                <span class="radio-checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Project Details</h3>
+                    
+                    <div class="form-group">
+                        <label for="industryType">Industry</label>
+                        <select id="industryType" name="industryType">
+                            <option value="">Select your industry</option>
+                            <option value="legal">Legal</option>
+                            <option value="finance">Finance</option>
+                            <option value="health">Healthcare</option>
+                            <option value="ecommerce">E-commerce</option>
+                            <option value="realestate">Real Estate</option>
+                            <option value="education">Education</option>
+                            <option value="tech">Technology</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="teamSize">Team Size</label>
+                        <select id="teamSize" name="teamSize">
+                            <option value="">Select team size</option>
+                            <option value="1-5">1-5 employees</option>
+                            <option value="6-20">6-20 employees</option>
+                            <option value="21-50">21-50 employees</option>
+                            <option value="51-200">51-200 employees</option>
+                            <option value="201+">201+ employees</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projectGoals">What are your main goals for this project?</label>
+                        <textarea id="projectGoals" name="projectGoals" rows="4"></textarea>
+                    </div>
+                </div>
+                
+                <button type="submit" id="submit-onboarding" class="btn">Submit Onboarding Information</button>
+                
+                <div class="success-message" id="success-message">
+                    <div class="check-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <h2>Thank You for Your Order!</h2>
+                    <p>We've received your order and payment successfully. You'll receive an onboarding email within 24 hours with your order details and next steps.</p>
+                    <p>Your order number is: <span id="order-number"></span></p>
+                    <p>If you have any questions, please contact us at <a href="mailto:support@aethersystems.org">support@aethersystems.org</a></p>
+                    <a href="/#pricing" class="btn" style="margin-top: 1rem;">Return to Homepage</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get parameters from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const planType = urlParams.get('plan_type');
+            const recordId = urlParams.get('record_id');
+            const paymentSuccess = urlParams.get('payment_success');
+            const orderNumber = urlParams.get('order_number');
+            
+            // If coming from payment success, show success message immediately
+            if (paymentSuccess === 'true') {
+                document.getElementById('onboarding-form').style.display = 'none';
+                const successMessage = document.getElementById('success-message');
+                successMessage.style.display = 'block';
+                
+                if (orderNumber) {
+                    document.getElementById('order-number').textContent = `#${orderNumber}`;
+                }
+                
+                // Track successful payment for Analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'purchase', {
+                        transaction_id: orderNumber || 'unknown',
+                        value: planType === 'essentials' ? 499 : planType === 'operator' ? 999 : 0,
+                        currency: 'GBP',
+                        items: [{
+                            item_name: planType ? `${planType.charAt(0).toUpperCase() + planType.slice(1)} Plan` : 'Unknown Plan',
+                            price: planType === 'essentials' ? 499 : planType === 'operator' ? 999 : 0,
+                            quantity: 1
+                        }]
+                    });
+                }
+            } else {
+                // Show the form if not coming from payment success
+                document.getElementById('onboarding-form').style.display = 'block';
+                document.getElementById('success-message').style.display = 'none';
+            }
+            
+            // Track onboarding page view for Analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'page_view', {
+                    page_title: 'Onboarding Form',
+                    page_location: window.location.href,
+                    page_path: window.location.pathname,
+                    plan_type: planType || 'unknown'
+                });
+            }
+            
+            // Handle form submission
+            const form = document.getElementById('onboarding-form');
+            const submitButton = document.getElementById('submit-onboarding');
+            const statusMessage = document.getElementById('status-message');
+            const successMessage = document.getElementById('success-message');
+            
+            // Domain & Hosting Setup Section - Conditional Logic
+            const accountStatusRadios = document.querySelectorAll('input[name="accountStatus"]');
+            const platformsGroup = document.getElementById('platforms-group');
+            
+            accountStatusRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.value === 'have-accounts') {
+                        platformsGroup.style.display = 'block';
+                    } else {
+                        platformsGroup.style.display = 'none';
+                    }
+                });
+            });
+            
+            submitButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Basic validation
+                const requiredFields = form.querySelectorAll('[required]');
+                let valid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.value) {
+                        valid = false;
+                        field.style.borderColor = 'var(--error)';
+                    } else {
+                        field.style.borderColor = 'var(--gray-500)';
+                    }
+                });
+                
+                if (!valid) {
+                    statusMessage.textContent = 'Please fill in all required fields.';
+                    statusMessage.className = 'status-message error';
+                    statusMessage.style.display = 'block';
+                    return;
+                }
+                
+                // Clear any previous error
+                statusMessage.style.display = 'none';
+                
+                // Collect all form data
+                const formData = new FormData(form);
+                const formDataObj = {};
+                formData.forEach((value, key) => formDataObj[key] = value);
+                
+                // Add plan type from URL if present
+                if (planType) {
+                    formDataObj.planType = planType;
+                }
+                
+                // Add record ID from URL if present
+                if (recordId) {
+                    formDataObj.recordId = recordId;
+                }
+                
+                // Check if we need to send guides based on selections
+                const accountStatus = formDataObj.accountStatus;
+                const accessPreference = formDataObj.accessPreference;
+                
+                if (accountStatus === 'need-help') {
+                    // Trigger sending the Account Setup Guide
+                    console.log('Sending Account Setup Guide to:', formDataObj.email);
+                    fetch('/send-guide', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email: formDataObj.email,
+                            name: formDataObj.yourName,
+                            guide: 'account-setup'
+                        })
+                    });
+                }
+                
+                if (accessPreference === 'send-login' || accessPreference === 'send-guide') {
+                    // Trigger sending the Access Sharing Guide
+                    console.log('Sending Access Sharing Guide to:', formDataObj.email);
+                    fetch('/send-guide', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email: formDataObj.email,
+                            name: formDataObj.yourName,
+                            guide: 'access-sharing'
+                        })
+                    });
+                }
+                
+                // Show loading state
+                submitButton.textContent = 'Submitting...';
+                submitButton.disabled = true;
+                
+                // Submit form data to server
+                fetch('/submit-onboarding', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formDataObj)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Hide form and show success message
+                    form.style.display = 'none';
+                    successMessage.style.display = 'block';
+                    
+                    // Track form submission for Analytics
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'form_submission', {
+                            form_name: 'Onboarding Form',
+                            plan_type: planType || 'unknown'
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    statusMessage.textContent = 'There was a problem submitting the form. Please try again or contact support.';
+                    statusMessage.className = 'status-message error';
+                    statusMessage.style.display = 'block';
+                })
+                .finally(() => {
+                    // Reset button state
+                    submitButton.textContent = 'Submit Onboarding Information';
+                    submitButton.disabled = false;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

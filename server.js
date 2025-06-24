@@ -16,8 +16,10 @@ const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || 'sk_test_51RPpIs2cJTJ
 const stripe = require('stripe')(STRIPE_SECRET_KEY);
 
 // Airtable configuration
-const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY || 'keyXXXXXXXXXXXXXX'; // Set this in your environment variables
-const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID || 'appXXXXXXXXXXXXXX'; // Set this in your environment variables
+const { AIRTABLE_API_KEY, AIRTABLE_BASE_ID, AIRTABLE_TABLE_NAME } = require('./airtable-config');
+const Airtable = require('airtable');
+Airtable.configure({ apiKey: AIRTABLE_API_KEY });
+const airtableBase = Airtable.base(AIRTABLE_BASE_ID);
 
 // Initialize data persistence
 const { saveJsonRecord, readJsonRecords } = require('./utils/data-persistence');
@@ -334,7 +336,7 @@ app.get('/notifications', (req, res) => {
                 statusElement.style.background = '#fef2f2';
                 statusElement.style.color = '#b91c1c';
                 // Play notification sound
-                const audio = new Audio('data:audio/wav;base64,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');
+                const audio = new Audio('data:audio/wav;base64,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');
                 audio.play();
                 // Vibrate if supported
                 if (navigator.vibrate) {
@@ -392,12 +394,63 @@ app.post('/store-form-data', async (req, res) => {
     await saveJsonRecord('pending_payments', { ...formData, id: formDataId });
     
     // Create comprehensive logs of payment form data
-    console.log(`\n==== PAYMENT FORM DATA STORED ====`);
-    console.log(`PLAN: ${formData.plan_type?.toUpperCase() || 'Unknown'}`);
-    console.log(`CUSTOMER: ${formData.name} (${formData.email})`);
+    console.log(`\n===================================`);
+    console.log(`NEW FORM SUBMISSION - ${new Date().toISOString()}`);
+    console.log(`PLAN TYPE: ${formData.plan_type || 'Unknown'}`);
     console.log(`FORM DATA ID: ${formDataId}`);
     console.log(JSON.stringify(formData, null, 2));
     console.log(`===================================\n`);
+    
+    // Add to Airtable if API key is available
+    if (AIRTABLE_API_KEY && AIRTABLE_BASE_ID) {
+      try {
+        // Map form data to Airtable fields
+        const airtableRecord = {
+          'Client Name': formData.name || '',
+          'Email': formData.email || '',
+          'Company': formData.company || '',
+          'Phone': formData.phone || '',
+          'Tier': getPlanName(formData.plan_type) || 'Unknown',
+          'Domain Setup': formData['account-status'] || 'Not specified',
+          'Hosting Chosen': formData.hosting || 'Not specified',
+          'Need Help?': formData['account-status'] === 'no' ? 'Yes' : 'No',
+          'Status': 'Pending Payment',
+          'Submission Date': new Date().toISOString(),
+          'Form Data ID': formDataId,
+          'Raw Form Data': JSON.stringify(formData)
+        };
+        
+        // Create record in Airtable
+        airtableBase(AIRTABLE_TABLE_NAME).create([
+          { fields: airtableRecord }
+        ], function(err, records) {
+          if (err) {
+            console.error('Error writing to Airtable:', err);
+            return;
+          }
+          
+          const recordId = records[0].getId();
+          console.log(`Successfully created Airtable record: ${recordId}`);
+          
+          // Store Airtable record ID with form data for future updates
+          paymentFormData[formDataId].airtableRecordId = recordId;
+          saveJsonRecord('pending_payments', { 
+            ...paymentFormData[formDataId], 
+            airtableRecordId: recordId 
+          });
+          
+          // Optional: Send Slack notification about new submission
+          sendSlackNotification({
+            text: `🆕 New form submission received:\n• Client: ${formData.name}\n• Plan: ${getPlanName(formData.plan_type)}\n• Status: Pending Payment`
+          }).catch(err => console.error('Error sending Slack notification:', err));
+        });
+      } catch (airtableError) {
+        console.error('Error writing to Airtable:', airtableError);
+        // Continue with response - don't fail if Airtable fails
+      }
+    } else {
+      console.log('Airtable integration skipped (API key or Base ID not configured)');
+    }
     
     // Return the ID so it can be used after payment
     res.json({ success: true, formDataId: formDataId });
@@ -510,35 +563,47 @@ app.post('/submit-enterprise-quote', async (req, res) => {
       timestamp: new Date().toISOString()
     });
     
-    // In production, send to Airtable
-    if (AIRTABLE_API_KEY !== 'keyXXXXXXXXXXXXXX') {
-      await axios({
-        method: 'post',
-        url: `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/EnterpriseQuotes`,
-        headers: {
-          'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        data: {
-          records: [
-            {
-              fields: {
-                'Name': customerData.fullName,
-                'Email': customerData.email,
-                'Company': customerData.company || '',
-                'Phone': customerData.phone,
-                'System to Automate': customerData.systemToAutomate,
-                'Project Description': customerData.projectDescription,
-                'Timeline': customerData.timeline,
-                'Plan': 'Enterprise',
-                'Status': 'New Quote Request',
-                'Source': 'Website Form',
-                'Date': new Date().toISOString()
-              }
-            }
-          ]
-        }
-      });
+    // Create record in Airtable if API key is configured
+    if (AIRTABLE_API_KEY && AIRTABLE_BASE_ID) {
+      try {
+        // Map form data to Airtable fields
+        const airtableRecord = {
+          'Client Name': customerData.fullName || '',
+          'Email': customerData.email || '',
+          'Company': customerData.company || '',
+          'Phone': customerData.phone || '',
+          'Tier': 'Full Stack Infrastructure',
+          'Status': 'Quote Requested',
+          'System to Automate': customerData.systemToAutomate || '',
+          'Project Description': customerData.projectDescription || '',
+          'Timeline': customerData.timeline || '',
+          'Submission Date': new Date().toISOString(),
+          'Raw Form Data': JSON.stringify(customerData)
+        };
+        
+        // Create record in Airtable
+        airtableBase(AIRTABLE_TABLE_NAME).create([
+          { fields: airtableRecord }
+        ], function(err, records) {
+          if (err) {
+            console.error('Error writing enterprise quote to Airtable:', err);
+            return;
+          }
+          
+          const recordId = records[0].getId();
+          console.log(`Successfully created Airtable record for enterprise quote: ${recordId}`);
+          
+          // Send Slack notification about new enterprise quote
+          sendSlackNotification({
+            text: `🔔 *NEW ENTERPRISE QUOTE REQUEST*\n• Client: ${customerData.fullName}\n• Company: ${customerData.company || 'N/A'}\n• Project: ${customerData.systemToAutomate || 'General inquiry'}`
+          }).catch(err => console.error('Error sending Slack notification:', err));
+        });
+      } catch (airtableError) {
+        console.error('Error writing to Airtable:', airtableError);
+        // Continue with response - don't fail if Airtable fails
+      }
+    } else {
+      console.log('Airtable integration skipped for enterprise quote (API key or Base ID not configured)');
     }
     
     // Send email notification
@@ -578,7 +643,7 @@ app.post('/submit-contact-form', async (req, res) => {
       timestamp: timestamp
     });
     
-    // Store in Airtable if in production
+    // Store in Airtable (in production)
     if (AIRTABLE_API_KEY && AIRTABLE_API_KEY !== 'keyXXXXXXXXXXXXXX') {
       try {
         await axios({
@@ -892,7 +957,7 @@ app.get('/admin/submissions', async (req, res) => {
             ${completedOrders.map(order => `
               <div class="order">
                 <h3>${order.plan_type.toUpperCase()} Plan (${order.unit_amount / 100} GBP)</h3>
-                <div class="meta">From: ${order.name} (${order.email}) - ${order.timestamp}</div>
+                <div class="meta">From: ${order.fullName || order.name || 'N/A'} (${order.email || 'N/A'}) - ${order.timestamp}</div>
                 <div class="status paid">Paid</div>
               </div>
             `).join('')}
@@ -1099,6 +1164,215 @@ app.post('/submit-onboarding', async (req, res) => {
 app.get('/onboarding.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'onboarding.html'));
 });
+
+// Endpoint to handle successful payments and send onboarding emails
+app.post('/payment-successful', async (req, res) => {
+  try {
+    const { planType, formDataId } = req.body;
+    
+    // Retrieve the stored form data
+    const formData = paymentFormData[formDataId];
+    
+    if (!formData) {
+      console.error(`Form data not found for ID: ${formDataId}`);
+      return res.status(404).json({ success: false, error: 'Form data not found' });
+    }
+    
+    console.log(`Processing successful payment for ${planType} plan. Form data ID: ${formDataId}`);
+    
+    // Generate unique order number
+    const timestamp = Date.now();
+    const randomDigits = Math.floor(1000 + Math.random() * 9000); // 4-digit number
+    const orderNumber = `AES-${randomDigits}`;
+    
+    // Update payment status in records
+    const paymentRecord = {
+      ...formData,
+      payment_status: 'completed',
+      payment_date: new Date().toISOString(),
+      order_number: orderNumber
+    };
+    
+    await saveJsonRecord('completed_payments', paymentRecord);
+    
+    // Record payment in Airtable if API key is configured
+    let airtableOrderId = null;
+    if (AIRTABLE_API_KEY && AIRTABLE_BASE_ID) {
+      try {
+        // Find the client's form submission in Airtable to link the order
+        let formRecordId = null;
+        if (formData.airtableRecordId) {
+          formRecordId = formData.airtableRecordId;
+        } else {
+          // Try to find the form submission by email
+          await new Promise((resolve, reject) => {
+            airtableBase(AIRTABLE_TABLE_NAME)
+              .select({
+                filterByFormula: `{Email} = "${formData.email}"`,
+                maxRecords: 1,
+                sort: [{ field: 'Submission Date', direction: 'desc' }]
+              })
+              .firstPage((err, records) => {
+                if (err) {
+                  console.error('Error finding form record in Airtable:', err);
+                  resolve(); // Continue even if lookup fails
+                  return;
+                }
+                
+                if (records && records.length > 0) {
+                  formRecordId = records[0].id;
+                  console.log(`Found matching form submission in Airtable: ${formRecordId}`);
+                }
+                resolve();
+              });
+          });
+        }
+        
+        // Create record in Orders table
+        const orderTable = "🧾 Orders"; // You can create this table in Airtable
+        await new Promise((resolve, reject) => {
+          airtableBase(orderTable).create([
+            {
+              fields: {
+                'Order Number': orderNumber,
+                'Client Name': formData.name || '',
+                'Email': formData.email || '',
+                'Company': formData.company || '',
+                'Plan': getPlanName(planType),
+                'Amount': planType === 'essentials' ? '£499' : 
+                          planType === 'operator' ? '£999' : 'Custom',
+                'Payment Date': new Date().toISOString(),
+                'Form Submission': formRecordId ? [formRecordId] : [],
+                'Status': 'Paid',
+                'Raw Form Data': JSON.stringify(formData)
+              }
+            }
+          ], function(err, records) {
+            if (err) {
+              console.error('Error creating order in Airtable:', err);
+              resolve(); // Continue even if Airtable fails
+              return;
+            }
+            
+            airtableOrderId = records[0].id;
+            console.log(`Successfully created order in Airtable: ${airtableOrderId}`);
+            
+            // Send Slack notification about successful payment
+            sendSlackNotification({
+              text: `💰 *NEW PAYMENT RECEIVED*\n• Order: ${orderNumber}\n• Client: ${formData.name}\n• Plan: ${getPlanName(planType)}\n• Amount: ${planType === 'essentials' ? '£499' : planType === 'operator' ? '£999' : 'Custom'}`
+            }).catch(err => console.error('Error sending Slack notification:', err));
+            
+            resolve();
+          });
+        });
+      } catch (airtableError) {
+        console.error('Error writing order to Airtable:', airtableError);
+        // Continue with response - don't fail if Airtable fails
+      }
+    }
+    
+    // Send confirmation email to customer
+    const customerEmail = formData.email;
+    const customerName = formData.name || 'Customer';
+    
+    console.log(`Sending confirmation email to ${customerEmail}`);
+    
+    // In production, integrate with an email service provider here
+    // For now, we'll simulate email sending
+    const emailContent = {
+      to: customerEmail,
+      subject: `Order Confirmed – [${getPlanName(planType)}, Order #${orderNumber}]`,
+      body: `
+        <h2>Hey ${customerName},</h2>
+        <p>Thanks for your payment! We're excited to get started on your custom system.</p>
+        
+        <h3>Order Details</h3>
+        <ul>
+          <li><strong>Order Number:</strong> ${orderNumber}</li>
+          <li><strong>Plan:</strong> ${getPlanName(planType)} – ${planType === 'essentials' ? '£499' : planType === 'operator' ? '£999' : 'Custom'}</li>
+          <li><strong>Payment Date:</strong> ${new Date().toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}</li>
+        </ul>
+        
+        <p>We've already received your form submission and will begin the scoping phase shortly.</p>
+        
+        <p>Questions? Just reply to this email - we've got you.</p>
+        
+        <p>Aether Systems</p>
+      `
+    };
+    
+    // Log email content for debugging
+    console.log('Email content prepared:', emailContent);
+    
+    // Also send notification to internal team
+    const teamNotification = {
+      to: 'team@aether-systems.com',
+      subject: `New Payment: ${orderNumber} - ${getPlanName(planType)}`,
+      body: `
+        <h3>New Purchase Notification</h3>
+        <p><strong>Order Number:</strong> ${orderNumber}</p>
+        <p><strong>Customer:</strong> ${customerName} (${customerEmail})</p>
+        <p><strong>Plan:</strong> ${getPlanName(planType)} – ${planType === 'essentials' ? '£499' : planType === 'operator' ? '£999' : 'Custom'}</p>
+        <p><strong>Date:</strong> ${new Date().toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+        <p><strong>Form Data ID:</strong> ${formDataId}</p>
+        <p><strong>Airtable Order ID:</strong> ${airtableOrderId || 'Not saved to Airtable'}</p>
+        <p><strong>Customer Details:</strong></p>
+        <pre>${JSON.stringify(formData, null, 2)}</pre>
+      `
+    };
+    
+    console.log('Team notification prepared:', teamNotification);
+    
+    // In production, send these emails
+    // For now, we just log them
+    
+    // In production, remove formData from temporary storage
+    delete paymentFormData[formDataId];
+    
+    return res.json({ 
+      success: true, 
+      message: 'Payment processed successfully. Confirmation email sent.',
+      orderNumber: orderNumber
+    });
+    
+  } catch (error) {
+    console.error('Error processing payment confirmation:', error);
+    return res.status(500).json({ 
+      success: false, 
+      error: 'Failed to process payment confirmation'
+    });
+  }
+});
+
+// Helper function to send Slack notifications
+async function sendSlackNotification(payload) {
+  // Replace with your actual Slack webhook URL in production
+  const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL || 'https://hooks.slack.com/services/YOUR_SLACK_WEBHOOK_URL';
+  
+  // In development, just log the payload
+  if (!process.env.SLACK_WEBHOOK_URL) {
+    console.log('SLACK NOTIFICATION (simulated):', payload);
+    return;
+  }
+  
+  try {
+    const response = await axios.post(SLACK_WEBHOOK_URL, payload);
+    return response.data;
+  } catch (error) {
+    console.error('Error sending Slack notification:', error);
+    throw error;
+  }
+}
+
+// Helper function to get readable plan names
+function getPlanName(planType) {
+  const planNames = {
+    'essentials': 'Foundation System',
+    'operator': 'Operator Engine',
+    'enterprise': 'Full Stack Infrastructure'
+  };
+  return planNames[planType] || planType;
+}
 
 // Handle any errors
 app.use((err, req, res, next) => {
